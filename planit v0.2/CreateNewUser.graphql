@@ -1,0 +1,10 @@
+mutation CreateAUser($newUser: CreateUserInput!) {
+createUser(input: $newUser) {
+token
+changedUser {
+id
+username
+createdAt
+}
+}
+}

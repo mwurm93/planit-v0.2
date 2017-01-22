@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CellView" customModule="PLANiT" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z6d-mD-41R">
+                    <rect key="frame" x="25" y="5" width="25" height="40"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="dEM-Da-WrG"/>
+                        <constraint firstAttribute="width" secondItem="Z6d-mD-41R" secondAttribute="height" multiplier="1:2" constant="5" id="xXD-Uh-mz7"/>
+                        <constraint firstAttribute="width" constant="25" id="zz1-0e-GBg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWW-NX-RU6">
+                    <rect key="frame" x="0.0" y="5" width="25" height="40"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="3Ig-tH-hc4"/>
+                        <constraint firstAttribute="height" constant="40" id="fp7-UZ-BJq"/>
+                        <constraint firstAttribute="width" secondItem="WWW-NX-RU6" secondAttribute="height" multiplier="1:2" constant="5" id="ghA-Cc-V8R"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyr-c5-Rnm">
+                    <rect key="frame" x="0.0" y="5" width="50" height="40"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Wf9-dw-qMT"/>
+                        <constraint firstAttribute="width" constant="50" id="a3p-hu-e2V"/>
+                        <constraint firstAttribute="width" secondItem="tyr-c5-Rnm" secondAttribute="height" multiplier="1:2" constant="30" id="oSI-BX-5uy"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOt-GI-j01">
+                    <rect key="frame" x="5" y="5" width="40" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gOt-GI-j01" secondAttribute="height" multiplier="1:1" id="5T0-mr-P2t"/>
+                        <constraint firstAttribute="height" constant="40" id="WBV-KI-wvo"/>
+                        <constraint firstAttribute="width" constant="40" id="tEH-Rq-QAm"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dateTextGoesHere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vl-fX-MQi">
+                    <rect key="frame" x="-35" y="17" width="120" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="tyr-c5-Rnm" firstAttribute="width" secondItem="tyr-c5-Rnm" secondAttribute="height" multiplier="1:2" constant="30" id="6Dm-vM-DVZ"/>
+                <constraint firstItem="WWW-NX-RU6" firstAttribute="leading" secondItem="gOt-GI-j01" secondAttribute="leading" constant="-5" id="9mt-rN-DHX"/>
+                <constraint firstItem="Z6d-mD-41R" firstAttribute="trailing" secondItem="gOt-GI-j01" secondAttribute="trailing" constant="5" id="FMU-c4-Frb"/>
+                <constraint firstItem="Z6d-mD-41R" firstAttribute="bottom" secondItem="WWW-NX-RU6" secondAttribute="bottom" id="Iod-zm-pjf"/>
+                <constraint firstItem="gOt-GI-j01" firstAttribute="centerY" secondItem="8vl-fX-MQi" secondAttribute="centerY" id="Omm-2j-M5H"/>
+                <constraint firstItem="Z6d-mD-41R" firstAttribute="leading" secondItem="WWW-NX-RU6" secondAttribute="trailing" id="PUY-IC-vNU"/>
+                <constraint firstItem="tyr-c5-Rnm" firstAttribute="top" secondItem="gOt-GI-j01" secondAttribute="top" id="Rde-4d-dJ9"/>
+                <constraint firstItem="Z6d-mD-41R" firstAttribute="top" secondItem="gOt-GI-j01" secondAttribute="top" id="Sdl-oQ-b4r"/>
+                <constraint firstItem="tyr-c5-Rnm" firstAttribute="leading" secondItem="WWW-NX-RU6" secondAttribute="leading" id="VED-JP-7eN"/>
+                <constraint firstItem="gOt-GI-j01" firstAttribute="centerX" secondItem="8vl-fX-MQi" secondAttribute="centerX" id="Zey-OK-Y1n"/>
+                <constraint firstItem="gOt-GI-j01" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="eye-RZ-Ba8"/>
+                <constraint firstItem="8vl-fX-MQi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fU3-i4-Z4S"/>
+                <constraint firstItem="WWW-NX-RU6" firstAttribute="top" secondItem="gOt-GI-j01" secondAttribute="top" id="k8b-mr-euG"/>
+                <constraint firstItem="8vl-fX-MQi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="nMf-Mf-mpz"/>
+                <constraint firstItem="gOt-GI-j01" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="trg-FB-E1o"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dayLabel" destination="8vl-fX-MQi" id="fao-3K-gu1"/>
+                <outlet property="leftSideConnector" destination="WWW-NX-RU6" id="Q2I-xU-bDM"/>
+                <outlet property="middleConnector" destination="tyr-c5-Rnm" id="r6D-uO-nRP"/>
+                <outlet property="rightSideConnector" destination="Z6d-mD-41R" id="63a-m0-hJH"/>
+                <outlet property="selectedView" destination="gOt-GI-j01" id="9R4-5X-Woj"/>
+            </connections>
+            <point key="canvasLocation" x="-104" y="-236"/>
+        </view>
+    </objects>
+</document>

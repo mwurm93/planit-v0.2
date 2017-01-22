@@ -7,13 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E56F87588995FCD281C4EE6 /* Pods_planit_v0_2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED4A2134146D2128C7538337 /* Pods_planit_v0_2UITests.framework */; };
+		191BF7D83FF5218C958D0EDB /* Pods_planit_v0_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C09738698217841A11CBDB /* Pods_planit_v0_2.framework */; };
+		AF4CFEF2E9465786DE56CC42 /* Pods_planit_v0_2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF99F8DC1EC030B0E3C827B0 /* Pods_planit_v0_2Tests.framework */; };
+		FA4E922B1E3526DD00231C72 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E922A1E3526DD00231C72 /* API.swift */; };
 		FAA8F2231E35194100CD7337 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2221E35194100CD7337 /* AppDelegate.swift */; };
-		FAA8F2251E35194100CD7337 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2241E35194100CD7337 /* ViewController.swift */; };
-		FAA8F2281E35194100CD7337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2261E35194100CD7337 /* Main.storyboard */; };
 		FAA8F22A1E35194100CD7337 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2291E35194100CD7337 /* Assets.xcassets */; };
-		FAA8F22D1E35194100CD7337 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F22B1E35194100CD7337 /* LaunchScreen.storyboard */; };
 		FAA8F2381E35194100CD7337 /* planit_v0_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2371E35194100CD7337 /* planit_v0_2Tests.swift */; };
 		FAA8F2431E35194100CD7337 /* planit_v0_2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2421E35194100CD7337 /* planit_v0_2UITests.swift */; };
+		FAA8F2541E351A2700CD7337 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2501E351A2700CD7337 /* LaunchScreen.storyboard */; };
+		FAA8F2551E351A2700CD7337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2521E351A2700CD7337 /* Main.storyboard */; };
+		FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */; };
+		FAA8F2691E351B9500CD7337 /* BirthdayGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */; };
+		FAA8F26A1E351B9500CD7337 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */; };
+		FAA8F26B1E351B9500CD7337 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */; };
+		FAA8F26C1E351B9500CD7337 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */; };
+		FAA8F26D1E351B9500CD7337 /* HomeAirportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */; };
+		FAA8F26E1E351B9500CD7337 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */; };
+		FAA8F26F1E351B9500CD7337 /* InternationalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25F1E351B9500CD7337 /* InternationalViewController.swift */; };
+		FAA8F2701E351B9500CD7337 /* NewTripNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */; };
+		FAA8F2711E351B9500CD7337 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */; };
+		FAA8F2721E351B9500CD7337 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2621E351B9500CD7337 /* RankingViewController.swift */; };
+		FAA8F2731E351B9500CD7337 /* RecommedationSwipingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */; };
+		FAA8F2741E351B9500CD7337 /* ReviewAndBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */; };
+		FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */; };
+		FAA8F2761E351B9500CD7337 /* SuggestDestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */; };
+		FAA8F2771E351B9500CD7337 /* TripListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2671E351B9500CD7337 /* TripListViewController.swift */; };
+		FAA8F2831E351D8D00CD7337 /* DataContainerSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2821E351D8D00CD7337 /* DataContainerSingleton.swift */; };
+		FAA8F2851E351DA300CD7337 /* CreateNewUser.graphql in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2841E351DA300CD7337 /* CreateNewUser.graphql */; };
+		FAA8F2871E351DAC00CD7337 /* GetTrip.graphql in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2861E351DAC00CD7337 /* GetTrip.graphql */; };
+		FAA8F28C1E351DBF00CD7337 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2881E351DBF00CD7337 /* CellView.swift */; };
+		FAA8F28D1E351DBF00CD7337 /* CellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2891E351DBF00CD7337 /* CellView.xib */; };
+		FAA8F28E1E351DBF00CD7337 /* monthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F28A1E351DBF00CD7337 /* monthHeaderView.swift */; };
+		FAA8F28F1E351DBF00CD7337 /* monthHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F28B1E351DBF00CD7337 /* monthHeaderView.xib */; };
+		FAA8F2931E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2901E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift */; };
+		FAA8F2941E351DCD00CD7337 /* ActivityItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2911E351DCD00CD7337 /* ActivityItem.swift */; };
+		FAA8F2951E351DCD00CD7337 /* contactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2921E351DCD00CD7337 /* contactsCollectionViewCell.swift */; };
+		FAA8F29B1E351DDE00CD7337 /* contactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2961E351DDE00CD7337 /* contactsTableViewCell.swift */; };
+		FAA8F29C1E351DDE00CD7337 /* ExistingTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2971E351DDE00CD7337 /* ExistingTripTableViewCell.swift */; };
+		FAA8F29D1E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2981E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift */; };
+		FAA8F29E1E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2991E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift */; };
+		FAA8F29F1E351DDE00CD7337 /* timeOfDayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F29A1E351DDE00CD7337 /* timeOfDayTableViewCell.swift */; };
+		FAA8F2A11E351DEB00CD7337 /* items.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2A01E351DEB00CD7337 /* items.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,12 +69,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04C09738698217841A11CBDB /* Pods_planit_v0_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_planit_v0_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		107E1EEE1E84BDF1E9696603 /* Pods-planit v0.2UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2UITests/Pods-planit v0.2UITests.release.xcconfig"; sourceTree = "<group>"; };
+		183684F793A8CF0022C2145E /* Pods-planit v0.2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2Tests/Pods-planit v0.2Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		7CF87F683795222884A322CE /* Pods-planit v0.2UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2UITests/Pods-planit v0.2UITests.debug.xcconfig"; sourceTree = "<group>"; };
+		81A95C40AC4ED87921A183FF /* Pods-planit v0.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2/Pods-planit v0.2.debug.xcconfig"; sourceTree = "<group>"; };
+		92CC22ADBD7E4A43109711B5 /* Pods-planit v0.2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2Tests/Pods-planit v0.2Tests.release.xcconfig"; sourceTree = "<group>"; };
+		BA83D88C34C8633D819ABD13 /* Pods-planit v0.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2.release.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2/Pods-planit v0.2.release.xcconfig"; sourceTree = "<group>"; };
+		ED4A2134146D2128C7538337 /* Pods_planit_v0_2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_planit_v0_2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FAA8F21F1E35194100CD7337 /* planit v0.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "planit v0.2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8F2221E35194100CD7337 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAA8F2241E35194100CD7337 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FAA8F2271E35194100CD7337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAA8F2291E35194100CD7337 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FAA8F22C1E35194100CD7337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAA8F22E1E35194100CD7337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAA8F2331E35194100CD7337 /* planit v0.2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "planit v0.2Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8F2371E35194100CD7337 /* planit_v0_2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = planit_v0_2Tests.swift; sourceTree = "<group>"; };
@@ -47,6 +88,41 @@
 		FAA8F23E1E35194100CD7337 /* planit v0.2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "planit v0.2UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8F2421E35194100CD7337 /* planit_v0_2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = planit_v0_2UITests.swift; sourceTree = "<group>"; };
 		FAA8F2441E35194100CD7337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAA8F2511E351A2700CD7337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FAA8F2531E351A2700CD7337 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
+		FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayGenderViewController.swift; sourceTree = "<group>"; };
+		FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
+		FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
+		FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeAirportViewController.swift; sourceTree = "<group>"; };
+		FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
+		FAA8F25F1E351B9500CD7337 /* InternationalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternationalViewController.swift; sourceTree = "<group>"; };
+		FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTripNameViewController.swift; sourceTree = "<group>"; };
+		FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		FAA8F2621E351B9500CD7337 /* RankingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
+		FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommedationSwipingViewController.swift; sourceTree = "<group>"; };
+		FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewAndBookViewController.swift; sourceTree = "<group>"; };
+		FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestDestinationViewController.swift; sourceTree = "<group>"; };
+		FAA8F2671E351B9500CD7337 /* TripListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripListViewController.swift; sourceTree = "<group>"; };
+		FAA8F2821E351D8D00CD7337 /* DataContainerSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataContainerSingleton.swift; sourceTree = "<group>"; };
+		FAA8F2841E351DA300CD7337 /* CreateNewUser.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateNewUser.graphql; sourceTree = "<group>"; };
+		FAA8F2861E351DAC00CD7337 /* GetTrip.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GetTrip.graphql; sourceTree = "<group>"; };
+		FAA8F2881E351DBF00CD7337 /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		FAA8F2891E351DBF00CD7337 /* CellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellView.xib; sourceTree = "<group>"; };
+		FAA8F28A1E351DBF00CD7337 /* monthHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = monthHeaderView.swift; sourceTree = "<group>"; };
+		FAA8F28B1E351DBF00CD7337 /* monthHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = monthHeaderView.xib; sourceTree = "<group>"; };
+		FAA8F2901E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2911E351DCD00CD7337 /* ActivityItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityItem.swift; sourceTree = "<group>"; };
+		FAA8F2921E351DCD00CD7337 /* contactsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactsCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2961E351DDE00CD7337 /* contactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactsTableViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2971E351DDE00CD7337 /* ExistingTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExistingTripTableViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2981E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemizedItineraryTableViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2991E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rankedRecommendationsTableViewCell.swift; sourceTree = "<group>"; };
+		FAA8F29A1E351DDE00CD7337 /* timeOfDayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = timeOfDayTableViewCell.swift; sourceTree = "<group>"; };
+		FAA8F2A01E351DEB00CD7337 /* items.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = items.plist; sourceTree = "<group>"; };
+		FF99F8DC1EC030B0E3C827B0 /* Pods_planit_v0_2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_planit_v0_2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				191BF7D83FF5218C958D0EDB /* Pods_planit_v0_2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF4CFEF2E9465786DE56CC42 /* Pods_planit_v0_2Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +146,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E56F87588995FCD281C4EE6 /* Pods_planit_v0_2UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CD986F1F2C1F9D74FFB1B31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04C09738698217841A11CBDB /* Pods_planit_v0_2.framework */,
+				FF99F8DC1EC030B0E3C827B0 /* Pods_planit_v0_2Tests.framework */,
+				ED4A2134146D2128C7538337 /* Pods_planit_v0_2UITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		540DCC2407D4DD77F2AD2845 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				81A95C40AC4ED87921A183FF /* Pods-planit v0.2.debug.xcconfig */,
+				BA83D88C34C8633D819ABD13 /* Pods-planit v0.2.release.xcconfig */,
+				183684F793A8CF0022C2145E /* Pods-planit v0.2Tests.debug.xcconfig */,
+				92CC22ADBD7E4A43109711B5 /* Pods-planit v0.2Tests.release.xcconfig */,
+				7CF87F683795222884A322CE /* Pods-planit v0.2UITests.debug.xcconfig */,
+				107E1EEE1E84BDF1E9696603 /* Pods-planit v0.2UITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FAA8F2161E35194100CD7337 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +183,8 @@
 				FAA8F2361E35194100CD7337 /* planit v0.2Tests */,
 				FAA8F2411E35194100CD7337 /* planit v0.2UITests */,
 				FAA8F2201E35194100CD7337 /* Products */,
+				540DCC2407D4DD77F2AD2845 /* Pods */,
+				3CD986F1F2C1F9D74FFB1B31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,12 +201,17 @@
 		FAA8F2211E35194100CD7337 /* planit v0.2 */ = {
 			isa = PBXGroup;
 			children = (
-				FAA8F2221E35194100CD7337 /* AppDelegate.swift */,
-				FAA8F2241E35194100CD7337 /* ViewController.swift */,
-				FAA8F2261E35194100CD7337 /* Main.storyboard */,
-				FAA8F2291E35194100CD7337 /* Assets.xcassets */,
-				FAA8F22B1E35194100CD7337 /* LaunchScreen.storyboard */,
-				FAA8F22E1E35194100CD7337 /* Info.plist */,
+				FAA8F2A31E3521BC00CD7337 /* API */,
+				FAA8F2811E351C8A00CD7337 /* Data Models */,
+				FAA8F27E1E351C3C00CD7337 /* GraphQL */,
+				FAA8F27D1E351C1600CD7337 /* Calendar View */,
+				FAA8F27C1E351C0F00CD7337 /* Collection View */,
+				FAA8F27B1E351C0100CD7337 /* Table View */,
+				FAA8F27A1E351BEA00CD7337 /* Property Lists */,
+				FAA8F2791E351BDF00CD7337 /* Assets */,
+				FAA8F2781E351BD400CD7337 /* App Delegate */,
+				FAA8F2571E351ABB00CD7337 /* Storyboards */,
+				FAA8F2561E351AB100CD7337 /* View Controllers */,
 			);
 			path = "planit v0.2";
 			sourceTree = "<group>";
@@ -125,6 +234,137 @@
 			path = "planit v0.2UITests";
 			sourceTree = "<group>";
 		};
+		FAA8F2561E351AB100CD7337 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */,
+				FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */,
+				FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */,
+				FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */,
+				FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */,
+				FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */,
+				FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */,
+				FAA8F25F1E351B9500CD7337 /* InternationalViewController.swift */,
+				FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */,
+				FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */,
+				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
+				FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */,
+				FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */,
+				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
+				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
+				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FAA8F2571E351ABB00CD7337 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2501E351A2700CD7337 /* LaunchScreen.storyboard */,
+				FAA8F2521E351A2700CD7337 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		FAA8F2781E351BD400CD7337 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2221E35194100CD7337 /* AppDelegate.swift */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		FAA8F2791E351BDF00CD7337 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2291E35194100CD7337 /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		FAA8F27A1E351BEA00CD7337 /* Property Lists */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2A01E351DEB00CD7337 /* items.plist */,
+				FAA8F22E1E35194100CD7337 /* Info.plist */,
+			);
+			name = "Property Lists";
+			sourceTree = "<group>";
+		};
+		FAA8F27B1E351C0100CD7337 /* Table View */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2961E351DDE00CD7337 /* contactsTableViewCell.swift */,
+				FAA8F2971E351DDE00CD7337 /* ExistingTripTableViewCell.swift */,
+				FAA8F2981E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift */,
+				FAA8F2991E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift */,
+				FAA8F29A1E351DDE00CD7337 /* timeOfDayTableViewCell.swift */,
+			);
+			name = "Table View";
+			sourceTree = "<group>";
+		};
+		FAA8F27C1E351C0F00CD7337 /* Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2901E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift */,
+				FAA8F2911E351DCD00CD7337 /* ActivityItem.swift */,
+				FAA8F2921E351DCD00CD7337 /* contactsCollectionViewCell.swift */,
+			);
+			name = "Collection View";
+			sourceTree = "<group>";
+		};
+		FAA8F27D1E351C1600CD7337 /* Calendar View */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2881E351DBF00CD7337 /* CellView.swift */,
+				FAA8F2891E351DBF00CD7337 /* CellView.xib */,
+				FAA8F28A1E351DBF00CD7337 /* monthHeaderView.swift */,
+				FAA8F28B1E351DBF00CD7337 /* monthHeaderView.xib */,
+			);
+			name = "Calendar View";
+			sourceTree = "<group>";
+		};
+		FAA8F27E1E351C3C00CD7337 /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2801E351C5200CD7337 /* Mutations */,
+				FAA8F27F1E351C4A00CD7337 /* Queries */,
+			);
+			name = GraphQL;
+			sourceTree = "<group>";
+		};
+		FAA8F27F1E351C4A00CD7337 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2861E351DAC00CD7337 /* GetTrip.graphql */,
+			);
+			name = Queries;
+			sourceTree = "<group>";
+		};
+		FAA8F2801E351C5200CD7337 /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2841E351DA300CD7337 /* CreateNewUser.graphql */,
+			);
+			name = Mutations;
+			sourceTree = "<group>";
+		};
+		FAA8F2811E351C8A00CD7337 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2821E351D8D00CD7337 /* DataContainerSingleton.swift */,
+			);
+			name = "Data Models";
+			sourceTree = "<group>";
+		};
+		FAA8F2A31E3521BC00CD7337 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				FA4E922A1E3526DD00231C72 /* API.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +372,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA8F2471E35194100CD7337 /* Build configuration list for PBXNativeTarget "planit v0.2" */;
 			buildPhases = (
+				9192FA000B007F2EC07B07B5 /* [CP] Check Pods Manifest.lock */,
+				FA4E92271E3522BA00231C72 /* Generate Apollo GraphQL API */,
 				FAA8F21B1E35194100CD7337 /* Sources */,
 				FAA8F21C1E35194100CD7337 /* Frameworks */,
 				FAA8F21D1E35194100CD7337 /* Resources */,
+				BC050347A791CCA0C3893211 /* [CP] Embed Pods Frameworks */,
+				AD83F8634F0D17F26DF750FD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +393,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA8F24A1E35194100CD7337 /* Build configuration list for PBXNativeTarget "planit v0.2Tests" */;
 			buildPhases = (
+				62E6B14503CA10D9F96C0021 /* [CP] Check Pods Manifest.lock */,
 				FAA8F22F1E35194100CD7337 /* Sources */,
 				FAA8F2301E35194100CD7337 /* Frameworks */,
 				FAA8F2311E35194100CD7337 /* Resources */,
+				A8CBF39407CBD72122A8D9EC /* [CP] Embed Pods Frameworks */,
+				C0505AF59EA94D8378867A92 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +414,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAA8F24D1E35194100CD7337 /* Build configuration list for PBXNativeTarget "planit v0.2UITests" */;
 			buildPhases = (
+				C0FEA9315CFF278426C785C0 /* [CP] Check Pods Manifest.lock */,
 				FAA8F23A1E35194100CD7337 /* Sources */,
 				FAA8F23B1E35194100CD7337 /* Frameworks */,
 				FAA8F23C1E35194100CD7337 /* Resources */,
+				8D3F7EE5DB98DEC7BBE4432B /* [CP] Embed Pods Frameworks */,
+				715A8707C78B081ACB70CEB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,9 +482,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA8F22D1E35194100CD7337 /* LaunchScreen.storyboard in Resources */,
+				FAA8F2551E351A2700CD7337 /* Main.storyboard in Resources */,
 				FAA8F22A1E35194100CD7337 /* Assets.xcassets in Resources */,
-				FAA8F2281E35194100CD7337 /* Main.storyboard in Resources */,
+				FAA8F2541E351A2700CD7337 /* LaunchScreen.storyboard in Resources */,
+				FAA8F2851E351DA300CD7337 /* CreateNewUser.graphql in Resources */,
+				FAA8F28F1E351DBF00CD7337 /* monthHeaderView.xib in Resources */,
+				FAA8F28D1E351DBF00CD7337 /* CellView.xib in Resources */,
+				FAA8F2871E351DAC00CD7337 /* GetTrip.graphql in Resources */,
+				FAA8F2A11E351DEB00CD7337 /* items.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,13 +509,192 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		62E6B14503CA10D9F96C0021 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		715A8707C78B081ACB70CEB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2UITests/Pods-planit v0.2UITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D3F7EE5DB98DEC7BBE4432B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2UITests/Pods-planit v0.2UITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9192FA000B007F2EC07B07B5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A8CBF39407CBD72122A8D9EC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2Tests/Pods-planit v0.2Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD83F8634F0D17F26DF750FD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2/Pods-planit v0.2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC050347A791CCA0C3893211 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2/Pods-planit v0.2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0505AF59EA94D8378867A92 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-planit v0.2Tests/Pods-planit v0.2Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0FEA9315CFF278426C785C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FA4E92271E3522BA00231C72 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL API";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FAA8F21B1E35194100CD7337 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA8F2251E35194100CD7337 /* ViewController.swift in Sources */,
+				FAA8F2771E351B9500CD7337 /* TripListViewController.swift in Sources */,
+				FAA8F26D1E351B9500CD7337 /* HomeAirportViewController.swift in Sources */,
+				FAA8F29D1E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift in Sources */,
+				FAA8F26B1E351B9500CD7337 /* CalendarViewController.swift in Sources */,
+				FAA8F29C1E351DDE00CD7337 /* ExistingTripTableViewCell.swift in Sources */,
+				FAA8F26C1E351B9500CD7337 /* EmailViewController.swift in Sources */,
+				FAA8F2711E351B9500CD7337 /* PasswordViewController.swift in Sources */,
+				FAA8F2761E351B9500CD7337 /* SuggestDestinationViewController.swift in Sources */,
+				FAA8F29F1E351DDE00CD7337 /* timeOfDayTableViewCell.swift in Sources */,
+				FAA8F28E1E351DBF00CD7337 /* monthHeaderView.swift in Sources */,
+				FAA8F2691E351B9500CD7337 /* BirthdayGenderViewController.swift in Sources */,
+				FAA8F2951E351DCD00CD7337 /* contactsCollectionViewCell.swift in Sources */,
 				FAA8F2231E35194100CD7337 /* AppDelegate.swift in Sources */,
+				FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */,
+				FA4E922B1E3526DD00231C72 /* API.swift in Sources */,
+				FAA8F2731E351B9500CD7337 /* RecommedationSwipingViewController.swift in Sources */,
+				FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */,
+				FAA8F26F1E351B9500CD7337 /* InternationalViewController.swift in Sources */,
+				FAA8F2701E351B9500CD7337 /* NewTripNameViewController.swift in Sources */,
+				FAA8F2831E351D8D00CD7337 /* DataContainerSingleton.swift in Sources */,
+				FAA8F29E1E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift in Sources */,
+				FAA8F29B1E351DDE00CD7337 /* contactsTableViewCell.swift in Sources */,
+				FAA8F26E1E351B9500CD7337 /* InstructionsViewController.swift in Sources */,
+				FAA8F26A1E351B9500CD7337 /* BudgetViewController.swift in Sources */,
+				FAA8F2721E351B9500CD7337 /* RankingViewController.swift in Sources */,
+				FAA8F2931E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift in Sources */,
+				FAA8F2741E351B9500CD7337 /* ReviewAndBookViewController.swift in Sources */,
+				FAA8F28C1E351DBF00CD7337 /* CellView.swift in Sources */,
+				FAA8F2941E351DCD00CD7337 /* ActivityItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,20 +730,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FAA8F2261E35194100CD7337 /* Main.storyboard */ = {
+		FAA8F2501E351A2700CD7337 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FAA8F2271E35194100CD7337 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FAA8F22B1E35194100CD7337 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FAA8F22C1E35194100CD7337 /* Base */,
+				FAA8F2511E351A2700CD7337 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FAA8F2521E351A2700CD7337 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAA8F2531E351A2700CD7337 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -410,6 +844,7 @@
 		};
 		FAA8F2481E35194100CD7337 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81A95C40AC4ED87921A183FF /* Pods-planit v0.2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "planit v0.2/Info.plist";
@@ -422,6 +857,7 @@
 		};
 		FAA8F2491E35194100CD7337 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA83D88C34C8633D819ABD13 /* Pods-planit v0.2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "planit v0.2/Info.plist";
@@ -434,6 +870,7 @@
 		};
 		FAA8F24B1E35194100CD7337 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 183684F793A8CF0022C2145E /* Pods-planit v0.2Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -448,6 +885,7 @@
 		};
 		FAA8F24C1E35194100CD7337 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92CC22ADBD7E4A43109711B5 /* Pods-planit v0.2Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -462,6 +900,7 @@
 		};
 		FAA8F24E1E35194100CD7337 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CF87F683795222884A322CE /* Pods-planit v0.2UITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = "planit v0.2UITests/Info.plist";
@@ -475,6 +914,7 @@
 		};
 		FAA8F24F1E35194100CD7337 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 107E1EEE1E84BDF1E9696603 /* Pods-planit v0.2UITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = "planit v0.2UITests/Info.plist";
@@ -505,6 +945,7 @@
 				FAA8F2491E35194100CD7337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAA8F24A1E35194100CD7337 /* Build configuration list for PBXNativeTarget "planit v0.2Tests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +954,7 @@
 				FAA8F24C1E35194100CD7337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FAA8F24D1E35194100CD7337 /* Build configuration list for PBXNativeTarget "planit v0.2UITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +963,7 @@
 				FAA8F24F1E35194100CD7337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

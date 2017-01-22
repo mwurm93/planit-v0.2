@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>itemImage</key>
+		<string>Surf</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Museum</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Fine dining</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Theater</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Sun</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Shop</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Ski</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Drink</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Scuba</string>
+	</dict>
+</array>
+</plist>

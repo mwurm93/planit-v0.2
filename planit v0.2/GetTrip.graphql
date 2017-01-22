@@ -1,0 +1,16 @@
+query GetTrip($id: ID!) {
+getTrip(id:$id) {
+id
+name
+users {
+edges {
+cursor
+node {
+id
+username
+}
+budget
+}
+}
+}
+}
