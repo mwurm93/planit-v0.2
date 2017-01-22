@@ -25,18 +25,18 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
     var decidedOnDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_control") as? String
     var decidedOnDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_value") as? String
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        suggestDestinationField.isHidden = true
-        wantToSuggestDestination.isHidden = true
-        wantToSuggestLabel.isHidden = true
+        suggestDestinationField.alpha = 0
+        wantToSuggestDestination.alpha = 0
+        wantToSuggestLabel.alpha = 0
         suggestDestinationField.layer.borderWidth = 1
         suggestDestinationField.layer.cornerRadius = 5
         suggestDestinationField.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
         suggestDestinationField.layer.masksToBounds = true
-        decidedOnDestinationTextField.isHidden = true
+        decidedOnDestinationTextField.alpha = 0
         decidedOnDestinationTextField.layer.borderWidth = 1
         decidedOnDestinationTextField.layer.cornerRadius = 5
         decidedOnDestinationTextField.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
@@ -46,10 +46,10 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
         homeAirport.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
         homeAirport.layer.masksToBounds = true
         homeAirport.layer.cornerRadius = 5
+        homeAirport.text =  "\(homeAirportValue)"
         let homeAirportLabelPlaceholder = homeAirport!.value(forKey: "placeholderLabel") as? UILabel
         homeAirportLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
-
-
+        
         let suggestDestinationLabelPlaceholder = suggestDestinationField!.value(forKey: "placeholderLabel") as? UILabel
         suggestDestinationLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         let decidedOnDestinationTextFieldPlaceholder = decidedOnDestinationTextField!.value(forKey: "placeholderLabel") as? UILabel
@@ -69,38 +69,36 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        self.homeAirport.text =  "\(homeAirportValue)"
         if homeAirport.text == "" {
-            decidedOnDestinationControl.isHidden = true
-            decidedOnDestinationLabel.isHidden = true
+            decidedOnDestinationControl.alpha = 0
+            decidedOnDestinationLabel.alpha = 0
         } else {
-            decidedOnDestinationControl.isHidden = false
-            decidedOnDestinationLabel.isHidden = false
-      
+            decidedOnDestinationControl.alpha = 1
+            decidedOnDestinationLabel.alpha = 1
+            
             if decidedOnDestinationControlValue == "Yes" {
                 decidedOnDestinationControl.selectedSegmentIndex = 0
-                decidedOnDestinationTextField.isHidden = false
+                decidedOnDestinationTextField.alpha = 1
                 if decidedOnDestinationValue != nil {
                     self.decidedOnDestinationTextField.text = "\(decidedOnDestinationValue!)"
                 }
             }
             else if decidedOnDestinationControlValue == "No" {
                 decidedOnDestinationControl.selectedSegmentIndex = 1
-                decidedOnDestinationTextField.isHidden = true
-                wantToSuggestLabel.isHidden = false
-                wantToSuggestDestination.isHidden = false
+                decidedOnDestinationTextField.alpha = 0
+                wantToSuggestLabel.alpha = 1
+                wantToSuggestDestination.alpha = 1
                 
                 if suggestDestinationControlValue == "Yes" {
                     wantToSuggestDestination.selectedSegmentIndex = 0
-                    suggestDestinationField.isHidden = false
+                    suggestDestinationField.alpha = 1
                     if suggestedDestinationValue != nil {
                         self.suggestDestinationField.text =  "\(suggestedDestinationValue!)"
                     }
                 }
                 else if suggestDestinationControlValue == "No" {
                     wantToSuggestDestination.selectedSegmentIndex = 1
-                    suggestDestinationField.isHidden = true
+                    suggestDestinationField.alpha = 0
                 }
                 
             }
@@ -120,36 +118,49 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
     // MARK: Actions
     @IBAction func homeAirportFieldEditingChanged(_ sender: Any) {
         DataContainerSingleton.sharedDataContainer.homeAirport = homeAirport.text
+        
         if homeAirport.text == "" {
-            decidedOnDestinationControl.isHidden = true
-            decidedOnDestinationLabel.isHidden = true
+            decidedOnDestinationControl.alpha = 0
+            decidedOnDestinationLabel.alpha = 0
+            decidedOnDestinationTextField.alpha = 0
+            suggestDestinationField.alpha = 0
+            wantToSuggestDestination.alpha = 0
+            wantToSuggestLabel.alpha = 0
         } else {
-            decidedOnDestinationControl.isHidden = false
-            decidedOnDestinationLabel.isHidden = false
+            UIView.animate(withDuration: 0.7) {
+                self.decidedOnDestinationControl.alpha = 1
+                self.decidedOnDestinationLabel.alpha = 1
+            }
             
             if decidedOnDestinationControlValue == "Yes" {
                 decidedOnDestinationControl.selectedSegmentIndex = 0
-                decidedOnDestinationTextField.isHidden = false
+                UIView.animate(withDuration: 0.7) {
+                    self.decidedOnDestinationTextField.alpha = 1
+                }
                 if decidedOnDestinationValue != nil {
                     self.decidedOnDestinationTextField.text = "\(decidedOnDestinationValue!)"
                 }
             }
             else if decidedOnDestinationControlValue == "No" {
                 decidedOnDestinationControl.selectedSegmentIndex = 1
-                decidedOnDestinationTextField.isHidden = true
-                wantToSuggestLabel.isHidden = false
-                wantToSuggestDestination.isHidden = false
+                self.decidedOnDestinationTextField.alpha = 0
+                UIView.animate(withDuration: 0.7) {
+                    self.wantToSuggestLabel.alpha = 1
+                    self.wantToSuggestDestination.alpha = 1
+                }
                 
                 if suggestDestinationControlValue == "Yes" {
                     wantToSuggestDestination.selectedSegmentIndex = 0
-                    suggestDestinationField.isHidden = false
+                    UIView.animate(withDuration: 0.7) {
+                        self.suggestDestinationField.alpha = 1
+                    }
                     if suggestedDestinationValue != nil {
                         self.suggestDestinationField.text =  "\(suggestedDestinationValue!)"
                     }
                 }
                 else if suggestDestinationControlValue == "No" {
                     wantToSuggestDestination.selectedSegmentIndex = 1
-                    suggestDestinationField.isHidden = true
+                    self.suggestDestinationField.alpha = 0
                 }
                 
             }
@@ -159,15 +170,21 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
     @IBAction func decidedOnDestinationControlValueChanged(_ sender: Any) {
         if decidedOnDestinationControl.selectedSegmentIndex == 0 {
             decidedOnDestinationControlValue = "Yes"
-            decidedOnDestinationTextField.isHidden = false
-            wantToSuggestLabel.isHidden = true
-            wantToSuggestDestination.isHidden = true
+            self.wantToSuggestLabel.alpha = 0
+            self.wantToSuggestDestination.alpha = 0
+            self.suggestDestinationField.alpha = 0
+
+            UIView.animate(withDuration: 0.7) {
+                self.decidedOnDestinationTextField.alpha = 1
+            }
         }
         else {
             decidedOnDestinationControlValue = "No"
-            decidedOnDestinationTextField.isHidden = true
-            wantToSuggestLabel.isHidden = false
-            wantToSuggestDestination.isHidden = false
+            self.decidedOnDestinationTextField.alpha = 0
+            UIView.animate(withDuration: 0.7) {
+                self.wantToSuggestLabel.alpha = 1
+                self.wantToSuggestDestination.alpha = 1
+            }
         }
         
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
@@ -182,12 +199,12 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
         var suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? String
         var suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? String
         var decidedOnDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_value") as? String
-
+        
         
         let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "suggest_destination_control": suggestDestinationControlValue,"selected_dates": selectedDates, "contacts_in_group": contacts, "decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value": decidedOnDestinationValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate] as [String : Any]
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
-
+        
     }
     @IBAction func decidedDestinationEditingChanged(_ sender: Any) {
         decidedOnDestinationValue = decidedOnDestinationTextField.text
@@ -210,9 +227,9 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         
     }
-
+    
     @IBAction func suggestDestinationControlValueChanged(_ sender: Any) {
-    if wantToSuggestDestination.selectedSegmentIndex == 0 {
+        if wantToSuggestDestination.selectedSegmentIndex == 0 {
             suggestDestinationControlValue = "Yes"
         }
         else {
@@ -230,18 +247,20 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate {
         var expectedNightlyRate = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "expected_nightly_rate") as? String
         var decidedOnDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_control") as? String
         var decidedOnDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_value") as? String
-
+        
         let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "suggest_destination_control": suggestDestinationControlValue,"selected_dates": selectedDates, "contacts_in_group": contacts, "decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate] as [String : Any]
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
-
+    
     @IBAction func wantToSuggestDestinationValueYes(_ sender: Any) {
         if wantToSuggestDestination.selectedSegmentIndex == 0 {
-            suggestDestinationField.isHidden = false
+            UIView.animate(withDuration: 0.7) {
+                self.suggestDestinationField.alpha = 1
+            }
         }
         else if wantToSuggestDestination.selectedSegmentIndex == 1 {
-            suggestDestinationField.isHidden = true
+                self.suggestDestinationField.alpha = 0
         }
     }
     
