@@ -1,0 +1,22 @@
+PODS:
+  - Apollo (0.4.2)
+  - JTAppleCalendar (6.1.1)
+  - Koloda (4.0):
+    - pop (~> 1.0)
+  - pop (1.0.9)
+
+DEPENDENCIES:
+  - Apollo
+  - JTAppleCalendar (~> 6.0)
+  - Koloda
+  - pop (~> 1.0)
+
+SPEC CHECKSUMS:
+  Apollo: 0d47a856b21404eb63bddb6446b05416b4b6bb16
+  JTAppleCalendar: fc53eb29ec81f8a90969e2d214b3aa610ab4e5b3
+  Koloda: cb171633afc6182a77821b7951e38b2cb272ba7c
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+
+PODFILE CHECKSUM: 5d71156d3e11b1286c6171edfe95413caa716109
+
+COCOAPODS: 1.1.1

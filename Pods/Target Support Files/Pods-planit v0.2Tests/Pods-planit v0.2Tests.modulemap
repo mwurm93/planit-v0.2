@@ -1,0 +1,6 @@
+framework module Pods_planit_v0_2Tests {
+  umbrella header "Pods-planit v0.2Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
