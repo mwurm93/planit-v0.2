@@ -120,7 +120,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     fileprivate func requestContactsAccess() {
+        
         addressBookStore.requestAccess(for: .contacts) {granted, error in
+        //addressBookStore.requestAccess(for: .contacts) {granted, error in
+            
             if granted {
                 DispatchQueue.main.async {
                     self.showContactsPicker()
