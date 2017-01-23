@@ -12,7 +12,7 @@
         <!--Password View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="PasswordViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="PasswordViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -105,7 +105,7 @@
         <!--Email View Controller-->
         <scene sceneID="4X5-PG-FNp">
             <objects>
-                <viewController storyboardIdentifier="SignUpViewController" id="bhU-Qo-H8O" customClass="EmailViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" id="bhU-Qo-H8O" customClass="EmailViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5xe-Ql-1yC"/>
                         <viewControllerLayoutGuide type="bottom" id="kP1-SU-YCA"/>
@@ -171,7 +171,7 @@
         <!--Settings View Controller-->
         <scene sceneID="gdT-jW-UcN">
             <objects>
-                <viewController id="tCq-uR-8sF" customClass="SettingsViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tCq-uR-8sF" customClass="SettingsViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L0H-WQ-Bxs"/>
                         <viewControllerLayoutGuide type="bottom" id="yz0-fK-zrI"/>
@@ -341,7 +341,7 @@
         <!--Trip List View Controller-->
         <scene sceneID="iu3-GD-Dwe">
             <objects>
-                <viewController storyboardIdentifier="TripListViewController" id="c7O-w7-no5" customClass="TripListViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TripListViewController" id="c7O-w7-no5" customClass="TripListViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T0t-SQ-CR4"/>
                         <viewControllerLayoutGuide type="bottom" id="9qd-3O-iZj"/>
@@ -378,7 +378,7 @@
                                 <color key="sectionIndexColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingTripViewPrototypeCell" rowHeight="90" id="bSd-CL-cDO" customClass="ExistingTripTableViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="existingTripViewPrototypeCell" rowHeight="90" id="bSd-CL-cDO" customClass="ExistingTripTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="319" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bSd-CL-cDO" id="n3M-Kf-esR">
@@ -555,7 +555,7 @@
         <!--Recommendation Swiping View Controller-->
         <scene sceneID="GiH-fp-LQP">
             <objects>
-                <viewController id="e1o-La-2RE" customClass="RecommendationSwipingViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="e1o-La-2RE" customClass="RecommendationSwipingViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vMq-ZS-QzJ"/>
                         <viewControllerLayoutGuide type="bottom" id="jiq-Qc-OEK"/>
@@ -675,7 +675,7 @@
         <!--Budget View Controller-->
         <scene sceneID="Vgz-mF-ryT">
             <objects>
-                <viewController id="64C-0J-to2" customClass="BudgetViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="64C-0J-to2" customClass="BudgetViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tM9-4M-2r2"/>
                         <viewControllerLayoutGuide type="bottom" id="SF0-Ak-zeG"/>
@@ -704,7 +704,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$ max budget" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8bN-Np-4Ok">
-                                            <rect key="frame" x="47" y="183" width="281" height="30"/>
+                                            <rect key="frame" x="47" y="173" width="281" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -719,106 +719,106 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Example Budget" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11V-zw-BEy">
-                                <rect key="frame" x="27" y="247" width="165" height="40"/>
+                                <rect key="frame" x="27" y="214" width="165" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Roundtrip fare" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bw0-wB-s5X">
-                                <rect key="frame" x="27" y="312" width="275" height="40"/>
+                                <rect key="frame" x="27" y="279" width="275" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person icon" translatesAutoresizingMaskIntoConstraints="NO" id="wdc-db-YsT">
-                                <rect key="frame" x="323" y="449" width="36" height="35"/>
+                                <rect key="frame" x="326" y="416" width="36" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="moon" translatesAutoresizingMaskIntoConstraints="NO" id="rci-VX-2E3">
-                                <rect key="frame" x="329" y="419" width="23" height="24"/>
+                                <rect key="frame" x="332" y="386" width="23" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4N-Bt-18e">
-                                <rect key="frame" x="27" y="283" width="332" height="40"/>
+                                <rect key="frame" x="27" y="250" width="332" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nightly rate per room" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efh-C5-nsi">
-                                <rect key="frame" x="27" y="375" width="275" height="40"/>
+                                <rect key="frame" x="27" y="342" width="275" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nights" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYy-tl-0F4">
-                                <rect key="frame" x="226" y="411" width="62" height="40"/>
+                                <rect key="frame" x="219" y="378" width="62" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Split with" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuY-A6-Lzc">
-                                <rect key="frame" x="189" y="447" width="99" height="40"/>
+                                <rect key="frame" x="182" y="414" width="99" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hotel total" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgE-74-8Kx">
-                                <rect key="frame" x="189" y="482" width="99" height="40"/>
+                                <rect key="frame" x="182" y="449" width="99" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lX4-CW-hcD">
-                                <rect key="frame" x="279" y="375" width="17" height="40"/>
+                                <rect key="frame" x="279" y="342" width="17" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$150" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEo-eM-iRz">
-                                <rect key="frame" x="276" y="482" width="62" height="40"/>
+                                <rect key="frame" x="276" y="449" width="62" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$650" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxR-qm-Ulq">
-                                <rect key="frame" x="276" y="528" width="62" height="40"/>
+                                <rect key="frame" x="276" y="488" width="62" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71T-fL-9KI">
-                                <rect key="frame" x="279" y="313" width="17" height="40"/>
+                                <rect key="frame" x="279" y="280" width="17" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hotel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9S-tC-NF2">
-                                <rect key="frame" x="27" y="346" width="255" height="40"/>
+                                <rect key="frame" x="27" y="313" width="255" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ilz-Ax-k56">
-                                <rect key="frame" x="27" y="528" width="259" height="40"/>
+                                <rect key="frame" x="27" y="488" width="259" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="5" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Qk-6C-Jzh">
-                                <rect key="frame" x="296" y="416" width="30" height="30"/>
+                                <rect key="frame" x="296" y="383" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -830,7 +830,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="200" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ioZ-TM-Muv">
-                                <rect key="frame" x="296" y="380" width="51" height="30"/>
+                                <rect key="frame" x="296" y="347" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -843,7 +843,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="400" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="86p-2r-Fhq">
-                                <rect key="frame" x="296" y="318" width="51" height="30"/>
+                                <rect key="frame" x="296" y="285" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -856,7 +856,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qSp-Mx-5CP">
-                                <rect key="frame" x="296" y="452" width="30" height="30"/>
+                                <rect key="frame" x="296" y="419" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -904,13 +904,61 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMq-kC-gnm">
-                                <rect key="frame" x="282" y="560" width="68" height="30"/>
+                                <rect key="frame" x="282" y="520" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Use this!"/>
                                 <connections>
                                     <action selector="useCalcButtonPressed:" destination="64C-0J-to2" eventType="touchUpInside" id="983-9e-VBd"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qaE-u0-ayF">
+                                <rect key="frame" x="32" y="554" width="310" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3aj-Bk-HEg">
+                                    <size key="itemSize" width="55" height="55"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="Ynu-4O-vCP" customClass="contactsCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="6" width="55" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2N-Vj-lv9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLm-AH-Rv2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Initials" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anA-k3-gwD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="initialsLabel" destination="anA-k3-gwD" id="b8a-a8-2wW"/>
+                                            <outlet property="thumbnailImage" destination="t2N-Vj-lv9" id="yi8-Pf-lcV"/>
+                                            <outlet property="thumbnailImageFilter" destination="PLm-AH-Rv2" id="g1X-V0-FbM"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="64C-0J-to2" id="VG1-Wl-pvM"/>
+                                    <outlet property="delegate" destination="64C-0J-to2" id="jqb-et-FoA"/>
+                                </connections>
+                            </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="BRv-JQ-YfJ">
                                 <rect key="frame" x="62" y="289" width="251" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -935,6 +983,7 @@
                     <connections>
                         <outlet property="CareAboutMoreSegmentControl" destination="BRv-JQ-YfJ" id="kTj-m7-E5P"/>
                         <outlet property="budget" destination="8bN-Np-4Ok" id="S8a-fW-Bez"/>
+                        <outlet property="contactsCollectionView" destination="qaE-u0-ayF" id="Pl8-CF-iUO"/>
                         <outlet property="hotelTotalLabel" destination="uEo-eM-iRz" id="LW8-ad-n1I"/>
                         <outlet property="nightlyRatePerRoomField" destination="ioZ-TM-Muv" id="CVG-Xo-vdd"/>
                         <outlet property="nightsTextField" destination="4Qk-6C-Jzh" id="JlY-QH-xvY"/>
@@ -952,7 +1001,7 @@
         <!--Suggest Destination View Controller-->
         <scene sceneID="Tg0-Rq-WCT">
             <objects>
-                <viewController id="Cpd-I2-Ulf" customClass="SuggestDestinationViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Cpd-I2-Ulf" customClass="SuggestDestinationViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rpj-kz-uyj"/>
                         <viewControllerLayoutGuide type="bottom" id="qr0-M3-rCg"/>
@@ -1088,10 +1137,59 @@
                                     <action selector="homeAirportFieldEditingChanged:" destination="Cpd-I2-Ulf" eventType="editingChanged" id="q42-aR-Hwr"/>
                                 </connections>
                             </textField>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YS2-CY-W5m">
+                                <rect key="frame" x="32" y="554" width="310" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="StT-2W-tbU">
+                                    <size key="itemSize" width="55" height="55"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="XaZ-hq-AeQ" customClass="contactsCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="6" width="55" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TE5-Nf-CCB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqk-j6-ODU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Initials" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfX-7o-8ib">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="initialsLabel" destination="CfX-7o-8ib" id="hy1-aK-lE7"/>
+                                            <outlet property="thumbnailImage" destination="TE5-Nf-CCB" id="ThO-oi-eNA"/>
+                                            <outlet property="thumbnailImageFilter" destination="tqk-j6-ODU" id="6eP-Cm-M8q"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cpd-I2-Ulf" id="Ee2-zC-XRe"/>
+                                    <outlet property="delegate" destination="Cpd-I2-Ulf" id="Vxv-im-6an"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="contactsCollectionView" destination="YS2-CY-W5m" id="qVp-zj-Ldg"/>
                         <outlet property="decidedOnDestinationControl" destination="g5z-mv-xYM" id="GYm-Oz-52o"/>
                         <outlet property="decidedOnDestinationLabel" destination="PYE-Yf-bVA" id="YeU-qb-ZOw"/>
                         <outlet property="decidedOnDestinationTextField" destination="M7k-RL-dha" id="oHj-Pw-CIN"/>
@@ -1109,7 +1207,7 @@
         <!--Activities View Controller-->
         <scene sceneID="1uc-8z-bqx">
             <objects>
-                <viewController id="oN0-zx-La3" customClass="ActivitiesViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oN0-zx-La3" customClass="ActivitiesViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jin-ez-joX"/>
                         <viewControllerLayoutGuide type="bottom" id="R5M-gC-dfK"/>
@@ -1150,7 +1248,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activitiesViewPrototypeCell" id="0rY-5Q-cFu" customClass="ActivitiesCollectionViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activitiesViewPrototypeCell" id="0rY-5Q-cFu" customClass="ActivitiesCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="88" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1248,7 +1346,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bxv-v5-4St">
-                                <rect key="frame" x="33" y="557" width="310" height="67"/>
+                                <rect key="frame" x="32" y="554" width="310" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gKE-R0-C9f">
@@ -1258,7 +1356,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="EC7-cS-LId" customClass="contactsCollectionViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="EC7-cS-LId" customClass="contactsCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="6" width="55" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1315,7 +1413,7 @@
         <!--Birthday Gender View Controller-->
         <scene sceneID="UlY-Wb-rfk">
             <objects>
-                <viewController id="NSK-oP-NoQ" customClass="BirthdayGenderViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NSK-oP-NoQ" customClass="BirthdayGenderViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XBK-8f-J6x"/>
                         <viewControllerLayoutGuide type="bottom" id="7k0-T5-pEc"/>
@@ -1411,7 +1509,7 @@
         <!--Home Aiport View Controller-->
         <scene sceneID="xew-fZ-6zb">
             <objects>
-                <viewController id="k0v-17-yTN" customClass="HomeAiportViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="k0v-17-yTN" customClass="HomeAiportViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="smJ-FN-NyA"/>
                         <viewControllerLayoutGuide type="bottom" id="m6J-Nh-4J4"/>
@@ -1500,7 +1598,7 @@
         <!--Calendar View Controller-->
         <scene sceneID="TPM-zz-v5V">
             <objects>
-                <viewController id="w3M-hs-AT7" customClass="CalendarViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="w3M-hs-AT7" customClass="CalendarViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DTU-9D-ofq"/>
                         <viewControllerLayoutGuide type="bottom" id="rPP-oZ-jY4"/>
@@ -1613,6 +1711,54 @@
                                     <action selector="multipleDestinationsValueChanged:" destination="w3M-hs-AT7" eventType="valueChanged" id="MK9-0F-XL8"/>
                                 </connections>
                             </segmentedControl>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tQB-yd-3WX">
+                                <rect key="frame" x="32" y="554" width="310" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6e4-oA-4K3">
+                                    <size key="itemSize" width="55" height="55"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="iZD-9d-dHe" customClass="contactsCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="6" width="55" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ewd-Ng-1pd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eqD-gq-Mo1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Initials" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMQ-z0-gx2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="initialsLabel" destination="AMQ-z0-gx2" id="Zt0-UE-Fph"/>
+                                            <outlet property="thumbnailImage" destination="Ewd-Ng-1pd" id="iEE-Tx-xzl"/>
+                                            <outlet property="thumbnailImageFilter" destination="eqD-gq-Mo1" id="DvM-CQ-Vxx"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="w3M-hs-AT7" id="Qu6-ra-tFY"/>
+                                    <outlet property="delegate" destination="w3M-hs-AT7" id="7pR-rU-4vG"/>
+                                </connections>
+                            </collectionView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Li-TN-pgG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1624,7 +1770,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timeOfDayPrototypeCell" rowHeight="28" id="RGZ-Eg-rQh" customClass="timeOfDayTableViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timeOfDayPrototypeCell" rowHeight="28" id="RGZ-Eg-rQh" customClass="timeOfDayTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="156" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RGZ-Eg-rQh" id="TYw-XQ-a7w">
@@ -1662,6 +1808,7 @@
                     </view>
                     <connections>
                         <outlet property="calendarView" destination="MUW-Fa-qCy" id="sda-3d-fk1"/>
+                        <outlet property="contactsCollectionView" destination="tQB-yd-3WX" id="trt-ld-6XZ"/>
                         <outlet property="multipleDestinations" destination="AR1-aZ-2il" id="bhy-pw-uj9"/>
                         <outlet property="multipleDestinationsQuestionLabel" destination="Nyc-jA-Mqk" id="O54-dy-JW5"/>
                         <outlet property="nextButton" destination="AOC-T8-a6Z" id="RjQ-zq-rSJ"/>
@@ -1677,7 +1824,7 @@
         <!--New Trip Name View Controller-->
         <scene sceneID="CQB-NJ-4kL">
             <objects>
-                <viewController id="E8d-J0-NPc" customClass="NewTripNameViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="E8d-J0-NPc" customClass="NewTripNameViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gsO-9M-73i"/>
                         <viewControllerLayoutGuide type="bottom" id="np9-fg-8ng"/>
@@ -1737,7 +1884,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactsPrototypeCell" rowHeight="55" id="yUp-LO-4ad" customClass="contactsTableViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactsPrototypeCell" rowHeight="55" id="yUp-LO-4ad" customClass="contactsTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="307" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yUp-LO-4ad" id="eOH-0e-IJw">
@@ -1872,7 +2019,7 @@
         <!--Ranking View Controller-->
         <scene sceneID="TXl-Qm-BJI">
             <objects>
-                <viewController id="6Nf-ZD-7fF" customClass="RankingViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6Nf-ZD-7fF" customClass="RankingViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="i7R-Wb-kQx"/>
                         <viewControllerLayoutGuide type="bottom" id="1SV-OV-f4p"/>
@@ -1942,7 +2089,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rankedRecommendationsPrototypeCell" rowHeight="62" id="AXU-Vc-GCD" customClass="rankedRecommendationsTableViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="rankedRecommendationsPrototypeCell" rowHeight="62" id="AXU-Vc-GCD" customClass="rankedRecommendationsTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AXU-Vc-GCD" id="Fu7-Ha-80Y">
@@ -2019,7 +2166,7 @@
         <!--Review And Book View Controller-->
         <scene sceneID="oXU-ux-Xys">
             <objects>
-                <viewController id="9Zf-or-QAX" customClass="ReviewAndBookViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9Zf-or-QAX" customClass="ReviewAndBookViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="z2y-dI-4q6"/>
                         <viewControllerLayoutGuide type="bottom" id="nC9-8J-Idg"/>
@@ -2066,7 +2213,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemizedItineraryPrototypeCell" rowHeight="72" id="yrW-iH-10A" customClass="itemizedItineraryTableViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="itemizedItineraryPrototypeCell" rowHeight="72" id="yrW-iH-10A" customClass="itemizedItineraryTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yrW-iH-10A" id="ghm-85-Goq">
@@ -2269,7 +2416,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="Ei8-Eq-EXT" customClass="contactsCollectionViewCell" customModule="PLANiT" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="contactsCollectionPrototypeCell" id="Ei8-Eq-EXT" customClass="contactsCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="6" width="55" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2380,12 +2527,12 @@
                     <color key="backgroundColor" red="0.4292314404" green="0.4292314404" blue="0.4292314404" alpha="0.89910637839999996" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="5626" y="893"/>
+            <point key="canvasLocation" x="5624.8000000000002" y="892.80359820089961"/>
         </scene>
         <!--Instructions For User View Controller-->
         <scene sceneID="eE3-wU-7an">
             <objects>
-                <viewController id="PN2-44-dsi" customClass="InstructionsForUserViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="PN2-44-dsi" customClass="InstructionsForUserViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ruo-nH-cZG"/>
                         <viewControllerLayoutGuide type="bottom" id="J9J-S5-8PJ"/>
@@ -2512,7 +2659,7 @@
         <!--International View Controller-->
         <scene sceneID="TbJ-wI-VFb">
             <objects>
-                <viewController id="ATa-9t-GkH" customClass="InternationalViewController" customModule="PLANiT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ATa-9t-GkH" customClass="InternationalViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dZo-Il-4kx"/>
                         <viewControllerLayoutGuide type="bottom" id="91N-Dk-Al0"/>
@@ -2608,14 +2755,14 @@
         <image name="settings" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UX9-1a-IWl"/>
         <segue reference="sJC-Be-52K"/>
+        <segue reference="0F0-uh-Iex"/>
         <segue reference="4yB-mO-ROs"/>
         <segue reference="YhE-0L-EX8"/>
-        <segue reference="9ZB-Ko-LdT"/>
-        <segue reference="Gka-xA-O4p"/>
-        <segue reference="EEv-3e-wvn"/>
-        <segue reference="bs2-LI-qHj"/>
+        <segue reference="sXz-uo-3nl"/>
+        <segue reference="tx3-5T-LG7"/>
+        <segue reference="jUF-36-ylm"/>
+        <segue reference="cWA-9L-HdA"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
