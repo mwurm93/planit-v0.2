@@ -16,6 +16,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     fileprivate var menuArray: NSMutableArray?
     let picker = CNContactPickerViewController()
     var objects: [CNContact]?
+    var objectIDs = [String]()
     let sliderStep: Float = 1
 
 // MARK: Outlets
@@ -136,51 +137,60 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     //Show Contact Picker
     fileprivate  func showContactsPicker() {
         picker.delegate = self
+        picker.predicateForEnablingContact = NSPredicate(format:"not (identifier in %@)", objectIDs)
         self.present(picker , animated: true, completion: nil)
     }
     
-    func retrieveContactsWithStore(store: CNContactStore) {
-        do {
-           // let groups = try store.groups(matching: nil)
-            //let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
-            let predicate = CNContact.predicateForContacts(matchingName: "John")
-            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
-            let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-            self.objects = contacts
-            DispatchQueue.main.async (execute: { () -> Void in
-                self.groupMemberListTable.reloadData()
-            })
-        } catch {
-            print(error)
-        }
-    }
+//    func retrieveContactsWithStore(store: CNContactStore) {
+//        do {
+//           // let groups = try store.groups(matching: nil)
+//            //let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
+//            let predicate = CNContact.predicateForContacts(matchingName: "John")
+//            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
+//            let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+//            self.objects = contacts
+//            DispatchQueue.main.async (execute: { () -> Void in
+//                self.groupMemberListTable.reloadData()
+//            })
+//        } catch {
+//            print(error)
+//        }
+//    }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
         let numberContactsToInsert = contacts.count
+        
         if numberContactsToInsert > 0 {
         if objects != nil {
+            for contact in contacts {
+                objects?.append(contact)
+                objectIDs.append(contact.identifier)
+            }
             let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
             var indexPathsForRowsToBeAdded = [IndexPath]()
             
             for index in numberContactsInTable ... numberContactsInTable + numberContactsToInsert - 1 {
-                for contact in contacts {
-                    objects?.append(contact)
-                }
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathsForRowsToBeAdded.append(indexPath)
+                
             }
             groupMemberListTable.beginUpdates()
+            
             groupMemberListTable.insertRows(at: indexPathsForRowsToBeAdded, with: .left)
+            
             groupMemberListTable.reloadData()
+            
             groupMemberListTable.endUpdates()
+            
         }
         if objects == nil {
         let numberContactsInTable = 0
+        objects = contacts
             let numberContactsToInsert = contacts.count
             var indexPathsForRowsToBeAdded = [IndexPath]()
             for index in numberContactsInTable ... numberContactsInTable + numberContactsToInsert - 1 {
                 for contact in contacts {
-                objects = contacts
+                    objectIDs.append(contact.identifier)
                 }
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathsForRowsToBeAdded.append(indexPath)
