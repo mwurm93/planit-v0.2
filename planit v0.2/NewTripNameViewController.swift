@@ -102,7 +102,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         if objects != nil {
             let contacts = objects as! [CNContact]
             for contact in contacts {
-                objectIDs.append(contact.identifier)
+                objectIDs.append(contact.identifier as NSString)
             }
         }
     }
@@ -143,7 +143,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     //Show Contact Picker
     fileprivate  func showContactsPicker() {
         picker.delegate = self
-        picker.predicateForEnablingContact = NSPredicate(format:"not (identifier in %@)", objectIDs)
+        picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
+        picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs)
+        picker.predicateForSelectionOfContact = NSPredicate(format:"phoneNumbers.@count == 1")
         self.present(picker , animated: true, completion: nil)
     }
     
@@ -162,16 +164,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 //            print(error)
 //        }
 //    }
-    
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contacts: [CNContact]) {
-        let numberContactsToInsert = contacts.count
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
+        //
+    }
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        let numberContactsToInsert = 1
+        //let numberContactsToInsert = contacts.count
         
         if numberContactsToInsert > 0 {
         if objects != nil {
             
-            for contact in contacts {
+            for contact in contact {
                 objects?.append(contact as NSObject)
-                objectIDs.append(contact.identifier)
+                objectIDs.append(contact.identifier as NSString)
             }
             let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
             var indexPathsForRowsToBeAdded = [IndexPath]()
@@ -194,7 +199,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             var indexPathsForRowsToBeAdded = [IndexPath]()
             for index in numberContactsInTable ... numberContactsInTable + numberContactsToInsert - 1 {
                 for contact in contacts {
-                    objectIDs.append(contact.identifier)
+                    objectIDs.append(contact.identifier as NSString)
                 }
                 let indexPath = IndexPath(row: index, section: 0)
                 indexPathsForRowsToBeAdded.append(indexPath)
