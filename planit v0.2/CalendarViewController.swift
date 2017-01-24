@@ -34,12 +34,12 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     var rightDates = [Date]()
     var fullDates = [Date]()
     var lengthOfAvailabilitySegmentsArray = [Int]()
-    var leftDateTimeArrays = [Date:String]()
-    var rightDateTimeArrays = [Date:String]()
-    var mostRecentSelectedCellDate = Date()
+    var leftDateTimeArrays = [NSDate:NSString]()
+    var rightDateTimeArrays = [NSDate:NSString]()
+    var mostRecentSelectedCellDate = NSDate()
     
     //Load the values from our shared data container singleton: Multiple Destination Picker
-    var multipleDestinationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? String
+    var multipleDestinationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? NSString
     
     // Variable for asking question regarding multiple destinations
     var minimumConsecutiveDaysForMultipleDestinations = 5
@@ -159,9 +159,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             let cell = timeOfDayTableView.cellForRow(at: indexPath) as! timeOfDayTableViewCell
             availableTimeOfDayInCell.append(cell.timeOfDayTableLabel.text!)
         }
-        let timeOfDayToAddToArray = availableTimeOfDayInCell.joined(separator: ", ")
+        let timeOfDayToAddToArray = availableTimeOfDayInCell.joined(separator: ", ") as NSString
 
-        let cell = calendarView.cellStatus(for: mostRecentSelectedCellDate)
+        let cell = calendarView.cellStatus(for: mostRecentSelectedCellDate as Date)
         if cell?.selectedPosition() == .full {
                 leftDateTimeArrays[mostRecentSelectedCellDate] = timeOfDayToAddToArray
         }
@@ -172,12 +172,12 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? NSNumber
         let lengthOfAvailabilitySegmentsArray = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [NSNumber]
         
-        let updatedTripToBeSaved = ["trip_name": tripNameValue!, "multiple_destinations": multipleDestinationsValue ?? "", "selected_dates": selectedDates, "contacts_in_group": contacts,"hotel_rooms": hotelRoomsValue!, "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
+        let updatedTripToBeSaved = ["trip_name": tripNameValue!, "multiple_destinations": multipleDestinationsValue ?? "", "selected_dates": selectedDates ?? [NSDate](), "contacts_in_group": contacts ?? [NSString](),"hotel_rooms": hotelRoomsValue!, "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray ?? [NSNumber](), "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
@@ -194,14 +194,14 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? NSNumber
         let lengthOfAvailabilitySegmentsArray = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [NSNumber]
         let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
         let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
 
-        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestinationsValue, "selected_dates": selectedDates, "contacts_in_group": contacts,"hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
+        let updatedTripToBeSaved = ["trip_name": tripNameValue ?? NSString(), "multiple_destinations": multipleDestinationsValue ?? NSString(), "selected_dates": selectedDates, "contacts_in_group": contacts,"hotel_rooms": hotelRoomsValue ?? NSNumber(), "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray ?? [NSNumber](), "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
@@ -490,13 +490,13 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         let multipleDestionationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? NSString
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? NSNumber
         let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
         let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
         
-        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "selected_dates": selectedDates, "contacts_in_group": contacts, "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray, "hotel_rooms": hotelRoomsValue, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
+//        let updatedTripToBeSaved = ["trip_name": tripNameValue ?? NSString(), "multiple_destinations": multipleDestionationsValue ?? NSString(), "selected_dates": selectedDates, "contacts_in_group": contacts ?? [NSString](), "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray, "hotel_rooms": hotelRoomsValue ?? NSNumber(), "origin_departure_times": leftDateTimeArrays ?? [NSDictionary](), "return_departure_times": rightDateTimeArrays ?? [NSDictionary]()] as NSDictionary
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         
@@ -505,7 +505,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
             nextButton.isUserInteractionEnabled = true
         }
         
-        mostRecentSelectedCellDate = date
+        mostRecentSelectedCellDate = date as NSDate
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
@@ -527,13 +527,13 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         let multipleDestionationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? NSString
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? NSNumber
         let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
         let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
         
-        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "selected_dates": selectedDates, "contacts_in_group": contacts, "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray,"hotel_rooms": hotelRoomsValue, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
+//        let updatedTripToBeSaved = ["trip_name": tripNameValue ?? NSString(), "multiple_destinations": multipleDestionationsValue ?? NSString(), "selected_dates": selectedDates, "contacts_in_group": contacts ?? [NSString](), "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray ?? NSNumber(),"hotel_rooms": hotelRoomsValue ?? NSNumber(), "origin_departure_times": leftDateTimeArrays ?? [NSDictionary](), "return_departure_times": rightDateTimeArrays ?? [NSDictionary]()] as NSDictionary
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         
