@@ -16,7 +16,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     fileprivate var menuArray: NSMutableArray?
     let picker = CNContactPickerViewController()
     var objects: [NSObject]?
-    var objectIDs = [String]()
+    var objectIDs = [NSString]()
     let sliderStep: Float = 1
 
 // MARK: Outlets
