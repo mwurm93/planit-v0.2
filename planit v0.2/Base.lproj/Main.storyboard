@@ -1310,7 +1310,6 @@
                                         <constraints>
                                             <constraint firstItem="XZL-r5-Xra" firstAttribute="leading" secondItem="0rY-5Q-cFu" secondAttribute="leading" id="4GZ-lU-lty"/>
                                             <constraint firstAttribute="trailing" secondItem="5Yn-q7-ZzW" secondAttribute="trailing" constant="6" id="5t5-SC-dv0"/>
-                                            <constraint firstItem="XZL-r5-Xra" firstAttribute="top" secondItem="5Yn-q7-ZzW" secondAttribute="bottom" constant="4" id="BVR-EO-ziM"/>
                                             <constraint firstItem="5Yn-q7-ZzW" firstAttribute="leading" secondItem="0rY-5Q-cFu" secondAttribute="leading" constant="6" id="Dy4-8P-f5L"/>
                                             <constraint firstAttribute="trailing" secondItem="XZL-r5-Xra" secondAttribute="trailing" id="Ord-3Z-yOs"/>
                                             <constraint firstItem="XZL-r5-Xra" firstAttribute="top" secondItem="5Yn-q7-ZzW" secondAttribute="bottom" constant="2" id="Qrc-AM-ByC"/>
@@ -1807,7 +1806,7 @@
                                         <rect key="frame" x="0.0" y="28" width="156" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RGZ-Eg-rQh" id="TYw-XQ-a7w">
-                                            <rect key="frame" x="0.0" y="0.0" width="156" height="27"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="27.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Early morning (12am-5am)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3O-aE-HpQ">
@@ -2790,14 +2789,14 @@
         <image name="settings" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="9ZB-Ko-LdT"/>
         <segue reference="YhE-0L-EX8"/>
         <segue reference="4yB-mO-ROs"/>
         <segue reference="UX9-1a-IWl"/>
         <segue reference="sJC-Be-52K"/>
-        <segue reference="sXz-uo-3nl"/>
+        <segue reference="bs2-LI-qHj"/>
         <segue reference="tx3-5T-LG7"/>
         <segue reference="lra-AY-k3U"/>
-        <segue reference="9ZB-Ko-LdT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
