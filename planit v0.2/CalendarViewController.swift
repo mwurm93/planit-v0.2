@@ -78,9 +78,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         calendarView.direction = .horizontal
         
         // Load Calendar dates and install
-        let selectedDatesValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
+        let selectedDatesValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         if selectedDatesValue != nil {
-            self.calendarView.selectDates(selectedDatesValue!,triggerSelectionDelegate: false)
+            self.calendarView.selectDates(selectedDatesValue! as [Date],triggerSelectionDelegate: false)
             nextButton.isHidden = false
             nextButton.isUserInteractionEnabled = true
         }
@@ -163,7 +163,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
         let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
+        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
         let lengthOfAvailabilitySegmentsArray = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [Int]
         
@@ -185,7 +185,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
         let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
+        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
         let lengthOfAvailabilitySegmentsArray = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [Int]
         let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
@@ -227,6 +227,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (contact?.imageDataAvailable)! {
             contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
+            contactsCell.thumbnailImage.layer.cornerRadius = contactsCell.thumbnailImage.frame.height / 2
             contactsCell.initialsLabel.isHidden = true
             contactsCell.thumbnailImageFilter.isHidden = false
             contactsCell.thumbnailImageFilter.image = UIImage(named: "no_contact_image")!
@@ -297,9 +298,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
             calendarView.deselectAllDates(triggerSelectionDelegate: false)
-            let selectedDatesValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
+            let selectedDatesValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
             if selectedDatesValue != nil {
-                self.calendarView.selectDates(selectedDatesValue!,triggerSelectionDelegate: false)
+                self.calendarView.selectDates(selectedDatesValue! as [Date],triggerSelectionDelegate: false)
             }
         }
     }
@@ -455,7 +456,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         handleSelection(cell: cell, cellState: cellState)
         
         // Create array of selected dates
-        let selectedDates = calendarView.selectedDates
+        let selectedDates = calendarView.selectedDates as [NSDate]
         
         getLengthOfSelectedAvailabilities()
         
@@ -492,7 +493,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         }
 
         // Create array of selected dates
-        let selectedDates = calendarView.selectedDates
+        let selectedDates = calendarView.selectedDates as [NSDate]
         
         getLengthOfSelectedAvailabilities()
         
@@ -518,24 +519,24 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
     
     // MARK custom func to get length of selected availability segments
     func getLengthOfSelectedAvailabilities() {
-        let selectedDates = calendarView.selectedDates
+        let selectedDates = calendarView.selectedDates as [NSDate]
         leftDates = []
         rightDates = []
         fullDates = []
         lengthOfAvailabilitySegmentsArray = []
         for date in selectedDates {
-            if calendarView.cellStatus(for: date)?.selectedPosition() == .left {
-                leftDates.append(date)
+            if calendarView.cellStatus(for: date as Date)?.selectedPosition() == .left {
+                leftDates.append(date as Date)
             }
         }
         for date in selectedDates {
-            if calendarView.cellStatus(for: date)?.selectedPosition() == .right {
-                rightDates.append(date)
+            if calendarView.cellStatus(for: date as Date)?.selectedPosition() == .right {
+                rightDates.append(date as Date)
             }
         }
         for date in selectedDates {
-            if calendarView.cellStatus(for: date)?.selectedPosition() == .full {
-                fullDates.append(date)
+            if calendarView.cellStatus(for: date as Date)?.selectedPosition() == .full {
+                fullDates.append(date as Date)
             }
         }
         if rightDates != [] {

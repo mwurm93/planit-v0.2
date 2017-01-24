@@ -23,6 +23,20 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @IBOutlet weak var roundTripTicketField: UITextField!
     @IBOutlet weak var nightlyRatePerRoomField: UITextField!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
+    @IBOutlet weak var expandCollapseButton: UIButton!
+    @IBOutlet weak var flightLabel: UILabel!
+    @IBOutlet weak var roundTripFareLabel: UILabel!
+    @IBOutlet weak var HotelLabel: UILabel!
+    @IBOutlet weak var NightlyRatePerRoomLabel: UILabel!
+    @IBOutlet weak var dollarSignLabel: UILabel!
+    @IBOutlet weak var dollarSignLabel_1: UILabel!
+    @IBOutlet weak var NightsLabel: UILabel!
+    @IBOutlet weak var splitWithLabel: UILabel!
+    @IBOutlet weak var total: UILabel!
+    @IBOutlet weak var useThisButton: UIButton!
+    @IBOutlet weak var nightsIcon: UIImageView!
+    @IBOutlet weak var peopleIcon: UIImageView!
+    @IBOutlet weak var hotelTotalDescLabel: UILabel!
     
     var budgetValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "budget") as? String
     let segmentLengthValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [Int]
@@ -34,6 +48,27 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.budget.delegate = self
+        
+        expandCollapseButton.imageView?.image = #imageLiteral(resourceName: "expand")
+        flightLabel.alpha = 0
+        roundTripFareLabel.alpha = 0
+        dollarSignLabel.alpha = 0
+        dollarSignLabel_1.alpha = 0
+        roundTripTicketField.alpha = 0
+        HotelLabel.alpha = 0
+        hotelTotalLabel.alpha = 0
+        nightlyRatePerRoomField.alpha = 0
+        NightlyRatePerRoomLabel.alpha = 0
+        nightsTextField.alpha = 0
+        nightsIcon.alpha = 0
+        peopleIcon.alpha = 0
+        useThisButton.alpha = 0
+        total.alpha = 0
+        totalLabel.alpha = 0
+        splitWithLabel.alpha = 0
+        splitByTextField.alpha = 0
+        NightsLabel.alpha = 0
+        hotelTotalDescLabel.alpha = 0
         
         // Set appearance of textfield
         budget.layer.cornerRadius = 5
@@ -131,6 +166,10 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
     // Hide the keyboard.
     budget.resignFirstResponder()
+    roundTripTicketField.resignFirstResponder()
+    nightlyRatePerRoomField.resignFirstResponder()
+    nightsTextField.resignFirstResponder()
+    splitByTextField.resignFirstResponder()
     return true
     }
     
@@ -150,7 +189,7 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         let travelingInternationalValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "traveling_international") as? String
         let suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? String
         let suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? String
-        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
+        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
         let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
         let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
         let segmentLengthValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [Int]
@@ -277,7 +316,6 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     }
 
     
-// If budget field is changed, updated and save trip array
     @IBAction func budgetEditingChanged(_ sender: Any) {
         saveBudget()
 //        if budgetValue != nil {
@@ -324,5 +362,57 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @IBAction func expectedNightlyRateEditingChanged(_ sender: Any) {
         saveBudget()
     }
-    
+    @IBAction func expandCollapseButtonPressed(_ sender: Any) {
+        if expandCollapseButton.imageView?.image == #imageLiteral(resourceName: "expand") {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.flightLabel.alpha = 1
+                self.roundTripFareLabel.alpha = 1
+                self.dollarSignLabel.alpha = 1
+                self.dollarSignLabel_1.alpha = 1
+                self.roundTripTicketField.alpha = 1
+                self.HotelLabel.alpha = 1
+                self.hotelTotalLabel.alpha = 1
+                self.nightlyRatePerRoomField.alpha = 1
+                self.NightlyRatePerRoomLabel.alpha = 1
+                self.nightsTextField.alpha = 1
+                self.nightsIcon.alpha = 1
+                self.peopleIcon.alpha = 1
+                self.useThisButton.alpha = 1
+                self.total.alpha = 1
+                self.totalLabel.alpha = 1
+                self.splitWithLabel.alpha = 1
+                self.splitByTextField.alpha = 1
+                self.NightsLabel.alpha = 1
+                self.hotelTotalDescLabel.alpha = 1
+                self.expandCollapseButton.setImage(#imageLiteral(resourceName: "collapse"), for: UIControlState.normal)
+            }, completion: nil)
+
+            return
+        }
+        
+        if expandCollapseButton.imageView?.image == #imageLiteral(resourceName: "collapse") {
+            UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
+                self.flightLabel.alpha = 0
+                self.roundTripFareLabel.alpha = 0
+                self.dollarSignLabel.alpha = 0
+                self.dollarSignLabel_1.alpha = 0
+                self.roundTripTicketField.alpha = 0
+                self.HotelLabel.alpha = 0
+                self.hotelTotalLabel.alpha = 0
+                self.nightlyRatePerRoomField.alpha = 0
+                self.NightlyRatePerRoomLabel.alpha = 0
+                self.nightsTextField.alpha = 0
+                self.nightsIcon.alpha = 0
+                self.peopleIcon.alpha = 0
+                self.useThisButton.alpha = 0
+                self.total.alpha = 0
+                self.totalLabel.alpha = 0
+                self.splitWithLabel.alpha = 0
+                self.splitByTextField.alpha = 0
+                self.NightsLabel.alpha = 0
+                self.hotelTotalDescLabel.alpha = 0
+                self.expandCollapseButton.setImage(#imageLiteral(resourceName: "expand"), for: UIControlState.normal)
+            }, completion: nil)
+        }
+    }
 }

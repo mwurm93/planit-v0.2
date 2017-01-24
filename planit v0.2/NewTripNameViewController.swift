@@ -36,9 +36,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         addressBookStore = CNContactStore()
         
-        // Set appearance of Table
-        groupMemberListTable.layer.cornerRadius = 5
-        
         // Set appearance of textfield
         newTripNameTextField.layer.borderWidth = 1
         newTripNameTextField.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
@@ -78,6 +75,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 numberHotelRoomsLabel.alpha = 1
                 numberHotelRoomsControl.alpha = 1
                 numberHotelRoomsStack.alpha = 1
+                
             }
         }
         
@@ -99,6 +97,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        objects = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
+        objectIDs = []
+        if objects != nil {
+            for contact in objects! {
+                objectIDs.append(contact.identifier)
+            }
+        }
     }
     
     fileprivate func checkContactsAccess() {
@@ -175,11 +180,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 
             }
             groupMemberListTable.beginUpdates()
-            
             groupMemberListTable.insertRows(at: indexPathsForRowsToBeAdded, with: .left)
-            
             groupMemberListTable.reloadData()
-            
             groupMemberListTable.endUpdates()
             
         }
@@ -292,6 +294,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         if (contact?.imageDataAvailable)! {
             cell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
+            cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.frame.height / 2
             cell.initialsLabel.isHidden = true
         } else{
             cell.thumbnailImage.image = UIImage(named: "no_contact_image")!
@@ -303,6 +306,44 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         return (cell)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            objects?.remove(at: indexPath.row)
+            objectIDs.remove(at: indexPath.row)
+            groupMemberListTable.deleteRows(at: [indexPath], with: .fade)
+            
+            //update hotel room slider
+            var roundedValue = Float()
+            if objects != nil {
+                roundedValue = roundf(Float((objects?.count)! + 1)/2)
+                if roundedValue > 4 {
+                    roundedValue = 4
+                }
+                if roundedValue < 1 {
+                    roundedValue = 1
+                }
+                numberHotelRoomsControl.setValue(roundedValue, animated: true)
+            }
+            
+            //Save
+            var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+            let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
+            let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
+            let updatedTripToBeSaved = ["trip_name": tripNameValue, "contacts_in_group": objects, "hotel_rooms": roundedValue] as [String : Any]
+            existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
+
     //MARK: Actions
     @IBAction func addContactToTrip(_ sender: Any) {
         checkContactsAccess()

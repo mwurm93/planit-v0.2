@@ -8,6 +8,7 @@
 
 import UIKit
 import Koloda
+import MessageUI
 
 private var numberOfCards: Int = 5
 
@@ -19,7 +20,9 @@ class RecommendationSwipingViewController: UIViewController {
     @IBOutlet weak var rejectIcon: UIButton!
     @IBOutlet weak var kolodaView: KolodaView!
     @IBOutlet weak var ranOutOfSwipesLabel: UILabel!
+    @IBOutlet weak var chatButton: UIButton!
     
+    let messageComposer = MessageComposer()
     
     fileprivate var dataSource: [UIImage] = {
         var array: [UIImage] = []
@@ -34,6 +37,12 @@ class RecommendationSwipingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //add shadow to button
+        chatButton.layer.shadowColor = UIColor.black.cgColor
+        chatButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        chatButton.layer.shadowRadius = 2
+        chatButton.layer.shadowOpacity = 0.5
+        
         //Set Koloda delegate and View Controller
         kolodaView.dataSource = self
         kolodaView.delegate = self
@@ -51,8 +60,26 @@ class RecommendationSwipingViewController: UIViewController {
         }
     }
     
+    @IBAction func chatButtonPressed(_ sender: Any) {
+        // Make sure the device can send text messages
+        if (messageComposer.canSendText()) {
+            // Obtain a configured MFMessageComposeViewController
+            let messageComposeVC = messageComposer.configuredMessageComposeViewController()
+            
+            // Present the configured MFMessageComposeViewController instance
+            present(messageComposeVC, animated: true, completion: nil)
+        } else {
+            // Let the user know if his/her device isn't able to send text messages
+            let errorAlert = UIAlertController(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.destructive) {
+                (result : UIAlertAction) -> Void in
+            }
+        
+        errorAlert.addAction(cancelAction)
+        self.present(errorAlert, animated: true, completion: nil)
+        }
+    }
     
-    // didReceiveMemoryWarning
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
