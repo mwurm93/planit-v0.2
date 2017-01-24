@@ -16,7 +16,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     fileprivate var menuArray: NSMutableArray?
     let picker = CNContactPickerViewController()
     var objects: [NSObject]?
-    var objectIDs = [NSString]()
+    var objectIDs: [NSString]?
+    var objectPhoneNumbers: [NSString]?
     let sliderStep: Float = 1
 
 // MARK: Outlets
@@ -60,13 +61,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         else {
             tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-            objects = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
-            let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
+            retrieveContactsWithStore(store: addressBookStore)
             
+            let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
             if hotelRoomsValue != nil {
                 numberHotelRoomsControl.setValue(hotelRoomsValue!, animated: false)
             }
-
             if objects == nil {
                 numberHotelRoomsLabel.alpha = 0
                 numberHotelRoomsControl.alpha = 0
@@ -75,7 +75,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 numberHotelRoomsLabel.alpha = 1
                 numberHotelRoomsControl.alpha = 1
                 numberHotelRoomsStack.alpha = 1
-                
             }
         }
         
@@ -97,14 +96,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        objects = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
-        objectIDs = []
-        if objects != nil {
-            let contacts = objects as! [CNContact]
-            for contact in contacts {
-                objectIDs.append(contact.identifier as NSString)
-            }
-        }
     }
     
     fileprivate func checkContactsAccess() {
@@ -127,10 +118,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     fileprivate func requestContactsAccess() {
-        
         addressBookStore.requestAccess(for: .contacts) {granted, error in
-        //addressBookStore.requestAccess(for: .contacts) {granted, error in
-            
             if granted {
                 DispatchQueue.main.async {
                     self.showContactsPicker()
@@ -144,71 +132,51 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     fileprivate  func showContactsPicker() {
         picker.delegate = self
         picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
-        picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs)
+        objectIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as! [NSString]?
+        if objectIDs != nil {
+        picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs!)
+        }
         picker.predicateForSelectionOfContact = NSPredicate(format:"phoneNumbers.@count == 1")
         self.present(picker , animated: true, completion: nil)
     }
     
-//    func retrieveContactsWithStore(store: CNContactStore) {
-//        do {
-//           // let groups = try store.groups(matching: nil)
-//            //let predicate = CNContact.predicateForContactsInGroup(withIdentifier: groups[0].identifier)
-//            let predicate = CNContact.predicateForContacts(matchingName: "John")
-//            let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactEmailAddressesKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
-//            let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-//            self.objects = contacts
-//            DispatchQueue.main.async (execute: { () -> Void in
-//                self.groupMemberListTable.reloadData()
-//            })
-//        } catch {
-//            print(error)
-//        }
-//    }
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
-        //
+    func retrieveContactsWithStore(store: CNContactStore) {
+        objectIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as! [NSString]?
+        do {
+            if objectIDs != nil {
+                let predicate = CNContact.predicateForContacts(withIdentifiers: objectIDs as! [String])
+                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
+                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                self.objects = contacts
+            } else {
+                self.objects = nil
+            }
+            DispatchQueue.main.async (execute: { () -> Void in
+                self.groupMemberListTable.reloadData()
+            })
+        } catch {
+            print(error)
+        }
     }
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-        let numberContactsToInsert = 1
-        //let numberContactsToInsert = contacts.count
-        
-        if numberContactsToInsert > 0 {
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
+        groupMemberListTable.beginUpdates()
         if objects != nil {
-            
-            for contact in contact {
-                objects?.append(contact as NSObject)
-                objectIDs.append(contact.identifier as NSString)
-            }
+            objects?.append(contactProperty.contact as NSObject)
+            objectIDs?.append(contactProperty.contact.identifier as NSString)
+            objectPhoneNumbers?.append(contactProperty.value(forKey: "digits") as! NSString)
             let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
-            var indexPathsForRowsToBeAdded = [IndexPath]()
-            
-            for index in numberContactsInTable ... numberContactsInTable + numberContactsToInsert - 1 {
-                let indexPath = IndexPath(row: index, section: 0)
-                indexPathsForRowsToBeAdded.append(indexPath)
-                
-            }
-            groupMemberListTable.beginUpdates()
-            groupMemberListTable.insertRows(at: indexPathsForRowsToBeAdded, with: .left)
-            groupMemberListTable.reloadData()
-            groupMemberListTable.endUpdates()
-            
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
         }
-        if objects == nil {
-        let numberContactsInTable = 0
-        objects = contacts
-            let numberContactsToInsert = contacts.count
-            var indexPathsForRowsToBeAdded = [IndexPath]()
-            for index in numberContactsInTable ... numberContactsInTable + numberContactsToInsert - 1 {
-                for contact in contacts {
-                    objectIDs.append(contact.identifier as NSString)
-                }
-                let indexPath = IndexPath(row: index, section: 0)
-                indexPathsForRowsToBeAdded.append(indexPath)
-            }
-            groupMemberListTable.beginUpdates()
-            groupMemberListTable.insertRows(at: indexPathsForRowsToBeAdded, with: .left)
-            groupMemberListTable.reloadData()
-            groupMemberListTable.endUpdates()
+        else {
+            objects = [contactProperty.contact as NSObject]
+            objectIDs?.append(contactProperty.contact.identifier as NSString)
+            objectPhoneNumbers?.append(contactProperty.value(forKey: "digits") as! NSString)
+            let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
         }
+        groupMemberListTable.reloadData()
+        groupMemberListTable.endUpdates()
         
         // Save trip name and contacts
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
@@ -223,20 +191,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         if existing_trips == nil {
-            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objects!] as NSDictionary
+            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             let user_trip = [newTrip]
             DataContainerSingleton.sharedDataContainer.usertrippreferences = user_trip as [NSDictionary]?
         }
         else if currentTripIndex <= numberSavedTrips!   {
-            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objects!] as NSDictionary
+            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         }
         else {
-            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objects!] as NSDictionary
+            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?.append(newTripToBeAppended as NSDictionary)
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
-        }
         }
         // activate hotels room
         if objects != nil {
@@ -256,8 +223,85 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
             let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
             let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
-            let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber] as NSDictionary
+            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+            let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber, "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
+            existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+            
+        }
+        if objects == nil {
+            numberHotelRoomsLabel.alpha = 0
+            numberHotelRoomsControl.alpha = 0
+            numberHotelRoomsStack.alpha = 0
+        }
+    }
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        groupMemberListTable.beginUpdates()
+        if objects != nil {
+            objects?.append(contact as NSObject)
+            objectIDs?.append(contact.identifier as NSString)
+            objectPhoneNumbers?.append(contact.phoneNumbers[0].value(forKey: "digits") as! NSString)
+            let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
+        }
+        else {
+            objects = [contact as NSObject]
+            objectIDs?.append(contact.identifier as NSString)
+            objectPhoneNumbers?.append(contact.phoneNumbers[0].value(forKey: "digits") as! NSString)
+            let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
+        }
+        groupMemberListTable.reloadData()
+        groupMemberListTable.endUpdates()
+        
+        // Save trip name and contacts
+        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
+        var numberSavedTrips: Int?
+        if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil {
+            numberSavedTrips = 0
+        }
+        else {
+            let SavedTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+            numberSavedTrips = (SavedTrips?.count)! - 1
+        }
+        
+        if existing_trips == nil {
+            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
+            let user_trip = [newTrip]
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = user_trip as [NSDictionary]?
+        }
+        else if currentTripIndex <= numberSavedTrips!   {
+            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
+            existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+        }
+        else {
+            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
+            existing_trips?.append(newTripToBeAppended as NSDictionary)
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+        }
+        // activate hotels room
+        if objects != nil {
+            numberHotelRoomsLabel.alpha = 1
+            numberHotelRoomsControl.alpha = 1
+            numberHotelRoomsStack.alpha = 1
+            
+            var roundedValue = roundf(Float((objects?.count)! + 1)/2)
+            if roundedValue > 4 {
+                roundedValue = 4
+            }
+            if roundedValue < 1 {
+                roundedValue = 1
+            }
+            numberHotelRoomsControl.setValue(roundedValue, animated: false)
+            //Save
+            var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+            let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
+            let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
+            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+            let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber, "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
 
@@ -302,7 +346,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         if (contact?.imageDataAvailable)! {
             cell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
+            cell.thumbnailImage.contentMode = .scaleToFill
+            let reCenter = cell.thumbnailImage.center
+            cell.thumbnailImage.layer.frame = CGRect(x: cell.thumbnailImage.layer.frame.minX
+                , y: cell.thumbnailImage.layer.frame.minY, width: cell.thumbnailImage.layer.frame.width * 0.96, height: cell.thumbnailImage.layer.frame.height * 0.96)
+            cell.thumbnailImage.center = reCenter
             cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.frame.height / 2
+            cell.thumbnailImage.layer.masksToBounds = true
             cell.initialsLabel.isHidden = true
         } else{
             cell.thumbnailImage.image = UIImage(named: "no_contact_image")!
@@ -321,7 +371,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             objects?.remove(at: indexPath.row)
-            objectIDs.remove(at: indexPath.row)
+            objectIDs?.remove(at: indexPath.row)
+            objectPhoneNumbers?.remove(at: indexPath.row)
             groupMemberListTable.deleteRows(at: [indexPath], with: .fade)
             
             //update hotel room slider
@@ -341,7 +392,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
             let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
             let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-            let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": objects!, "hotel_rooms": roundedValue as NSNumber] as NSDictionary
+            let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": objectIDs ?? [NSString](), "hotel_rooms": roundedValue as NSNumber, "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
 
@@ -370,17 +421,17 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         if existing_trips == nil {
-            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objects ?? [NSObject]()] as NSDictionary
+            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             let user_trip = [newTrip]
             DataContainerSingleton.sharedDataContainer.usertrippreferences = user_trip as [NSDictionary]?
         }
         else if currentTripIndex <= numberSavedTrips!   {
-            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objects ?? [NSObject]()] as NSDictionary
+            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         }
         else {
-            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objects ?? [NSObject]()] as NSDictionary
+            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
             existing_trips?.append(newTripToBeAppended as NSDictionary)
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         }
@@ -405,8 +456,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSObject]
-        let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber] as NSDictionary
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+
+        let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber, "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
         existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }

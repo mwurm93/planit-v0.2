@@ -24,6 +24,12 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     var firstDate: Date?
     let timesOfDayArray = ["Early morning (12am-5am)","Morning (5am-11am)","Midday (11pm-5pm)","Night (5pm-12am)","Anytime"]
+    
+    // Set up vars for Contacts - COPY
+    var contacts: [CNContact]?
+    var contactIDs: [NSString]?
+    fileprivate var addressBookStore: CNContactStore!
+    
     var leftDates = [Date]()
     var rightDates = [Date]()
     var fullDates = [Date]()
@@ -41,6 +47,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
        override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialize address book - COPY
+        addressBookStore = CNContactStore()
+
+        // Set up tap outside time of day table
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
         tap.numberOfTapsRequired = 1
         tap.delegate = self
@@ -206,32 +216,53 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     
     ///////////////////////////////////COLLECTION VIEW/////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
-    
+    // Fetch Contacts
+    func retrieveContactsWithStore(store: CNContactStore) {
+        contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        do {
+            if contactIDs != nil {
+                let predicate = CNContact.predicateForContacts(withIdentifiers: contactIDs as! [String])
+                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
+                contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+            } else {
+                contacts = nil
+            }
+            DispatchQueue.main.async (execute: { () -> Void in
+            })
+        } catch {
+            print(error)
+        }
+    }
+
     // MARK: - UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-        if contacts != nil {
-            return (contacts?.count)!
+        let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        if contactIDs != nil {
+            return (contactIDs?.count)!
         }
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
-        
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-        
+    
+        retrieveContactsWithStore(store: addressBookStore)
         let contact = contacts?[indexPath.row]
-        
         if (contact?.imageDataAvailable)! {
             contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
+            contactsCell.thumbnailImage.contentMode = .scaleToFill
+            let reCenter = contactsCell.thumbnailImage.center
+            contactsCell.thumbnailImage.layer.frame = CGRect(x: contactsCell.thumbnailImage.layer.frame.minX
+                , y: contactsCell.thumbnailImage.layer.frame.minY, width: contactsCell.thumbnailImage.layer.frame.width * 0.91, height: contactsCell.thumbnailImage.layer.frame.height * 0.91)
+            contactsCell.thumbnailImage.center = reCenter
             contactsCell.thumbnailImage.layer.cornerRadius = contactsCell.thumbnailImage.frame.height / 2
+            contactsCell.thumbnailImage.layer.masksToBounds = true
             contactsCell.initialsLabel.isHidden = true
             contactsCell.thumbnailImageFilter.isHidden = false
-            contactsCell.thumbnailImageFilter.image = UIImage(named: "no_contact_image")!
-            contactsCell.thumbnailImageFilter.alpha = 0.35
+            contactsCell.thumbnailImageFilter.image = UIImage(named: "no_contact_image_selected")!
+            contactsCell.thumbnailImageFilter.alpha = 0.5
         } else {
             contactsCell.thumbnailImage.image = UIImage(named: "no_contact_image")!
             contactsCell.thumbnailImageFilter.isHidden = true
@@ -244,9 +275,10 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         return contactsCell
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if collectionView == contactsCollectionView {
+            retrieveContactsWithStore(store: addressBookStore)
+            
             // Create date lists and color array
             let sampleContactDateList_1 = calendarView.visibleDates().monthDates
             let sampleContactDateList_2 = calendarView.visibleDates().monthDates
@@ -260,7 +292,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
             let colors = [UIColor.purple, UIColor.gray, UIColor.red, UIColor.green, UIColor.orange, UIColor.yellow, UIColor.brown, UIColor.black]
                         
             // Change color of thumbnail image
-            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
             let contact = contacts?[indexPath.row]
             let SelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
             
@@ -279,19 +310,13 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         if collectionView == contactsCollectionView {
-            // Create date lists and color array
-            let sampleContactDateList_1 = calendarView.visibleDates().monthDates
-            let sampleContactDateLists = [sampleContactDateList_1]
-            
-            let colors = [UIColor.purple, UIColor.gray, UIColor.red, UIColor.green, UIColor.orange, UIColor.yellow, UIColor.brown, UIColor.black]
+            retrieveContactsWithStore(store: addressBookStore)
 
-            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
             let contact = contacts?[indexPath.row]
-            
             let DeSelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
             
             if (contact?.imageDataAvailable)! {
-                DeSelectedContact.thumbnailImageFilter.alpha = 0.35
+                DeSelectedContact.thumbnailImageFilter.alpha = 0.5
             } else {
                 DeSelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image")!
                 DeSelectedContact.initialsLabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
@@ -311,12 +336,13 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         return CGSize(width: picDimension, height: picDimension)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
+        //COPY
+        let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         let spacing = 10
-        if contacts != nil {
-            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contacts?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contacts?.count)! - 1))
-            if (contacts?.count)! > 4 {
+        if contactIDs != nil {
+            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contactIDs?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contactIDs?.count)! - 1))
+            if (contactIDs?.count)! > 4 {
                 leftRightInset = 30
             }
             return UIEdgeInsetsMake(0, leftRightInset, 0, 0)
