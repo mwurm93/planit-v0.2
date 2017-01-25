@@ -1725,24 +1725,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to go to multiple destinations on this trip?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyc-jA-Mqk">
-                                <rect key="frame" x="21" y="536" width="332" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="AR1-aZ-2il">
-                                <rect key="frame" x="66" y="589" width="242" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Yes"/>
-                                    <segment title="No"/>
-                                </segments>
-                                <connections>
-                                    <action selector="multipleDestinationsValueChanged:" destination="w3M-hs-AT7" eventType="valueChanged" id="MK9-0F-XL8"/>
-                                </connections>
-                            </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tQB-yd-3WX">
                                 <rect key="frame" x="32" y="554" width="310" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1806,7 +1788,7 @@
                                         <rect key="frame" x="0.0" y="28" width="156" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RGZ-Eg-rQh" id="TYw-XQ-a7w">
-                                            <rect key="frame" x="0.0" y="0.0" width="156" height="27.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="27"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Early morning (12am-5am)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3O-aE-HpQ">
@@ -1831,18 +1813,10 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="Nyc-jA-Mqk"/>
-                                <exclude reference="AR1-aZ-2il"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="calendarView" destination="MUW-Fa-qCy" id="sda-3d-fk1"/>
                         <outlet property="contactsCollectionView" destination="tQB-yd-3WX" id="trt-ld-6XZ"/>
-                        <outlet property="multipleDestinations" destination="AR1-aZ-2il" id="bhy-pw-uj9"/>
-                        <outlet property="multipleDestinationsQuestionLabel" destination="Nyc-jA-Mqk" id="O54-dy-JW5"/>
                         <outlet property="nextButton" destination="AOC-T8-a6Z" id="RjQ-zq-rSJ"/>
                         <outlet property="popupBackgroundView" destination="0Li-TN-pgG" id="4wJ-US-MNB"/>
                         <outlet property="timeOfDayTableView" destination="8xH-je-wgI" id="87Y-nH-wiQ"/>
@@ -2789,14 +2763,14 @@
         <image name="settings" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9ZB-Ko-LdT"/>
-        <segue reference="YhE-0L-EX8"/>
-        <segue reference="4yB-mO-ROs"/>
-        <segue reference="UX9-1a-IWl"/>
-        <segue reference="sJC-Be-52K"/>
         <segue reference="bs2-LI-qHj"/>
         <segue reference="tx3-5T-LG7"/>
         <segue reference="lra-AY-k3U"/>
+        <segue reference="qXw-r3-4Kc"/>
+        <segue reference="UX9-1a-IWl"/>
+        <segue reference="4yB-mO-ROs"/>
+        <segue reference="YhE-0L-EX8"/>
+        <segue reference="9ZB-Ko-LdT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

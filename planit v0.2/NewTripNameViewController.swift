@@ -17,7 +17,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     let picker = CNContactPickerViewController()
     var objects: [NSObject]?
     var objectIDs: [NSString]?
-    var objectPhoneNumbers: [NSString]?
+    var objectPhoneNumbers = [NSString]()
     let sliderStep: Float = 1
 
 // MARK: Outlets
@@ -156,7 +156,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         if objects != nil {
             objects?.append(contactProperty.contact as NSObject)
             objectIDs?.append(contactProperty.contact.identifier as NSString)
-            objectPhoneNumbers?.append(contactProperty.value(forKey: "digits") as! NSString)
+            let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
+            var indexForCorrectPhoneNumber: Int?
+            for indexOfPhoneNumber in 0...(allPhoneNumbersForContact.count - 1) {
+                if allPhoneNumbersForContact[indexOfPhoneNumber].value == contactProperty.value as! CNPhoneNumber {
+                    indexForCorrectPhoneNumber = indexOfPhoneNumber
+                }
+            }
+            let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
+            objectPhoneNumbers.append(phoneNumberToAdd)
+            
             let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
@@ -164,7 +173,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         else {
             objects = [contactProperty.contact as NSObject]
             objectIDs?.append(contactProperty.contact.identifier as NSString)
-            objectPhoneNumbers?.append(contactProperty.value(forKey: "digits") as! NSString)
+            let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
+            var indexForCorrectPhoneNumber: Int?
+            for indexOfPhoneNumber in 0...(allPhoneNumbersForContact.count - 1) {
+                if allPhoneNumbersForContact[indexOfPhoneNumber].value == contactProperty.value as! CNPhoneNumber {
+                    indexForCorrectPhoneNumber = indexOfPhoneNumber
+                }
+            }
+            let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
+            objectPhoneNumbers.append(phoneNumberToAdd)
+            
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
         }
@@ -213,7 +231,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         if objects != nil {
             objects?.append(contact as NSObject)
             objectIDs?.append(contact.identifier as NSString)
-            objectPhoneNumbers?.append(contact.phoneNumbers[0].value(forKey: "digits") as! NSString)
+            let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
+            objectPhoneNumbers.append(phoneNumberToAdd)
+            
             let numberContactsInTable = groupMemberListTable.numberOfRows(inSection: 0)
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
@@ -221,7 +241,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         else {
             objects = [contact as NSObject]
             objectIDs?.append(contact.identifier as NSString)
-            objectPhoneNumbers?.append(contact.phoneNumbers[0].value(forKey: "digits") as! NSString)
+            let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
+            objectPhoneNumbers.append(phoneNumberToAdd)
+            
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
         }
@@ -324,7 +346,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             objects?.remove(at: indexPath.row)
             objectIDs?.remove(at: indexPath.row)
-            objectPhoneNumbers?.remove(at: indexPath.row)
+            objectPhoneNumbers.remove(at: indexPath.row)
             groupMemberListTable.deleteRows(at: [indexPath], with: .fade)
             
             //update hotel room slider
