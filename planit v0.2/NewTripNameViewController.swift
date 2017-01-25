@@ -63,9 +63,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
             retrieveContactsWithStore(store: addressBookStore)
             
-            let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? Float
+            let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? [NSNumber]
             if hotelRoomsValue != nil {
-                numberHotelRoomsControl.setValue(hotelRoomsValue!, animated: false)
+                numberHotelRoomsControl.setValue(Float(hotelRoomsValue![0]), animated: false)
             }
             if objects == nil {
                 numberHotelRoomsLabel.alpha = 0
@@ -420,22 +420,26 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             numberSavedTrips = (SavedTrips?.count)! - 1
         }
         
+        //Update changed preferences
+        let tripNameValue = newTripNameTextField.text! as NSString
+        //Update trip preferences dictionary
+        var SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["trip_name"] = tripNameValue
+        //Save updated trip preferences dictionary
         if existing_trips == nil {
-            let newTrip = ["trip_name": newTripNameTextField.text! as NSString,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
-            let user_trip = [newTrip]
-            DataContainerSingleton.sharedDataContainer.usertrippreferences = user_trip as [NSDictionary]?
+            let firstTrip = [SavedPreferencesForTrip as NSDictionary]
+            DataContainerSingleton.sharedDataContainer.usertrippreferences = firstTrip
         }
         else if currentTripIndex <= numberSavedTrips!   {
-            let updatedTripToBeSaved = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
-            existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
+            existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         }
         else {
-            let newTripToBeAppended = ["trip_name": newTripNameTextField.text as NSString!,"contacts_in_group": objectIDs ?? [NSString](), "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
-            existing_trips?.append(newTripToBeAppended as NSDictionary)
+            existing_trips?.append(SavedPreferencesForTrip as NSDictionary)
             DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         }
-
+        
+        //Activate next button
         if newTripNameTextField.text != nil {
             UIView.animate(withDuration: 1) {
                 self.nextButton.alpha = 1
@@ -449,49 +453,68 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
-        let roundedValue = round(numberHotelRoomsControl.value / sliderStep)
-        numberHotelRoomsControl.setValue(roundedValue, animated: true)
+        //Update changed preferences
+        let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
+        numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
         
-        //Save
+        //Update trip preferences dictionary
+        var SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+        
+        //Save updated trip preferences dictionary
         var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
-
-        let updatedTripToBeSaved = ["trip_name": tripNameValue!, "contacts_in_group": contacts!, "hotel_rooms": roundedValue as NSNumber, "group_phone_numbers":objectPhoneNumbers ?? [NSString]()] as NSDictionary
-        existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
+        existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
-    
-    func loadTripPreferences() {
+        
+    func fetchSavedPreferencesForTrip() -> NSMutableDictionary {
+        
         //New Trip VC
-        var tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString
-        var contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
-        var hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? NSNumber
-        
+        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString ?? NSString()
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString] ?? [NSString]()
+        let contactPhoneNumbers = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contact_phone_numbers") as? [NSString] ?? [NSString]()
+        let hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? [NSNumber] ?? [NSNumber]()
         //Calendar VC
-        var segmentLengthValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [NSNumber]
-        var selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
-        var leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? NSDictionary
-        var rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? NSDictionary
-        
+        let segmentLengthValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "Availability_segment_lengths") as? [NSNumber] ?? [NSNumber]()
+        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate] ?? [NSDate]()
+        let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? NSDictionary ?? NSDictionary()
+        let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? NSDictionary ?? NSDictionary()
         //Budget VC
-        var budgetValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "budget") as? NSString
-        var expectedRoundtripFare = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "expected_roundtrip_fare") as? NSString
-        var expectedNightlyRate = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "expected_nightly_rate") as? NSString
-        
+        let budgetValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "budget") as? NSString ?? NSString()
+        let expectedRoundtripFare = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "expected_roundtrip_fare") as? NSString ?? NSString()
+        let expectedNightlyRate = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "expected_nightly_rate") as? NSString ?? NSString()
         //Suggested Destination VC
-        var decidedOnDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_control") as? NSString
-        var decidedOnDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_value") as? NSString
-        var suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? NSString
-        var suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? NSString
+        let decidedOnDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_control") as? NSString ?? NSString()
+        let decidedOnDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "decided_destination_value") as? NSString ?? NSString()
+        let suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? NSString ?? NSString()
+        let suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? NSString ?? NSString()
+        //Activities VC
+        let selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [NSString] ?? [NSString]()
+        
+//        let test_1 = tripNameValue == nil
+//        let test_2 = contacts == nil
+//        let test_3 = contactPhoneNumbers == nil
+//        let test_4 = hotelRoomsValue == nil
+//        let test_5 = segmentLengthValue == nil
+//        let test_6 = selectedDates == nil
+//        let test_7 = leftDateTimeArrays == nil
+//        let test_8 = rightDateTimeArrays == nil
+//        let test_9 = budgetValue == nil
+//        let test_10 = expectedRoundtripFare == nil
+//        let test_11 = expectedNightlyRate == nil
+//        let test_12 = decidedOnDestinationControlValue == nil
+//        let test_13 = decidedOnDestinationValue == nil
+//        let test_14 = suggestDestinationControlValue == nil
+//        let test_15 = suggestedDestinationValue == nil
+//        let test_16 = selectedActivities == nil
+        
+        //SavedPreferences
+        let fetchedSavedPreferencesForTrip = ["trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities] as NSMutableDictionary
+        
+        return fetchedSavedPreferencesForTrip
+        
     }
-    
-    func saveTripPreferences (
-        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "suggest_destination_control": suggestDestinationControlValue,"selected_dates": selectedDates, "contacts_in_group": contacts, "decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as NSDictionary
-        existing_trips?[currentTripIndex] = updatedTripToBeSaved
-        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
-    )
 }
 
 extension String {

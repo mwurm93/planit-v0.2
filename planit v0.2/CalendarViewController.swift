@@ -534,9 +534,9 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
         let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
         
-        let updatedTripToBeSaved = ["trip_name": tripNameValue! as NSString, "selected_dates": selectedDates, "contacts_in_group": contacts as [NSString], "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray as [NSNumber],"hotel_rooms": hotelRoomsValue as NSNumber, "origin_departure_times": leftDateTimeArrays as NSDictionary, "return_departure_times": rightDateTimeArrays as NSDictionary] as NSDictionary
-        existing_trips?[currentTripIndex] = updatedTripToBeSaved
-        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+////        let updatedTripToBeSaved = ["trip_name": tripNameValue! as NSString, "selected_dates": selectedDates, "contacts_in_group": contacts! as [NSString], "Availability_segment_lengths": lengthOfAvailabilitySegmentsArray as [NSNumber],"hotel_rooms": hotelRoomsValue! as NSNumber, "origin_departure_times": leftDateTimeArrays as NSDictionary, "return_departure_times": rightDateTimeArrays as NSDictionary] as NSDictionary
+//        existing_trips?[currentTripIndex] = updatedTripToBeSaved
+//        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
         
         if selectedDates.count == 0 {
             nextButton.isHidden = true
