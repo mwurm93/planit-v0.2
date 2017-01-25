@@ -859,6 +859,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81A95C40AC4ED87921A183FF /* Pods-planit v0.2.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ATC5M6XDB6;
 				INFOPLIST_FILE = "planit v0.2/Info.plist";
@@ -874,6 +875,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA83D88C34C8633D819ABD13 /* Pods-planit v0.2.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ATC5M6XDB6;
 				INFOPLIST_FILE = "planit v0.2/Info.plist";
