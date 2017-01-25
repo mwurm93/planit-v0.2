@@ -32,8 +32,8 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     var rightDates = [Date]()
     var fullDates = [Date]()
     var lengthOfAvailabilitySegmentsArray = [Int]()
-    var leftDateTimeArrays = [NSDate:NSString]()
-    var rightDateTimeArrays = [NSDate:NSString]()
+    var leftDateTimeArrays = NSMutableDictionary()
+    var rightDateTimeArrays = NSMutableDictionary()
     var mostRecentSelectedCellDate = NSDate()
     
        override func viewDidLoad() {
@@ -139,11 +139,17 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let timeOfDayToAddToArray = availableTimeOfDayInCell.joined(separator: ", ") as NSString
 
         let cell = calendarView.cellStatus(for: mostRecentSelectedCellDate as Date)
-        if cell?.selectedPosition() == .full {
-                leftDateTimeArrays[mostRecentSelectedCellDate] = timeOfDayToAddToArray
+        if cell?.selectedPosition() == .full || cell?.selectedPosition() == .left {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy MM dd"
+            let mostRecentSelectedCellDateAsNSString = formatter.string(from: mostRecentSelectedCellDate as Date)
+            leftDateTimeArrays.setValue(timeOfDayToAddToArray as NSString, forKey: mostRecentSelectedCellDateAsNSString)
         }
         if cell?.selectedPosition() == .right {
-                rightDateTimeArrays[mostRecentSelectedCellDate] = timeOfDayToAddToArray
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy MM dd"
+            let mostRecentSelectedCellDateAsNSString = formatter.string(from: mostRecentSelectedCellDate as Date)
+            rightDateTimeArrays.setValue(timeOfDayToAddToArray as NSString, forKey: mostRecentSelectedCellDateAsNSString)
         }
         
         //Update trip preferences in dictionary
@@ -505,7 +511,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         
         //Update trip preferences in dictionary
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["selected_dates"] = selectedDates
+        SavedPreferencesForTrip["selected_dates"] = selectedDates as [NSDate]
         SavedPreferencesForTrip["Availability_segment_lengths"] = lengthOfAvailabilitySegmentsArray as [NSNumber]
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
