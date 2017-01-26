@@ -24,5 +24,10 @@ class ExistingTripTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    override func prepareForReuse() {
+        existingTripTableViewImage.isHidden = true
+        existingTripTableViewLabel.isHidden = true
+    }
 
 }

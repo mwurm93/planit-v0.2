@@ -48,6 +48,10 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         addressBookStore = CNContactStore()
         
         self.budget.delegate = self
+        self.splitByTextField.delegate = self
+        self.nightsTextField.delegate = self
+        self.nightlyRatePerRoomField.delegate = self
+        self.roundTripTicketField.delegate = self
         
         expandCollapseButton.imageView?.image = #imageLiteral(resourceName: "expand")
         flightLabel.alpha = 0
@@ -162,11 +166,26 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
         // Hide the keyboard.
+        if textField == budget {
         budget.resignFirstResponder()
+        return true
+        }
+        if textField == roundTripTicketField {
         roundTripTicketField.resignFirstResponder()
+            return true
+        }
+        if textField == nightlyRatePerRoomField {
         nightlyRatePerRoomField.resignFirstResponder()
+            return true
+        }
+        if textField == nightsTextField {
         nightsTextField.resignFirstResponder()
+            return true
+        }
+        if textField == splitByTextField {
         splitByTextField.resignFirstResponder()
+            return true
+        }
     return true
     }
     

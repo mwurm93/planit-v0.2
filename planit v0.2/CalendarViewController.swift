@@ -308,9 +308,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func fetchSavedPreferencesForTrip() -> NSMutableDictionary {
-        
-        let testvar = DataContainerSingleton.sharedDataContainer.currenttrip
-        
+                
         //Update preference vars if an existing trip
         //Trip status
         let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? 0 as NSNumber
@@ -418,13 +416,6 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         if cellState.dateBelongsTo != .thisMonth {
             myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
         }
-
-//        // Enable Multiple Destinations Question if more than 3 middles (Total)
-//        if  >= minimumConsecutiveDaysForMultipleDestinations {
-//            multipleDestinations.isHidden = false
-//            multipleDestinations.isUserInteractionEnabled = true
-//            multipleDestinationsQuestionLabel.isHidden = false
-//        }
     }
     
     func calendar(_ calendar: JTAppleCalendarView, willDisplayCell cell: JTAppleDayCellView, date: Date, cellState: CellState) {

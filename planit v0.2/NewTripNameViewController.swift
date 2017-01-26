@@ -19,6 +19,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var objectIDs: [NSString]?
     var objectPhoneNumbers = [NSString]()
     let sliderStep: Float = 1
+    var NewOrAddedTripFromSegue: Int?
 
 // MARK: Outlets
     
@@ -33,8 +34,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //load trip preferences dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        
 
         addressBookStore = CNContactStore()
         
@@ -47,12 +47,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         newTripNameLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         self.newTripNameTextField.delegate = self
         
-        let isNewOrAddedTrip = determineIfNewOrAddedTrip()
-        if isNewOrAddedTrip == 1 {
+        if NewOrAddedTripFromSegue == 1 {
             numberHotelRoomsLabel.alpha = 0
             numberHotelRoomsControl.alpha = 0
             numberHotelRoomsStack.alpha = 0
+            DataContainerSingleton.sharedDataContainer.currenttrip! -= 1
+            
         } else {
+            //load trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+
             retrieveContactsWithStore(store: addressBookStore)
             
             let hotelRoomsValue = SavedPreferencesForTrip["hotel_rooms"] as! [NSNumber]
@@ -66,7 +70,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 numberHotelRoomsControl.alpha = 1
                 numberHotelRoomsStack.alpha = 1
             }
-        }
         
         //Install the value into the label.
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
@@ -82,6 +85,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             groupMemberListTable.alpha = 1
             whoToTravelWithLabel.alpha = 1
             addFromContactsButton.alpha = 1
+        }
         }
     }
     
@@ -384,26 +388,31 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func TripNameEditingChanged(_ sender: Any) {
+                if NewOrAddedTripFromSegue == 1 {
+            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
+        }
         //Update changed preferences as variables
-        let tripNameValue = newTripNameTextField.text! as NSString
-        //Update trip preferences in dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["trip_name"] = tripNameValue
-        //Save
-        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
-
-        //Activate next button
-        if newTripNameTextField.text != nil {
-            UIView.animate(withDuration: 1) {
-                self.nextButton.alpha = 1
-                self.groupMemberListTable.alpha = 1
-                self.whoToTravelWithLabel.alpha = 1
-                self.addFromContactsButton.alpha = 1
+            NewOrAddedTripFromSegue = 0
+        
+            let tripNameValue = newTripNameTextField.text! as NSString
+            //Update trip preferences in dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["trip_name"] = tripNameValue
+            //Save
+            saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+            
+            //Activate next button
+            if newTripNameTextField.text != nil {
+                UIView.animate(withDuration: 1) {
+                    self.nextButton.alpha = 1
+                    self.groupMemberListTable.alpha = 1
+                    self.whoToTravelWithLabel.alpha = 1
+                    self.addFromContactsButton.alpha = 1
+                }
             }
-        }
-        if newTripNameTextField.text == "" {
-            nextButton.alpha = 0
-        }
+            if newTripNameTextField.text == "" {
+                nextButton.alpha = 0
+            }
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
         //Update changed preferences

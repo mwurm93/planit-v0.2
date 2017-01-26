@@ -19,7 +19,9 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var buttonBeneathLabel: UIButton!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
+    @IBOutlet weak var chatButton: UIButton!
     
+    let messageComposer = MessageComposer()
     var activityItems: [ActivityItem] = []
 
     // Set up vars for Contacts - COPY
@@ -27,10 +29,14 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     var contactIDs: [NSString]?
     fileprivate var addressBookStore: CNContactStore!
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //add shadow to button
+        chatButton.layer.shadowColor = UIColor.black.cgColor
+        chatButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        chatButton.layer.shadowRadius = 2
+        chatButton.layer.shadowOpacity = 0.3
         
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
@@ -64,6 +70,18 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         //Install the value into the label.
         if tripNameValue != nil {
             self.tripNameLabel.text =  "\(tripNameValue!)"
+        }
+        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        if (contacts?.count)! > 0 {
+            chatButton.isHidden = false
+            tripRecommendationsLabel.isHidden = true
+            buttonBeneathLabel.isHidden = true
+            rightArrowButton.isHidden = true
+        } else {
+            chatButton.isHidden = true
+            tripRecommendationsLabel.isHidden = false
+            buttonBeneathLabel.isHidden = false
+            rightArrowButton.isHidden = false
         }
     }
 
@@ -424,5 +442,29 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+    }
+    
+    //MARK: Actions
+    
+    @IBAction func chatButtonPressed(_ sender: Any) {
+        // Make sure the device can send text messages
+        if (messageComposer.canSendText()) {
+            // Obtain a configured MFMessageComposeViewController
+            let messageComposeVC = messageComposer.configuredMessageComposeViewController()
+            
+            // Present the configured MFMessageComposeViewController instance
+            present(messageComposeVC, animated: true, completion: nil)
+        } else {
+            // Let the user know if his/her device isn't able to send text messages
+            let errorAlert = UIAlertController(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", preferredStyle: UIAlertControllerStyle.alert)
+            let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.destructive) {
+                (result : UIAlertAction) -> Void in
+            }
+            
+            errorAlert.addAction(cancelAction)
+            self.present(errorAlert, animated: true, completion: nil)
+        }
+        self.performSegue(withIdentifier: "activitiesToSwiping", sender: self)
+
     }
 }

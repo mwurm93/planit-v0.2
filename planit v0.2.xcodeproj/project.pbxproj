@@ -255,8 +255,8 @@
 				FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */,
 				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
 				FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */,
-				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
 				FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */,
+				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
 				FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */,
 				FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */,
 			);

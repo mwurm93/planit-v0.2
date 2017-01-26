@@ -38,10 +38,12 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
         suggestDestinationField.alpha = 0
         wantToSuggestDestination.alpha = 0
         wantToSuggestLabel.alpha = 0
+        self.suggestDestinationField.delegate = self
         suggestDestinationField.layer.borderWidth = 1
         suggestDestinationField.layer.cornerRadius = 5
         suggestDestinationField.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
         suggestDestinationField.layer.masksToBounds = true
+        self.decidedOnDestinationTextField.delegate = self
         decidedOnDestinationTextField.alpha = 0
         decidedOnDestinationTextField.layer.borderWidth = 1
         decidedOnDestinationTextField.layer.cornerRadius = 5
@@ -118,9 +120,18 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
     
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
         // Hide the keyboard.
+        if textField == suggestDestinationField {
         suggestDestinationField.resignFirstResponder()
+            return true
+        }
+        if textField == homeAirport {
         homeAirport.resignFirstResponder()
+            return true
+        }
+        if textField == decidedOnDestinationTextField {
         decidedOnDestinationTextField.resignFirstResponder()
+            return true
+        }
         return true
     }
     
