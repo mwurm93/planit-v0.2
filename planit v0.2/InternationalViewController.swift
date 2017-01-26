@@ -15,7 +15,7 @@ class InternationalViewController: UIViewController {
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var travelingInternationalControl: UISegmentedControl!
     
-    var travelingInternationalValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "traveling_international") as? String
+    var travelingInternationalValue = NSString()
 
     
     override func viewDidLoad() {
@@ -28,7 +28,6 @@ class InternationalViewController: UIViewController {
         if tripNameValue != nil {
             self.tripNameLabel.text =  "\(tripNameValue!)"
         }
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,16 +52,5 @@ class InternationalViewController: UIViewController {
         else {
             travelingInternationalValue = "No"
         }
-        
-        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
-        let multipleDestionationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? String
-        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [Date]
-        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-        
-        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "selected_dates": selectedDates,"contacts_in_group": contacts] as [String : Any]
-        existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
-        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
 }

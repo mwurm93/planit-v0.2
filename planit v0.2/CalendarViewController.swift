@@ -308,6 +308,9 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func fetchSavedPreferencesForTrip() -> NSMutableDictionary {
+        
+        let testvar = DataContainerSingleton.sharedDataContainer.currenttrip
+        
         //Update preference vars if an existing trip
         //Trip status
         let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? 0 as NSNumber

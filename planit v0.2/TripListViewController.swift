@@ -116,40 +116,51 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     // Section Header
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var bookingStatuses: [Int] = []
-        for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
-            let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[index].object(forKey: "booking_status") as? Int
-            if bookingStatus != nil {
-            bookingStatuses.append(bookingStatus!)
-            }
-        }
         
-        var countTripsBooked = 0
-        var countTripsUnbooked = 0
-        var countTripsTotal = 0
+//        if (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! == 0 {
+//            return ""
+//        }
+//        
+//        let testvar1 = (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)!
+//        let testvar2 = (DataContainerSingleton.sharedDataContainer.usertrippreferences)
         
-        if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 1 && bookingStatuses != [] {
-            for index in 0...(bookingStatuses.count - 1) {
-                countTripsBooked += bookingStatuses[index]
+        if (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! > 0 {
+            for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
+                let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[index].object(forKey: "booking_status") as? Int
+                if bookingStatus != nil {
+                    bookingStatuses.append(bookingStatus!)
+                }
             }
-            if countTripsBooked > 0 {
-                return sectionTitles[section]
+            
+            var countTripsBooked = 0
+            var countTripsUnbooked = 0
+            var countTripsTotal = 0
+            
+            if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 1 && bookingStatuses != [] {
+                for index in 0...(bookingStatuses.count - 1) {
+                    countTripsBooked += bookingStatuses[index]
+                    
+                }
+                if countTripsBooked > 0 {
+                    return sectionTitles[section]
+                }
             }
-        }
-        if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 0 && bookingStatuses != [] {
-        for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
-            countTripsBooked += bookingStatuses[index]
-        }
-        countTripsTotal = (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)!
-        countTripsUnbooked = countTripsTotal - countTripsBooked
-
-        if countTripsUnbooked > 0 {
-                return sectionTitles[section]
-        }
+            if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 0 && bookingStatuses != [] {
+                for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
+                    countTripsBooked += bookingStatuses[index]
+                }
+                countTripsTotal = (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)!
+                countTripsUnbooked = countTripsTotal - countTripsBooked
+                
+                if countTripsUnbooked > 0 {
+                    return sectionTitles[section]
+                }
+            }
         }
         return ""
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView(frame: CGRect(x: 0, y: 0, width: existingTripsTable.bounds.size.width, height: 30))
         header.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         header.layer.cornerRadius = 5
@@ -166,36 +177,39 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var bookingStatuses: [Int] = []
-        for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
-        let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[index].object(forKey: "booking_status") as? Int
-            if bookingStatus != nil {
-            bookingStatuses.append(bookingStatus!)
+        if (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! > 0 {
+
+            var bookingStatuses: [Int] = []
+            for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
+                let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[index].object(forKey: "booking_status") as? Int
+                if bookingStatus != nil {
+                    bookingStatuses.append(bookingStatus!)
+                }
             }
+            
+            var countTripsBooked = 0
+            var countTripsUnbooked = 0
+            var countTripsTotal = 0
+            
+            if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 1 && bookingStatuses != [] {
+                for index in 0...(bookingStatuses.count - 1) {
+                    countTripsBooked += bookingStatuses[index]
+                }
+                return countTripsBooked
+            }
+            // else if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 0 {
+            if bookingStatuses != [] {
+                for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
+                    countTripsBooked += bookingStatuses[index]
+                }
+            }
+            countTripsTotal = (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)!
+            countTripsUnbooked = countTripsTotal - countTripsBooked
+            return countTripsUnbooked
+        
         }
         
-        var countTripsBooked = 0
-        var countTripsUnbooked = 0
-        var countTripsTotal = 0
-        
-        if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil {
-            return 0
-        }
-        else if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 1 && bookingStatuses != [] {
-            for index in 0...(bookingStatuses.count - 1) {
-            countTripsBooked += bookingStatuses[index]
-            }
-            return countTripsBooked
-        }
-       // else if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && section == 0 {
-        if bookingStatuses != [] {
-        for index in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
-            countTripsBooked += bookingStatuses[index]
-        }
-        }
-        countTripsTotal = (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)!
-        countTripsUnbooked = countTripsTotal - countTripsBooked
-        return countTripsUnbooked
+        return 0
     }
     
     var lastUnbookedStatusIndexAddedToTable: Int?
@@ -249,12 +263,12 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        // if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil {
+        // if  == nil {
             existingTripsTable.isHidden = true
             return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cell = tableView.cellForRow(at: indexPath as IndexPath) as! ExistingTripTableViewCell
         let searchForTitle = cell.existingTripTableViewLabel.text
@@ -266,4 +280,46 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         self.performSegue(withIdentifier: "existingTripsToAddContacts", sender: self)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+
+            DataContainerSingleton.sharedDataContainer.usertrippreferences?.remove(at: DataContainerSingleton.sharedDataContainer.currenttrip!)
+            existingTripsTable.deleteRows(at: [indexPath], with: .left)
+            
+//            if (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! > 0 {
+//                (DataContainerSingleton.sharedDataContainer.currenttrip)! -= 1
+//            }
+            
+            if (DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! == 0 {
+                myTripsTitleLabel.isHidden = true
+                existingTripsTable.isHidden = true
+                addAnotherTripButton.isHidden = true
+                
+                createTripButton.isHidden = false
+                createTripArrow.isHidden = false
+                instructionsTitleLabel.isHidden = false
+                instruct1image.isHidden = false
+                instruct1Label.isHidden = false
+                instruct2image.isHidden = false
+                instruct2Label.isHidden = false
+                instruct3image.isHidden = false
+                instruct3Label.isHidden = false
+                instruct4image.isHidden = false
+                instruct4Label.isHidden = false
+                instruct5image.isHidden = false
+                instruct5Label.isHidden = false
+            }
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Remove"
+    }
+
 }

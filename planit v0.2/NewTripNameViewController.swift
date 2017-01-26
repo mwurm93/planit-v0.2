@@ -347,7 +347,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             objects?.remove(at: indexPath.row)
             objectIDs?.remove(at: indexPath.row)
             objectPhoneNumbers.remove(at: indexPath.row)
-            groupMemberListTable.deleteRows(at: [indexPath], with: .fade)
+            groupMemberListTable.deleteRows(at: [indexPath], with: .left)
             
             //update hotel room slider
             var roundedValue = Float()

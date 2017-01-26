@@ -44,7 +44,7 @@ class BirthdayGenderViewController: UIViewController {
         if DataContainerSingleton.sharedDataContainer.birthdate == nil {
         }
         else {
-        var savedDateString = DataContainerSingleton.sharedDataContainer.birthdate
+        let savedDateString = DataContainerSingleton.sharedDataContainer.birthdate
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             let dateObj = dateFormatter.date(from: savedDateString!)
@@ -87,7 +87,7 @@ class BirthdayGenderViewController: UIViewController {
         birthdayPickerView.datePickerMode = UIDatePickerMode.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        var selectedDate = dateFormatter.string(from: birthdayPickerView.date)
+        let selectedDate = dateFormatter.string(from: birthdayPickerView.date)
         DataContainerSingleton.sharedDataContainer.birthdate = selectedDate
     }
    

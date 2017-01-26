@@ -248,22 +248,17 @@
 		FAA8F2561E351AB100CD7337 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */,
-				FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */,
-				FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */,
-				FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */,
-				FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */,
-				FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */,
-				FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */,
-				FAA8F25F1E351B9500CD7337 /* InternationalViewController.swift */,
+				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
+				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
 				FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */,
-				FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */,
+				FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */,
+				FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */,
+				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
+				FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */,
 				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
 				FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */,
 				FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */,
-				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
-				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
-				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
+				FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -374,6 +369,19 @@
 				FA4E922A1E3526DD00231C72 /* API.swift */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */ = {
+			isa = PBXGroup;
+			children = (
+				FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */,
+				FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */,
+				FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */,
+				FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */,
+				FAA8F25F1E351B9500CD7337 /* InternationalViewController.swift */,
+				FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */,
+			);
+			name = "View Controllers (unused)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

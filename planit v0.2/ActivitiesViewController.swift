@@ -204,7 +204,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let visibleCellIndices = self.activitiesCollectionView.indexPathsForVisibleItems
             for visibleCellIndex in visibleCellIndices {
                 let visibleCell = activitiesCollectionView.cellForItem(at: visibleCellIndex) as! ActivitiesCollectionViewCell
-                if sampleContactActivityLists[indexPath.row] != nil {
+                if sampleContactActivityLists[indexPath.row] != [""] {
                     if (sampleContactActivityLists[indexPath.row].contains(visibleCell.activityLabel.text!)) {
                         visibleCell.layer.borderColor = colors[indexPath.row].cgColor
                         activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
