@@ -139,28 +139,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             cell.layer.cornerRadius = 10
             return cell
         }
-        // if collectionView == contactsCollectionView
-//            let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
-//
-//            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//            let contact = contacts?[indexPath.row]
-//        
-//            if (contact?.imageDataAvailable)! {
-//                contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
-//                contactsCell.initialsLabel.isHidden = true
-//                contactsCell.thumbnailImageFilter.isHidden = false
-//                contactsCell.thumbnailImageFilter.image = UIImage(named: "no_contact_image")!
-//                contactsCell.thumbnailImageFilter.alpha = 0.35
-//            } else {
-//                contactsCell.thumbnailImage.image = UIImage(named: "no_contact_image")!
-//                contactsCell.thumbnailImageFilter.isHidden = true
-//                contactsCell.initialsLabel.isHidden = false
-//                let firstInitial = contact?.givenName[0]
-//                let secondInitial = contact?.familyName[0]
-//                contactsCell.initialsLabel.text = firstInitial! + secondInitial!
-//            }
-//        
-//        return contactsCell
+
         let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
         
         retrieveContactsWithStore(store: addressBookStore)
@@ -208,17 +187,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let sampleContactActivityLists = [sampleContactActivityList_1, sampleContactActivityList_2, sampleContactActivityList_3, sampleContactActivityList_4, sampleContactActivityList_5, sampleContactActivityList_6, sampleContactActivityList_7]
             let colors = [UIColor.purple, UIColor.gray, UIColor.red, UIColor.green, UIColor.orange, UIColor.yellow, UIColor.brown, UIColor.black]
             
-//            // Change color of thumbnail image
-//            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//            let contact = contacts?[indexPath.row]
-//            let SelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
-//            
-//            if (contact?.imageDataAvailable)! {
-//                SelectedContact.thumbnailImageFilter.alpha = 0
-//            } else {
-//                SelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image_selected")!
-//                SelectedContact.initialsLabel.textColor = colors[indexPath.row]
-//            }
             // Change color of thumbnail image
             let contact = contacts?[indexPath.row]
             let SelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
@@ -259,18 +227,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         if collectionView == contactsCollectionView {
             retrieveContactsWithStore(store: addressBookStore)
             
-//            let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//            let contact = contacts?[indexPath.row]
-//            
-//            let DeSelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
-//            
-//            if (contact?.imageDataAvailable)! {
-//                DeSelectedContact.thumbnailImageFilter.alpha = 0.35
-//            } else {
-//                DeSelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image")!
-//                DeSelectedContact.initialsLabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-//                
-//            }
             let contact = contacts?[indexPath.row]
             let DeSelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
             
@@ -333,24 +289,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
-//        // Save array of selected activities to trip data model
-//        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-//        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-//        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
-//        let multipleDestionationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? String
-//        let travelingInternationalValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "traveling_international") as? String
-//        let suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? String
-//        let suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? String
-//        let budgetValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "budget") as? String
-//        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
-//        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//        let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
-//        let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
-//
-//        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "suggest_destination_control": suggestDestinationControlValue, "suggested_destination": suggestedDestinationValue, "budget": budgetValue, "selected_activities": selectedActivities, "selected_dates": selectedDates, "contacts_in_group": contacts, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as [String : Any]
-//        existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
-//        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
-        
         // Change label for continuing
         if selectedActivities.count > 0 {
             tripRecommendationsLabel.text = "Recommendations"
@@ -389,24 +327,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
-//        // Save array of selected activities to trip data model
-//        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-//        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-//        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
-//        let multipleDestionationsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "multiple_destinations") as? String
-//        let travelingInternationalValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "traveling_international") as? String
-//        let suggestDestinationControlValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggest_destination_control") as? String
-//        let suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? String
-//        let budgetValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "budget") as? String
-//        let selectedDates = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_dates") as? [NSDate]
-//        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//        let leftDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "origin_departure_times") as? [NSDictionary]
-//        let rightDateTimeArrays = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "return_departure_times") as? [NSDictionary]
-//
-//        let updatedTripToBeSaved = ["trip_name": tripNameValue, "multiple_destinations": multipleDestionationsValue, "traveling_international": travelingInternationalValue, "suggest_destination_control": suggestDestinationControlValue, "suggested_destination": suggestedDestinationValue, "budget": budgetValue, "selected_activities": selectedActivities, "selected_dates": selectedDates, "contacts_in_group": contacts, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays] as [String : Any]
-//        existing_trips?[currentTripIndex] = updatedTripToBeSaved as NSDictionary
-//        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
-        
         // Change label for continuing
         if selectedActivities.count > 0 {
             tripRecommendationsLabel.text = "Recommendations"
@@ -432,18 +352,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let leftRightInset = self.view.frame.size.width / 18.0
             return UIEdgeInsetsMake(0, leftRightInset, 0, leftRightInset)
         }
-        // if collectionView == contactsCollectionView
-//        let contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [CNContact]
-//        
-//        let spacing = 10
-//        if contacts != nil {
-//        var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contacts?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contacts?.count)! - 1))
-//            if (contacts?.count)! > 4 {
-//            leftRightInset = 30
-//            }
-//            return UIEdgeInsetsMake(0, leftRightInset, 0, 0)
-//        }
-//        return UIEdgeInsetsMake(0, 0, 0, 0)
+
         //COPY
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
