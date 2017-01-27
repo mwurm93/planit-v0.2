@@ -35,7 +35,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil {
+        if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil || DataContainerSingleton.sharedDataContainer.usertrippreferences?.count == 0 {
             
             DataContainerSingleton.sharedDataContainer.currenttrip = 0
             

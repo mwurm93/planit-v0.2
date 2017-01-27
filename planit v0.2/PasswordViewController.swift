@@ -25,6 +25,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.Password.delegate = self
         
+        self.hideKeyboardWhenTappedAround()
+        
         Password.layer.borderWidth = 1
         Password.layer.cornerRadius = 5
         Password.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor

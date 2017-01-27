@@ -27,6 +27,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+        self.hideKeyboardWhenTappedAround()
+        
         self.emailAddressSettingsField.delegate = self
         self.passwordSettingsField.delegate = self
         self.firstNameSettingsField.delegate = self
@@ -191,5 +197,22 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         DataContainerSingleton.sharedDataContainer.birthdate = birthdateSettingsField.text
         return true
     }
-
+    func keyboardWillShow(notification: NSNotification) {
+        if birthdateSettingsField.isEditing {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
 }

@@ -31,6 +31,8 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
         

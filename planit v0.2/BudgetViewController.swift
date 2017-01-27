@@ -44,6 +44,8 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
         

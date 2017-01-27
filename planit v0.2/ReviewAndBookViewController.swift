@@ -47,6 +47,8 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
         

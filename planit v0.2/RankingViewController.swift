@@ -207,7 +207,5 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "destinationChosenSegue", sender: self)
 
     }
-    
-    
 
 }

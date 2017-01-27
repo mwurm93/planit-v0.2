@@ -657,19 +657,10 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1Y-Zp-06A">
-                                <rect key="frame" x="307" y="32" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="messages transparent"/>
-                                <connections>
-                                    <action selector="chatButtonPressed:" destination="e1o-La-2RE" eventType="touchUpInside" id="APA-Gt-5Oy"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="chatButton" destination="f1Y-Zp-06A" id="EFa-oq-OtD"/>
                         <outlet property="heartIcon" destination="knN-aw-gR4" id="aHd-NW-eaI"/>
                         <outlet property="kolodaView" destination="YPs-5j-Vt2" id="Ehx-Al-C6O"/>
                         <outlet property="ranOutOfSwipesLabel" destination="8nK-lh-dh8" id="5kH-0E-vBa"/>
@@ -2746,14 +2737,14 @@
         <image name="settings" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sXz-uo-3nl"/>
-        <segue reference="sJC-Be-52K"/>
-        <segue reference="0F0-uh-Iex"/>
-        <segue reference="zQA-c3-mCq"/>
-        <segue reference="YhE-0L-EX8"/>
+        <segue reference="bs2-LI-qHj"/>
+        <segue reference="EEv-3e-wvn"/>
+        <segue reference="lra-AY-k3U"/>
         <segue reference="9ZB-Ko-LdT"/>
-        <segue reference="cWA-9L-HdA"/>
-        <segue reference="tx3-5T-LG7"/>
+        <segue reference="YhE-0L-EX8"/>
+        <segue reference="zQA-c3-mCq"/>
+        <segue reference="0F0-uh-Iex"/>
+        <segue reference="sJC-Be-52K"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

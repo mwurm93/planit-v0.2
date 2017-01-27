@@ -9,6 +9,7 @@
 import Foundation
 import MessageUI
 import Contacts
+import UIKit
 
 
 class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
@@ -31,6 +32,6 @@ class MessageComposer: NSObject, MFMessageComposeViewControllerDelegate {
     
     // MFMessageComposeViewControllerDelegate callback - dismisses the view controller when the user is finished with it
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)        
     }
 }

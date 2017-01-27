@@ -32,6 +32,8 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         //add shadow to button
         chatButton.layer.shadowColor = UIColor.black.cgColor
         chatButton.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -454,6 +456,12 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             
             // Present the configured MFMessageComposeViewController instance
             present(messageComposeVC, animated: true, completion: nil)
+            
+            chatButton.isHidden = true
+            tripRecommendationsLabel.isHidden = false
+            buttonBeneathLabel.isHidden = false
+            rightArrowButton.isHidden = false
+
         } else {
             // Let the user know if his/her device isn't able to send text messages
             let errorAlert = UIAlertController(title: "Cannot Send Text Message", message: "Your device is not able to send text messages.", preferredStyle: UIAlertControllerStyle.alert)
@@ -463,8 +471,12 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             
             errorAlert.addAction(cancelAction)
             self.present(errorAlert, animated: true, completion: nil)
-        }
-        self.performSegue(withIdentifier: "activitiesToSwiping", sender: self)
+            
+            chatButton.isHidden = false
+            tripRecommendationsLabel.isHidden = true
+            buttonBeneathLabel.isHidden = true
+            rightArrowButton.isHidden = true
 
+        }
     }
 }

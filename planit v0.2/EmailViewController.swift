@@ -18,6 +18,9 @@ class EmailViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.emailAddress.delegate = self
+        
+        self.hideKeyboardWhenTappedAround()
+        
         // apollo.fetch(query: GetTripQuery(id: "VHJpcDox")) { (result, error) in
         //    guard let data = result?.data else { return }
         //    self.emailAddress.text = data.getTrip?.name;
