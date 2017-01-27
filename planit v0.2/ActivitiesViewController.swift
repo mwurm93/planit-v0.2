@@ -31,9 +31,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.hideKeyboardWhenTappedAround()
-        
+                
         //add shadow to button
         chatButton.layer.shadowColor = UIColor.black.cgColor
         chatButton.layer.shadowOffset = CGSize(width: 2, height: 2)

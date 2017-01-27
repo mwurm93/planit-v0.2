@@ -52,6 +52,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             numberHotelRoomsControl.alpha = 0
             numberHotelRoomsStack.alpha = 0
             DataContainerSingleton.sharedDataContainer.currenttrip! -= 1
+            nextButton.alpha =  0
+            groupMemberListTable.alpha = 0
+            whoToTravelWithLabel.alpha = 0
+            addFromContactsButton.alpha = 0
             
         } else {
             //load trip preferences dictionary
@@ -73,6 +77,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         //Install the value into the label.
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
+            
         if tripNameValue == "" {
                 nextButton.alpha =  0
             groupMemberListTable.alpha = 0
@@ -388,7 +393,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func TripNameEditingChanged(_ sender: Any) {
-                if NewOrAddedTripFromSegue == 1 {
+        if NewOrAddedTripFromSegue == 1 {
             DataContainerSingleton.sharedDataContainer.currenttrip! += 1
         }
         //Update changed preferences as variables
@@ -412,6 +417,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             }
             if newTripNameTextField.text == "" {
                 nextButton.alpha = 0
+                groupMemberListTable.alpha = 0
+                whoToTravelWithLabel.alpha = 0
+                addFromContactsButton.alpha = 0
             }
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
