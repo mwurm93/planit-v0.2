@@ -46,6 +46,10 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         self.hideKeyboardWhenTappedAround()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+        
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
         
@@ -491,4 +495,25 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
             }, completion: nil)
         }
     }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if nightsTextField.isEditing || splitByTextField.isEditing || roundTripTicketField.isEditing || nightlyRatePerRoomField.isEditing {
+            
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                if self.view.frame.origin.y == 0{
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+
 }
