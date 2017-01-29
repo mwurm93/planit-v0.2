@@ -30,7 +30,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var instruct4image: UIImageView!
     
     @IBOutlet weak var instruct5image: UIImageView!
-    let sectionTitles = ["Still in the works...", "Booked and ticketed"]
+    let sectionTitles = ["Still in the works...", "Booked"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

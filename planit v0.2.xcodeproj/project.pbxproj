@@ -11,6 +11,7 @@
 		191BF7D83FF5218C958D0EDB /* Pods_planit_v0_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C09738698217841A11CBDB /* Pods_planit_v0_2.framework */; };
 		AF4CFEF2E9465786DE56CC42 /* Pods_planit_v0_2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF99F8DC1EC030B0E3C827B0 /* Pods_planit_v0_2Tests.framework */; };
 		FA187E451E37005200971D47 /* messageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA187E441E37005200971D47 /* messageComposer.swift */; };
+		FA2CFC0A1E3E57A200527405 /* UnbookedTripSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */; };
 		FA4E922B1E3526DD00231C72 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E922A1E3526DD00231C72 /* API.swift */; };
 		FAA8F2231E35194100CD7337 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2221E35194100CD7337 /* AppDelegate.swift */; };
 		FAA8F22A1E35194100CD7337 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2291E35194100CD7337 /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		BA83D88C34C8633D819ABD13 /* Pods-planit v0.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planit v0.2.release.xcconfig"; path = "Pods/Target Support Files/Pods-planit v0.2/Pods-planit v0.2.release.xcconfig"; sourceTree = "<group>"; };
 		ED4A2134146D2128C7538337 /* Pods_planit_v0_2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_planit_v0_2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA187E441E37005200971D47 /* messageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messageComposer.swift; sourceTree = "<group>"; };
+		FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnbookedTripSummaryViewController.swift; sourceTree = "<group>"; };
 		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FAA8F21F1E35194100CD7337 /* planit v0.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "planit v0.2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8F2221E35194100CD7337 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
+				FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */,
 				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
 				FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */,
 				FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */,
@@ -712,6 +715,7 @@
 				FAA8F26E1E351B9500CD7337 /* InstructionsViewController.swift in Sources */,
 				FAA8F26A1E351B9500CD7337 /* BudgetViewController.swift in Sources */,
 				FAA8F2721E351B9500CD7337 /* RankingViewController.swift in Sources */,
+				FA2CFC0A1E3E57A200527405 /* UnbookedTripSummaryViewController.swift in Sources */,
 				FAA8F2931E351DCD00CD7337 /* ActivitiesCollectionViewCell.swift in Sources */,
 				FAA8F2741E351B9500CD7337 /* ReviewAndBookViewController.swift in Sources */,
 				FAA8F28C1E351DBF00CD7337 /* CellView.swift in Sources */,

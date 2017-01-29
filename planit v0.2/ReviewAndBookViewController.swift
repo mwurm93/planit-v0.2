@@ -9,7 +9,7 @@
 import UIKit
 import Contacts
 
-class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource,UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
 
     var destinationLabelViaSegue: String?
     var tripPriceViaSegue: String?
@@ -19,6 +19,7 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet var adjustLogisticsView: UIView!
     @IBOutlet weak var popupBlurView: UIVisualEffectView!
+    @IBOutlet weak var popupBackgroundView: UIView!
     @IBOutlet weak var editTextBox: UITextView!
     @IBOutlet weak var topItineraryTable: UITableView!
     @IBOutlet weak var tripNameLabel: UILabel!
@@ -31,11 +32,13 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     @IBOutlet weak var knownTravelerNumber: UITextField!
     @IBOutlet weak var redressNumber: UITextField!
     @IBOutlet weak var birthdate: UITextField!
+    @IBOutlet weak var bookOnlyIfTheyDoInfoView: UIView!
+    @IBOutlet weak var bookNowButton: UIButton!
     
     // Outlets for buttons
     @IBOutlet weak var adjustTravelLogisticsButton: UIButton!
     @IBOutlet weak var bookThisTripButton: UIButton!
-    
+    @IBOutlet weak var bookOnlyIfTheyDoInfoButton: UIButton!
     // Create visual effect variable
     var effect:UIVisualEffect!
     
@@ -47,6 +50,19 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // book info view appearance
+        bookOnlyIfTheyDoInfoView.layer.cornerRadius = 5
+        bookOnlyIfTheyDoInfoView.alpha = 0
+        bookOnlyIfTheyDoInfoView.layer.isHidden = true
+        
+        // Set up tap outside info view
+        popupBackgroundView.isHidden = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
+        tap.numberOfTapsRequired = 1
+        tap.delegate = self
+        popupBackgroundView.addGestureRecognizer(tap)
+
+        //Set up notifications for moving VC up when keyboard presented
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -73,10 +89,15 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
         editTextBox.layer.cornerRadius = 5
         topItineraryTable.layer.cornerRadius = 5
         
+        //Appearance of booking buttons
+        bookNowButton.layer.borderWidth = 1
+        bookNowButton.layer.borderColor = UIColor.white.cgColor
+        bookNowButton.layer.cornerRadius = 5
+        bookNowButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
         bookThisTripButton.layer.borderWidth = 1
         bookThisTripButton.layer.borderColor = UIColor.white.cgColor
-        bookThisTripButton.layer.cornerRadius = 8
-        bookThisTripButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
+        bookThisTripButton.layer.cornerRadius = 5
+        bookThisTripButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
         
         // Set appearance of textfield
         firstName.layer.borderWidth = 0.5
@@ -176,6 +197,33 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     }
     
     
+    //UITapGestureRecognizer
+    func dismissPopup(touch: UITapGestureRecognizer) {
+            dismissInfoViewOut()
+    }
+    
+    func animateInfoViewIn(){
+        bookOnlyIfTheyDoInfoView.layer.isHidden = false
+        bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        bookOnlyIfTheyDoInfoView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.popupBackgroundView.isHidden = false
+            self.bookOnlyIfTheyDoInfoView.alpha = 1
+            self.bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func dismissInfoViewOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.bookOnlyIfTheyDoInfoView.alpha = 0
+            self.popupBackgroundView.isHidden = true
+        }) { (Success:Bool) in
+            self.bookOnlyIfTheyDoInfoView.layer.isHidden = true
+        }
+    }
+
     // MARK: UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
@@ -427,6 +475,11 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
 
     
     // MARK: Actions
+    
+    @IBAction func infoButtonPressed(_ sender: Any) {
+        animateInfoViewIn()
+    }
+    
     @IBAction func adjustMyTravelLogistics(_ sender: AnyObject) {
     animateAdjustLogisticsIn()
         
@@ -446,11 +499,10 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
         adjustTravelLogisticsButton.isEnabled = true
     }
     @IBAction func bookButtonPressed(_ sender: Any) {
-        let bookingStatusValue = 1 as NSNumber
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["booking_status"] = bookingStatusValue as NSNumber
-        //Save
-        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        handleBookingStatus()
+    }
+    @IBAction func bookNowButtonPressed(_ sender: Any) {
+        handleBookingStatus()
     }
     @IBAction func bookLaterButtonPressed(_ sender: Any) {
     }
@@ -458,6 +510,14 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
+    }
+    
+    func handleBookingStatus() {
+        let bookingStatusValue = 1 as NSNumber
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["booking_status"] = bookingStatusValue as NSNumber
+        //Save
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -469,7 +529,6 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
                 }
             }
         }
-        
     }
     
     func keyboardWillHide(notification: NSNotification) {
