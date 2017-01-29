@@ -425,7 +425,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             }
     }
     
-    @IBAction func sliderEditingChanged(_ sender: Any) {
+    func roundSlider() {
         //Update changed preferences
         let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
         numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
@@ -439,20 +439,15 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
+    
+    @IBAction func SliderTouchDragExit(_ sender: Any) {
+        roundSlider()
+    }
+    @IBAction func sliderEditingChanged(_ sender: Any) {
+        roundSlider()
+    }
     @IBAction func sliderValueChanged(_ sender: Any) {
-        
-        //Update changed preferences
-        let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
-        numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
-        
-        //Update trip preferences dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
-        //Save updated trip preferences dictionary
-        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-        existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
-        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+        roundSlider()        
     }
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
