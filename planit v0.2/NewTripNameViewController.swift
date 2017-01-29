@@ -353,6 +353,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
+            objectPhoneNumbers = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contact_phone_numbers") as? [NSString] ?? [NSString]()
+            
             objects?.remove(at: indexPath.row)
             objectIDs?.remove(at: indexPath.row)
             objectPhoneNumbers.remove(at: indexPath.row)
@@ -422,7 +424,23 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 addFromContactsButton.alpha = 0
             }
     }
+    
+    @IBAction func sliderEditingChanged(_ sender: Any) {
+        //Update changed preferences
+        let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
+        numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+        //Save updated trip preferences dictionary
+        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
+        existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
+        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+    }
     @IBAction func sliderValueChanged(_ sender: Any) {
+        
         //Update changed preferences
         let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
         numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)

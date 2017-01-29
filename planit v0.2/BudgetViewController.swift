@@ -35,6 +35,7 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
     @IBOutlet weak var nightsIcon: UIImageView!
     @IBOutlet weak var peopleIcon: UIImageView!
     @IBOutlet weak var hotelTotalDescLabel: UILabel!
+    @IBOutlet weak var budgetCalcButton: UIButton!
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
@@ -375,6 +376,8 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
     
+    //MARK: Actions
+    
     @IBAction func budgetEditingChanged(_ sender: Any) {
         var budgetValue = String()
         if budget.text != nil {
@@ -445,6 +448,13 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)    }
     @IBAction func expandCollapseButtonPressed(_ sender: Any) {
+       handCalcButtonPress()
+    }
+    @IBAction func budgetCalcButtonPressed(_ sender: Any) {
+        expandCollapseButton.sendActions(for: .touchUpInside)
+    }
+    
+    func handCalcButtonPress() {
         if expandCollapseButton.imageView?.image == #imageLiteral(resourceName: "expand") {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: [], animations: {
                 self.flightLabel.alpha = 1
@@ -494,6 +504,7 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
                 self.expandCollapseButton.setImage(#imageLiteral(resourceName: "expand"), for: UIControlState.normal)
             }, completion: nil)
         }
+
     }
     
     func keyboardWillShow(notification: NSNotification) {

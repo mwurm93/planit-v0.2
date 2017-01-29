@@ -718,13 +718,6 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Budget calculator" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11V-zw-BEy">
-                                <rect key="frame" x="27" y="214" width="160" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Roundtrip fare" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bw0-wB-s5X">
                                 <rect key="frame" x="27" y="279" width="275" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -875,17 +868,28 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="UX9-1a-IWl"/>
+                                    <segue destination="oN0-zx-La3" kind="show" animates="NO" id="S2r-5z-Heu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8c-Pf-e66">
                                 <rect key="frame" x="187" y="223" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title=")" image="expand">
+                                <state key="normal" image="expand">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="expandCollapseButtonPressed:" destination="64C-0J-to2" eventType="touchUpInside" id="O38-bg-6xt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQf-yD-eDo">
+                                <rect key="frame" x="27" y="214" width="160" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Budget calculator">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="budgetCalcButtonPressed:" destination="64C-0J-to2" eventType="touchUpInside" id="Azd-OO-w8F"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wr3-dV-LHq">
@@ -896,7 +900,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="sXz-uo-3nl"/>
+                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="lvK-3n-0ZO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Trip" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3I3-dV-Xz3">
@@ -970,6 +974,7 @@
                         <outlet property="NightlyRatePerRoomLabel" destination="efh-C5-nsi" id="G7y-XC-Qv6"/>
                         <outlet property="NightsLabel" destination="tYy-tl-0F4" id="Z1l-sd-5qf"/>
                         <outlet property="budget" destination="8bN-Np-4Ok" id="S8a-fW-Bez"/>
+                        <outlet property="budgetCalcButton" destination="CQf-yD-eDo" id="CPo-GV-5Da"/>
                         <outlet property="contactsCollectionView" destination="qaE-u0-ayF" id="Pl8-CF-iUO"/>
                         <outlet property="dollarSignLabel" destination="71T-fL-9KI" id="3av-vi-uui"/>
                         <outlet property="dollarSignLabel_1" destination="lX4-CW-hcD" id="Ozl-Ck-Eqe"/>
@@ -993,7 +998,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DKz-8K-zHB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1592.8" y="892.80359820089961"/>
+            <point key="canvasLocation" x="2382" y="893"/>
         </scene>
         <!--Suggest Destination View Controller-->
         <scene sceneID="Tg0-Rq-WCT">
@@ -1038,7 +1043,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="oN0-zx-La3" kind="show" animates="NO" id="4yB-mO-ROs"/>
+                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="Jg5-md-oJp"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Do you want to suggest a destination to your group?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBy-gU-SVt">
@@ -1088,7 +1093,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="sJC-Be-52K"/>
+                                    <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="fOv-FV-Odd"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, country, continent, etc." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lse-Fc-JRY">
@@ -1199,7 +1204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zEP-0c-FS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2378" y="893"/>
+            <point key="canvasLocation" x="1570" y="893"/>
         </scene>
         <!--Activities View Controller-->
         <scene sceneID="1uc-8z-bqx">
@@ -1305,7 +1310,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="0F0-uh-Iex"/>
+                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="fb8-f1-2cj"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What do you want to do on your trip?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuI-02-Ryt">
@@ -1656,7 +1661,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="qXw-r3-4Kc"/>
+                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="tzy-O1-dB3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlr-TS-m7B">
@@ -1855,6 +1860,7 @@
                                 <rect key="frame" x="91" y="534" width="192" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
+                                    <action selector="sliderEditingChanged:" destination="E8d-J0-NPc" eventType="editingChanged" id="0hL-MN-G0z"/>
                                     <action selector="sliderValueChanged:" destination="E8d-J0-NPc" eventType="valueChanged" id="CvB-3X-hl0"/>
                                 </connections>
                             </slider>
@@ -2737,14 +2743,14 @@
         <image name="settings" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sXz-uo-3nl"/>
-        <segue reference="sJC-Be-52K"/>
-        <segue reference="0F0-uh-Iex"/>
-        <segue reference="4yB-mO-ROs"/>
-        <segue reference="YhE-0L-EX8"/>
+        <segue reference="bs2-LI-qHj"/>
+        <segue reference="tx3-5T-LG7"/>
+        <segue reference="lra-AY-k3U"/>
         <segue reference="jUF-36-ylm"/>
-        <segue reference="cWA-9L-HdA"/>
-        <segue reference="EEv-3e-wvn"/>
+        <segue reference="S2r-5z-Heu"/>
+        <segue reference="fb8-f1-2cj"/>
+        <segue reference="lvK-3n-0ZO"/>
+        <segue reference="YhE-0L-EX8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

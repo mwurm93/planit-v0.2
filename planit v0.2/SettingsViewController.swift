@@ -198,7 +198,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     func keyboardWillShow(notification: NSNotification) {
-        if birthdateSettingsField.isEditing || homeAirportSettingsField.isEditing || passportNumberSettingsField.isEditing || redressNumberSettingsField.isEditing {
+        if birthdateSettingsField.isEditing || homeAirportSettingsField.isEditing || passportNumberSettingsField.isEditing || redressNumberSettingsField.isEditing || phoneSettingsField.isEditing {
             
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0{

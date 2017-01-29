@@ -70,8 +70,14 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         calendarView.allowsMultipleSelection  = true
         calendarView.rangeSelectionWillBeUsed = true
         calendarView.cellInset = CGPoint(x: 0, y: 2)
-        calendarView.scrollingMode = .nonStopToSection(withResistance: 0.5)
+        calendarView.scrollingMode = .nonStopToSection(withResistance: 0.9)
         calendarView.direction = .horizontal
+        
+//        //Multiple selection
+//        let panGensture = UILongPressGestureRecognizer(target: self, action: #selector(didStartRangeSelecting(gesture:)))
+//        panGensture.minimumPressDuration = 0.5
+//        calendarView.addGestureRecognizer(panGensture)
+
         
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -345,6 +351,96 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
+//UNCOMMENT FOR MULTIPLE SELECTION DATE PICKER
+//    var rangeSelectedDates: [Date] = []
+//    func didStartRangeSelecting(gesture: UILongPressGestureRecognizer) {
+//        let point = gesture.location(in: gesture.view!)
+////        rangeSelectedDates = calendarView.selectedDates
+//        if let cellState = calendarView.cellStatus(at: point) {
+//            let date = cellState.date
+//            if !rangeSelectedDates.contains(date) {
+//                if firstDate != nil && firstDate! < date {
+//                    let dateRange = calendarView.generateDateRange(from: firstDate ?? date, to: date)
+//                    for aDate in dateRange {
+//                        if !rangeSelectedDates.contains(aDate) {
+//                            rangeSelectedDates.append(aDate)
+//                        }
+//                    }
+//                } else {
+//                    firstDate = date
+//                }
+//                
+//                calendarView.selectDates(from: firstDate!, to: date, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+//            } else {
+//                let indexOfNewlySelectedDate = rangeSelectedDates.index(of: date)! + 1
+//                let lastIndex = rangeSelectedDates.endIndex
+//                let testCalendar = Calendar.current
+//                let followingDay = testCalendar.date(byAdding: .day, value: 1, to: date)!
+//                calendarView.selectDates(from: followingDay, to: rangeSelectedDates.last!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: false)
+//                rangeSelectedDates.removeSubrange(indexOfNewlySelectedDate..<lastIndex)
+//            }
+//
+////            handleSelection(cell: cell, cellState: cellState)
+//            
+//            // Create array of selected dates
+//            let selectedDates = calendarView.selectedDates as [NSDate]
+//            getLengthOfSelectedAvailabilities()
+//            
+//            //Update trip preferences in dictionary
+//            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+//            SavedPreferencesForTrip["selected_dates"] = selectedDates
+//            SavedPreferencesForTrip["Availability_segment_lengths"] = lengthOfAvailabilitySegmentsArray as [NSNumber]
+//            //Save
+//            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+//            
+//            if selectedDates.count > 0 {
+//                nextButton.isHidden = false
+//                nextButton.isUserInteractionEnabled = true
+//            }
+//        }
+//        
+//        if gesture.state == .ended {
+//            //Get times to travel
+//            for date in rangeSelectedDates {
+//                let cellState = calendarView.cellStatus(for: date)
+//                if cellState?.selectedPosition() == .left {
+//                    let cellRow = cellState?.row()
+//                    let cellCol = cellState?.column()
+//                    var timeOfDayTable_X = cellCol! * 50 + 39
+//                    let timeOfDayTable_Y = cellRow! * 50 + 145 + 2 * (cellRow! - 1)
+//                    if cellCol == 0 {
+//                        timeOfDayTable_X = (cellCol! + 1) * 50 + 39
+//                    }
+//                    if cellCol == 6 {
+//                        timeOfDayTable_X = (cellCol! - 1) * 50 + 39
+//                    }
+//                    timeOfDayTableView.center = CGPoint(x: timeOfDayTable_X, y: timeOfDayTable_Y)
+//                    animateTimeOfDayTableIn()
+//                }
+//            }
+//            for date in rangeSelectedDates {
+//                let cellState = calendarView.cellStatus(for: date)
+//                if cellState?.selectedPosition() == .left {
+//                    let cellRow = cellState?.row()
+//                    let cellCol = cellState?.column()
+//                    var timeOfDayTable_X = cellCol! * 50 + 39
+//                    let timeOfDayTable_Y = cellRow! * 50 + 145 + 2 * (cellRow! - 1)
+//                    if cellCol == 0 {
+//                        timeOfDayTable_X = (cellCol! + 1) * 50 + 39
+//                    }
+//                    if cellCol == 6 {
+//                        timeOfDayTable_X = (cellCol! - 1) * 50 + 39
+//                    }
+//                    timeOfDayTableView.center = CGPoint(x: timeOfDayTable_X, y: timeOfDayTable_Y)
+//                    animateTimeOfDayTableIn()
+//                }
+//            }
+//            //Reset segment range and first date vars
+//            rangeSelectedDates.removeAll()
+//            firstDate = nil
+//
+//        }
+//    }
 }
 
 // MARK: JTCalendarView Extension
@@ -433,6 +529,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
             calendarView.scrollToSegment(.next)
         }
         
+//UNCOMMENT FOR TWO CLICK RANGE SELECTION
         if firstDate != nil && firstDate! < date {
             if calendarView.cellStatus(for: firstDate!)?.selectedPosition() == .full {
                 calendarView.selectDates(from: firstDate!, to: date,  triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
