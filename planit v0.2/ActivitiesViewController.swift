@@ -31,7 +31,8 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        
         //add shadow to button
         chatButton.layer.shadowColor = UIColor.black.cgColor
         chatButton.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -101,16 +102,19 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let visibleCell = activitiesCollectionView.cellForItem(at: visibleCellIndex) as! ActivitiesCollectionViewCell
             if selectedActivities != nil {
             if (selectedActivities?.contains(visibleCell.activityLabel.text!))! {
-                visibleCell.layer.borderColor = UIColor.blue.cgColor
+//                visibleCell.layer.borderColor = UIColor.blue.cgColor
+                visibleCell.tintColor = UIColor.blue
                 activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
             }
             else {
-                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                visibleCell.tintColor = UIColor.white
                 activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
             }
             }
             else {
-                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                visibleCell.tintColor = UIColor.white
                 activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
             }
         }
@@ -159,9 +163,10 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             activitiesCollectionView.allowsMultipleSelection = true
             let cell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "activitiesViewPrototypeCell", for: indexPath) as! ActivitiesCollectionViewCell
             cell.setActivityItem(activityItems[indexPath.row])
-            cell.layer.borderWidth = 3.5
-            cell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
-            cell.layer.cornerRadius = 10
+            cell.activityImage.image = cell.activityImage.image?.withRenderingMode(.alwaysTemplate)
+//            cell.layer.borderWidth = 3.5
+//            cell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//            cell.layer.cornerRadius = 10
             return cell
         }
 
@@ -231,16 +236,20 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
                 let visibleCell = activitiesCollectionView.cellForItem(at: visibleCellIndex) as! ActivitiesCollectionViewCell
                 if sampleContactActivityLists[indexPath.row] != [""] {
                     if (sampleContactActivityLists[indexPath.row].contains(visibleCell.activityLabel.text!)) {
-                        visibleCell.layer.borderColor = colors[indexPath.row].cgColor
+                        visibleCell.activityImage.image = visibleCell.activityImage.image?.withRenderingMode(.alwaysTemplate)
+                        visibleCell.tintColor = colors[indexPath.row]
+//                        visibleCell.layer.borderColor = colors[indexPath.row].cgColor
                         activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
                     }
                     else {
-                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                        visibleCell.tintColor = UIColor.white
                         activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                     }
                 }
                 else {
-                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                    visibleCell.tintColor = UIColor.white
                     activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                 }
             }
@@ -271,16 +280,20 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
                 let visibleCell = activitiesCollectionView.cellForItem(at: visibleCellIndex) as! ActivitiesCollectionViewCell
                 if selectedActivities != nil {
                     if (selectedActivities?.contains(visibleCell.activityLabel.text!))! {
-                        visibleCell.layer.borderColor = UIColor.blue.cgColor
+                        visibleCell.tintColor = UIColor.blue
+//                        visibleCell.layer.borderColor = UIColor.blue.cgColor
                         activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
                     }
                     else {
-                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                        visibleCell.tintColor = UIColor.white
                         activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                     }
                 }
                 else {
-                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+//                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+                    visibleCell.tintColor = UIColor.white
+
                     activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                 }
             }
@@ -293,7 +306,9 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
 
         // Change border color to grey
         let deSelectedCell = collectionView.cellForItem(at: indexPath)
-        deSelectedCell!.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
+        deSelectedCell?.tintColor = UIColor.white
+
+//        deSelectedCell!.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
         
         // Create array of selected activities
         var selectedActivities = [String]()
@@ -331,7 +346,9 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
 
         // Change border color to grey
         let SelectedCell = activitiesCollectionView.cellForItem(at: indexPath)
-        SelectedCell!.layer.borderColor = UIColor.blue.cgColor
+            SelectedCell?.tintColor = UIColor.blue
+
+//        SelectedCell!.layer.borderColor = UIColor.blue.cgColor
         
         // Create array of selected activities
         var selectedActivities = [String]()
