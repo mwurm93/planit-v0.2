@@ -1225,7 +1225,7 @@
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-dT-qVl">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="mAT-Qj-oZ5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2936,14 +2936,14 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cWA-9L-HdA"/>
-        <segue reference="jUF-36-ylm"/>
+        <segue reference="lra-AY-k3U"/>
         <segue reference="EEv-3e-wvn"/>
         <segue reference="bs2-LI-qHj"/>
         <segue reference="tzy-O1-dB3"/>
         <segue reference="fb8-f1-2cj"/>
-        <segue reference="S2r-5z-Heu"/>
+        <segue reference="zQA-c3-mCq"/>
         <segue reference="YhE-0L-EX8"/>
+        <segue reference="jUF-36-ylm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

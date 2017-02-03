@@ -35,6 +35,9 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.autoresizingMask = .flexibleTopMargin
+        view.sizeToFit()
+        
         if DataContainerSingleton.sharedDataContainer.usertrippreferences == nil || DataContainerSingleton.sharedDataContainer.usertrippreferences?.count == 0 {
             
             DataContainerSingleton.sharedDataContainer.currenttrip = 0

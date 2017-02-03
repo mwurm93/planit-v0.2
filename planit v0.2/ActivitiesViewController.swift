@@ -32,6 +32,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
         
         //add shadow to button
         chatButton.layer.shadowColor = UIColor.black.cgColor
@@ -79,8 +80,10 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         buttonBeneathLabel.isHidden = false
         rightArrowButton.isHidden = false
         
+        let contactsInGroup = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        
         //Uncomment for testing on iPhone
-//        if (contacts?.count)! > 0 {
+//        if (contactsInGroup?.count)! > 0 {
 //            chatButton.isHidden = false
 //            tripRecommendationsLabel.isHidden = true
 //            buttonBeneathLabel.isHidden = true
@@ -102,18 +105,15 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let visibleCell = activitiesCollectionView.cellForItem(at: visibleCellIndex) as! ActivitiesCollectionViewCell
             if selectedActivities != nil {
             if (selectedActivities?.contains(visibleCell.activityLabel.text!))! {
-//                visibleCell.layer.borderColor = UIColor.blue.cgColor
                 visibleCell.tintColor = UIColor.blue
                 activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
             }
             else {
-//                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                 visibleCell.tintColor = UIColor.white
                 activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
             }
             }
             else {
-//                visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                 visibleCell.tintColor = UIColor.white
                 activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
             }
@@ -164,9 +164,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let cell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "activitiesViewPrototypeCell", for: indexPath) as! ActivitiesCollectionViewCell
             cell.setActivityItem(activityItems[indexPath.row])
             cell.activityImage.image = cell.activityImage.image?.withRenderingMode(.alwaysTemplate)
-//            cell.layer.borderWidth = 3.5
-//            cell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
-//            cell.layer.cornerRadius = 10
+
             return cell
         }
 
@@ -238,17 +236,14 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
                     if (sampleContactActivityLists[indexPath.row].contains(visibleCell.activityLabel.text!)) {
                         visibleCell.activityImage.image = visibleCell.activityImage.image?.withRenderingMode(.alwaysTemplate)
                         visibleCell.tintColor = colors[indexPath.row]
-//                        visibleCell.layer.borderColor = colors[indexPath.row].cgColor
                         activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
                     }
                     else {
-//                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                         visibleCell.tintColor = UIColor.white
                         activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                     }
                 }
                 else {
-//                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                     visibleCell.tintColor = UIColor.white
                     activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                 }
@@ -281,17 +276,14 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
                 if selectedActivities != nil {
                     if (selectedActivities?.contains(visibleCell.activityLabel.text!))! {
                         visibleCell.tintColor = UIColor.blue
-//                        visibleCell.layer.borderColor = UIColor.blue.cgColor
                         activitiesCollectionView.selectItem(at: visibleCellIndex, animated: true, scrollPosition: .top)
                     }
                     else {
-//                        visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                         visibleCell.tintColor = UIColor.white
                         activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
                     }
                 }
                 else {
-//                    visibleCell.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
                     visibleCell.tintColor = UIColor.white
 
                     activitiesCollectionView.deselectItem(at: visibleCellIndex, animated: true)
@@ -307,9 +299,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         // Change border color to grey
         let deSelectedCell = collectionView.cellForItem(at: indexPath)
         deSelectedCell?.tintColor = UIColor.white
-
-//        deSelectedCell!.layer.borderColor = UIColor(red: 25/255, green: 135/255, blue: 255/255, alpha: 0).cgColor
-        
+            
         // Create array of selected activities
         var selectedActivities = [String]()
         let indexPaths = self.activitiesCollectionView!.indexPathsForSelectedItems
@@ -347,8 +337,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         // Change border color to grey
         let SelectedCell = activitiesCollectionView.cellForItem(at: indexPath)
             SelectedCell?.tintColor = UIColor.blue
-
-//        SelectedCell!.layer.borderColor = UIColor.blue.cgColor
         
         // Create array of selected activities
         var selectedActivities = [String]()
@@ -466,6 +454,16 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+    }
+    
+    override func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    override func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     //MARK: Actions

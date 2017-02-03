@@ -35,6 +35,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.autoresizingMask = .flexibleTopMargin
+        view.sizeToFit()
+        
         self.hideKeyboardWhenTappedAround()
         addressBookStore = CNContactStore()
         
