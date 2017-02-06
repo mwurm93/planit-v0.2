@@ -55,6 +55,9 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
         bookOnlyIfTheyDoInfoView.alpha = 0
         bookOnlyIfTheyDoInfoView.layer.isHidden = true
         
+        // Center booking button text
+        bookThisTripButton.titleLabel?.textAlignment = .center
+        
         // Set up tap outside info view
         popupBackgroundView.isHidden = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
