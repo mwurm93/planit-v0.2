@@ -56,8 +56,8 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         timeOfDayTableView.allowsMultipleSelection = true
         
         //Hide next button
-        nextButton.isHidden = true
-        nextButton.isUserInteractionEnabled = false
+//        nextButton.isHidden = true
+//        nextButton.isUserInteractionEnabled = false
         popupBackgroundView.isHidden = true
         
         // Calendar header setup
@@ -84,8 +84,8 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         let selectedDatesValue = SavedPreferencesForTrip["selected_dates"] as? [NSDate]
         if (selectedDatesValue?.count)! > 0 {
             self.calendarView.selectDates(selectedDatesValue! as [Date],triggerSelectionDelegate: false)
-            nextButton.isHidden = false
-            nextButton.isUserInteractionEnabled = true
+//            nextButton.isHidden = false
+//            nextButton.isUserInteractionEnabled = true
         }
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as? NSString
         //Install the value into the label.
@@ -579,8 +579,8 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
         if selectedDates.count > 0 {
-            nextButton.isHidden = false
-            nextButton.isUserInteractionEnabled = true
+//            nextButton.isHidden = false
+//            nextButton.isUserInteractionEnabled = true
         }
         
         mostRecentSelectedCellDate = date as NSDate
@@ -608,8 +608,8 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
                 
         if selectedDates.count == 0 {
-            nextButton.isHidden = true
-            nextButton.isUserInteractionEnabled = false
+//            nextButton.isHidden = true
+//            nextButton.isUserInteractionEnabled = false
         }
     }
     
