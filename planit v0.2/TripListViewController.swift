@@ -280,15 +280,15 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         let finishedEnteringPreferencesStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "finished_entering_preferences_status") as? NSString ?? NSString()
 
         if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToCalendar", sender: self)
         } else if finishedEnteringPreferencesStatus == "Calendar" {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToDestination", sender: self)
         } else if finishedEnteringPreferencesStatus == "Destination" {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToBudget", sender: self)
         } else if finishedEnteringPreferencesStatus == "Budget" {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToActivities", sender: self)
         } else if finishedEnteringPreferencesStatus == "Activities" {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+            self.performSegue(withIdentifier: "FinishedExistingTripsToUnbookedSummary", sender: self)
         } else {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
         }

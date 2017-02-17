@@ -553,7 +553,12 @@
                         <outlet property="instruct5image" destination="x3q-if-8qh" id="w4y-mX-smo"/>
                         <outlet property="instructionsTitleLabel" destination="Fn7-dr-PHH" id="czC-cY-XLr"/>
                         <outlet property="myTripsTitleLabel" destination="FnC-Mh-kbn" id="QJp-4q-Tri"/>
-                        <segue destination="E8d-J0-NPc" kind="show" identifier="existingTripsToAddContacts" animates="NO" id="5Cy-Be-NXP"/>
+                        <segue destination="E8d-J0-NPc" kind="show" identifier="unfinishedExistingTripsToAddContacts" animates="NO" id="5Cy-Be-NXP"/>
+                        <segue destination="w3M-hs-AT7" kind="show" identifier="unfinishedExistingTripsToCalendar" animates="NO" id="7Cr-aG-TWm"/>
+                        <segue destination="Cpd-I2-Ulf" kind="show" identifier="unfinishedExistingTripsToDestination" animates="NO" id="ElG-rI-GdU"/>
+                        <segue destination="64C-0J-to2" kind="show" identifier="unfinishedExistingTripsToBudget" animates="NO" id="08y-6z-rtx"/>
+                        <segue destination="oN0-zx-La3" kind="show" identifier="unfinishedExistingTripsToActivities" animates="NO" id="L9q-Uv-kQt"/>
+                        <segue destination="9Q5-Bs-FEW" kind="show" identifier="FinishedExistingTripsToUnbookedSummary" animates="NO" id="cLR-rt-Kjo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R3s-V1-O6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2885,20 +2890,6 @@
                                             <rect key="frame" x="17" y="413" width="35" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvT-8d-LUB">
-                                            <rect key="frame" x="329" y="621" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                            <state key="normal" title="&gt;">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omg-Me-981">
-                                            <rect key="frame" x="188" y="614" width="170" height="46"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <state key="normal" title="Let's get to it"/>
-                                        </button>
                                     </subviews>
                                 </view>
                                 <blurEffect style="light"/>
@@ -2911,12 +2902,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-0O-UjI">
-                                <rect key="frame" x="17" y="614" width="58" height="46"/>
+                                <rect key="frame" x="17" y="614" width="162" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Back">
+                                <state key="normal" title="Back to trip list">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="c7O-w7-no5" kind="show" id="ZZw-Xw-k7p"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i97-MQ-YUZ">
                                 <rect key="frame" x="65" y="160" width="276" height="67"/>
@@ -3002,12 +2996,12 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="S2r-5z-Heu"/>
-        <segue reference="Jg5-md-oJp"/>
-        <segue reference="tzy-O1-dB3"/>
-        <segue reference="fOv-FV-Odd"/>
-        <segue reference="tx3-5T-LG7"/>
-        <segue reference="lra-AY-k3U"/>
+        <segue reference="L9q-Uv-kQt"/>
+        <segue reference="ZZw-Xw-k7p"/>
+        <segue reference="08y-6z-rtx"/>
+        <segue reference="7Cr-aG-TWm"/>
+        <segue reference="5Cy-Be-NXP"/>
+        <segue reference="ElG-rI-GdU"/>
         <segue reference="YhE-0L-EX8"/>
         <segue reference="9ZB-Ko-LdT"/>
     </inferredMetricsTieBreakers>
