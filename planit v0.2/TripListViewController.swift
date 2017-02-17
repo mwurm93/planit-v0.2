@@ -277,13 +277,22 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         
-        let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? 0 as NSNumber
+        let finishedEnteringPreferencesStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "finished_entering_preferences_status") as? NSString ?? NSString()
 
-        if bookingStatus == 0 {
-            
+        if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+        } else if finishedEnteringPreferencesStatus == "Calendar" {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+        } else if finishedEnteringPreferencesStatus == "Destination" {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+        } else if finishedEnteringPreferencesStatus == "Budget" {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+        } else if finishedEnteringPreferencesStatus == "Activities" {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
+        } else {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
         }
         
-        self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

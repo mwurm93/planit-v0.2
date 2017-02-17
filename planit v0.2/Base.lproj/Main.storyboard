@@ -876,6 +876,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextButtonPressed:" destination="64C-0J-to2" eventType="touchUpInside" id="hqu-5f-Pye"/>
                                     <segue destination="oN0-zx-La3" kind="show" animates="NO" id="S2r-5z-Heu"/>
                                 </connections>
                             </button>
@@ -1051,6 +1052,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextButtonPressed:" destination="Cpd-I2-Ulf" eventType="touchUpInside" id="0dC-is-Kor"/>
                                     <segue destination="64C-0J-to2" kind="show" animates="NO" id="Jg5-md-oJp"/>
                                 </connections>
                             </button>
@@ -1669,6 +1671,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextButtonPressed:" destination="w3M-hs-AT7" eventType="touchUpInside" id="M64-6j-SZ3"/>
                                     <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="tzy-O1-dB3"/>
                                 </connections>
                             </button>
@@ -1848,6 +1851,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="Luu-Nc-osp"/>
                                     <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="bs2-LI-qHj"/>
                                 </connections>
                             </button>
@@ -2998,14 +3002,14 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9ZB-Ko-LdT"/>
-        <segue reference="YhE-0L-EX8"/>
-        <segue reference="zQA-c3-mCq"/>
-        <segue reference="fb8-f1-2cj"/>
-        <segue reference="lra-AY-k3U"/>
-        <segue reference="5Cy-Be-NXP"/>
-        <segue reference="bs2-LI-qHj"/>
+        <segue reference="S2r-5z-Heu"/>
+        <segue reference="Jg5-md-oJp"/>
         <segue reference="tzy-O1-dB3"/>
+        <segue reference="fOv-FV-Odd"/>
+        <segue reference="tx3-5T-LG7"/>
+        <segue reference="lra-AY-k3U"/>
+        <segue reference="YhE-0L-EX8"/>
+        <segue reference="9ZB-Ko-LdT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
