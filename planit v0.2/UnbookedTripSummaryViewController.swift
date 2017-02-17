@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import Contacts
 
 class UnbookedTripSummaryViewController: UIViewController {
     
     // MARK: Outlets
     @IBOutlet weak var tripNameLabel: UILabel!
+    @IBOutlet weak var contactsCollectionView: UICollectionView!
+    
+    // Set up vars for Contacts - COPY
+    var contacts: [CNContact]?
+    var contactIDs: [NSString]?
+    fileprivate var addressBookStore: CNContactStore!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Initialize address book - COPY
+        addressBookStore = CNContactStore()
+
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as? NSString
@@ -24,6 +36,143 @@ class UnbookedTripSummaryViewController: UIViewController {
         }
 
     }
+    
+    ///////////////////////////////////COLLECTION VIEW/////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Fetch Contacts
+    func retrieveContactsWithStore(store: CNContactStore) {
+        let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        do {
+            if (contactIDs?.count)! > 0 {
+                let predicate = CNContact.predicateForContacts(withIdentifiers: contactIDs as! [String])
+                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
+                contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+            } else {
+                contacts = nil
+            }
+            DispatchQueue.main.async (execute: { () -> Void in
+            })
+        } catch {
+            print(error)
+        }
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        if (contactIDs?.count)! > 0 {
+            return (contactIDs?.count)!
+        }
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
+        
+        retrieveContactsWithStore(store: addressBookStore)
+        let contact = contacts?[indexPath.row]
+        if (contact?.imageDataAvailable)! {
+            contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
+            contactsCell.thumbnailImage.contentMode = .scaleToFill
+            let reCenter = contactsCell.thumbnailImage.center
+            contactsCell.thumbnailImage.layer.frame = CGRect(x: contactsCell.thumbnailImage.layer.frame.minX
+                , y: contactsCell.thumbnailImage.layer.frame.minY, width: contactsCell.thumbnailImage.layer.frame.width * 0.91, height: contactsCell.thumbnailImage.layer.frame.height * 0.91)
+            contactsCell.thumbnailImage.center = reCenter
+            contactsCell.thumbnailImage.layer.cornerRadius = contactsCell.thumbnailImage.frame.height / 2
+            contactsCell.thumbnailImage.layer.masksToBounds = true
+            contactsCell.initialsLabel.isHidden = true
+            contactsCell.thumbnailImageFilter.isHidden = false
+            contactsCell.thumbnailImageFilter.image = UIImage(named: "no_contact_image_selected")!
+            contactsCell.thumbnailImageFilter.alpha = 0.5
+        } else {
+            contactsCell.thumbnailImage.image = UIImage(named: "no_contact_image")!
+            contactsCell.thumbnailImageFilter.isHidden = true
+            contactsCell.initialsLabel.isHidden = false
+            let firstInitial = contact?.givenName[0]
+            let secondInitial = contact?.familyName[0]
+            contactsCell.initialsLabel.text = firstInitial! + secondInitial!
+        }
+        
+        return contactsCell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+//        if collectionView == contactsCollectionView {
+//            retrieveContactsWithStore(store: addressBookStore)
+//            
+//            //  Create budget list and color array
+//            let sampleAirport_1 = "JFK"
+//            let sampleAirport_2 = "SFO"
+//            let sampleAirport_3 = "ORF"
+//            let sampleAirport_4 = "BOS"
+//            let sampleAirport_5 = "DEN"
+//            let sampleAirport_6 = "MIA"
+//            let sampleAirport_7 = "MCO"
+//            let sampleAirports = [sampleAirport_1, sampleAirport_2,sampleAirport_3,sampleAirport_4,sampleAirport_5,sampleAirport_6,sampleAirport_7]
+//            
+//            let colors = [UIColor.purple, UIColor.gray, UIColor.red, UIColor.green, UIColor.orange, UIColor.yellow, UIColor.brown, UIColor.black]
+//            
+//            // Change color of thumbnail image
+//            let contact = contacts?[indexPath.row]
+//            let SelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
+//            
+//            if (contact?.imageDataAvailable)! {
+//                SelectedContact.thumbnailImageFilter.alpha = 0
+//            } else {
+//                SelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image_selected")!
+//                //                SelectedContact.initialsLabel.textColor = UIColor(red: 132/255, green: 137/255, blue: 147/255, alpha: 1)
+//                SelectedContact.initialsLabel.textColor = colors[indexPath.row]
+//            }
+//            
+//            homeAirport.text = sampleAirports[indexPath.row]
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+//        if collectionView == contactsCollectionView {
+//            retrieveContactsWithStore(store: addressBookStore)
+//            
+//            let contact = contacts?[indexPath.row]
+//            let DeSelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
+//            
+//            if (contact?.imageDataAvailable)! {
+//                DeSelectedContact.thumbnailImageFilter.alpha = 0.5
+//            } else {
+//                DeSelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image")!
+//                DeSelectedContact.initialsLabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+//            }
+//            
+//            let homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
+//            if homeAirportValue != "" {
+//                homeAirport.text = homeAirportValue
+//            } else {
+//                homeAirport.text = ""
+//            }
+//        }
+//    }
+    
+    // MARK: - UICollectionViewFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let picDimension = 55
+        return CGSize(width: picDimension, height: picDimension)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        //COPY
+        let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        
+        let spacing = 10
+        if (contactIDs?.count)! > 0 {
+            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contactIDs?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contactIDs?.count)! - 1))
+            if (contactIDs?.count)! > 4 {
+                leftRightInset = 30
+            }
+            return UIEdgeInsetsMake(0, leftRightInset, 0, 0)
+        }
+        return UIEdgeInsetsMake(0, 0, 0, 0)
+    }
+    
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

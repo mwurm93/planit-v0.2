@@ -276,7 +276,14 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                 DataContainerSingleton.sharedDataContainer.currenttrip = trip
             }
         }
-        self.performSegue(withIdentifier: "existingTripsToAddContacts", sender: self)
+        
+        let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? 0 as NSNumber
+
+        if bookingStatus == 0 {
+            
+        }
+        
+        self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
