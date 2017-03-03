@@ -138,7 +138,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         picker.delegate = self
         picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
         if (objectIDs?.count)! > 0 {
-        picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs!)
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs!)
+        } else {
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0)")
         }
         picker.predicateForSelectionOfContact = NSPredicate(format:"phoneNumbers.@count == 1")
         self.present(picker , animated: true, completion: nil)
@@ -214,6 +216,20 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             numberHotelRoomsControl.alpha = 1
             numberHotelRoomsStack.alpha = 1
             
+            let numberContactsInTable = objectPhoneNumbers.count
+            if numberContactsInTable < 5 {
+                numberHotelRoomsLabel.frame = CGRect(x: 67, y: 253 + numberContactsInTable * 55, width: 236, height: 48)
+                numberHotelRoomsControl.frame = CGRect(x: 91, y: 306 + numberContactsInTable * 55, width: 192, height: 31)
+                numberHotelRoomsStack.frame = CGRect(x: 102, y: 339 + numberContactsInTable * 55, width: 170, height: 21)
+                groupMemberListTable.frame = CGRect(x: 34, y: 233, width: 307, height: numberContactsInTable * 60)
+            }
+            else {
+            numberHotelRoomsLabel.frame = CGRect(x: 67, y: 481, width: 236, height: 48)
+            numberHotelRoomsControl.frame = CGRect(x: 91, y: 534, width: 192, height: 31)
+            numberHotelRoomsStack.frame = CGRect(x: 102, y: 567, width: 170, height: 21)
+                groupMemberListTable.frame = CGRect(x: 34, y: 233, width: 307, height: 237)
+            }
+            
             var roundedValue = roundf(Float((objects?.count)! + 1)/2)
             if roundedValue > 4 {
                 roundedValue = 4
@@ -274,6 +290,20 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             numberHotelRoomsLabel.alpha = 1
             numberHotelRoomsControl.alpha = 1
             numberHotelRoomsStack.alpha = 1
+            
+            let numberContactsInTable = objectPhoneNumbers.count
+            if numberContactsInTable < 5 {
+                numberHotelRoomsLabel.frame = CGRect(x: 67, y: 253 + numberContactsInTable * 55, width: 236, height: 48)
+                numberHotelRoomsControl.frame = CGRect(x: 91, y: 306 + numberContactsInTable * 55, width: 192, height: 31)
+                numberHotelRoomsStack.frame = CGRect(x: 102, y: 339 + numberContactsInTable * 55, width: 170, height: 21)
+                groupMemberListTable.frame = CGRect(x: 34, y: 233, width: 307, height: numberContactsInTable * 60)
+            }
+            else {
+                numberHotelRoomsLabel.frame = CGRect(x: 67, y: 481, width: 236, height: 48)
+                numberHotelRoomsControl.frame = CGRect(x: 91, y: 534, width: 192, height: 31)
+                numberHotelRoomsStack.frame = CGRect(x: 102, y: 567, width: 170, height: 21)
+                groupMemberListTable.frame = CGRect(x: 34, y: 233, width: 307, height: 237)
+            }
             
             var roundedValue = roundf(Float((objects?.count)! + 1)/2)
             if roundedValue > 4 {
@@ -437,10 +467,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
         //Save updated trip preferences dictionary
-        var existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-        let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
-        existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
-        DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
     }
     
     @IBAction func SliderTouchDragExit(_ sender: Any) {

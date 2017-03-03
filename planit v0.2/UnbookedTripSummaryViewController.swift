@@ -8,18 +8,25 @@
 
 import UIKit
 import Contacts
+import ContactsUI
 
-class UnbookedTripSummaryViewController: UIViewController {
+class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CNContactPickerDelegate, CNContactViewControllerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
+    @IBOutlet weak var numberHotelRoomsControl: UISlider!
+    @IBOutlet weak var numberHotelRoomsStack: UIStackView!
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
     var contactIDs: [NSString]?
     fileprivate var addressBookStore: CNContactStore!
-
+    let picker = CNContactPickerViewController()
+    var objects: [NSObject]?
+//    var objectIDs: [NSString]?
+    var contactPhoneNumbers = [NSString]()
+    let sliderStep: Float = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +40,12 @@ class UnbookedTripSummaryViewController: UIViewController {
         //Install the value into the label.
         if tripNameValue != "" {
             self.tripNameLabel.text =  "\(tripNameValue!)"
+        }
+                retrieveContactsWithStore(store: addressBookStore)
+        
+        let hotelRoomsValue = SavedPreferencesForTrip["hotel_rooms"] as! [NSNumber]
+        if hotelRoomsValue.count > 0 {
+            self.numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: false)
         }
 
     }
@@ -162,17 +175,240 @@ class UnbookedTripSummaryViewController: UIViewController {
         //COPY
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
-        let spacing = 10
-        if (contactIDs?.count)! > 0 {
-            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contactIDs?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contactIDs?.count)! - 1))
-            if (contactIDs?.count)! > 4 {
-                leftRightInset = 30
-            }
-            return UIEdgeInsetsMake(0, leftRightInset, 0, 0)
-        }
+//        let spacing = 10
+//        if (contactIDs?.count)! > 0 {
+//            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contactIDs?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contactIDs?.count)! - 1))
+//            if (contactIDs?.count)! > 4 {
+//                leftRightInset = 30
+//            }
+//            return UIEdgeInsetsMake(0, 0, 0, 0)
+//        }
         return UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
+    
+    /////////Contacts picker//////////
+    fileprivate func checkContactsAccess() {
+        switch CNContactStore.authorizationStatus(for: .contacts) {
+        // Update our UI if the user has granted access to their Contacts
+        case .authorized:
+            self.showContactsPicker()
+        // Prompt the user for access to Contacts if there is no definitive answer
+        case .notDetermined :
+            self.requestContactsAccess()
+        // Display a message if the user has denied or restricted access to Contacts
+        case .denied,
+             .restricted:
+            let alert = UIAlertController(title: "Privacy Warning!",
+                                          message: "Please Enable permission! in settings!.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func requestContactsAccess() {
+        addressBookStore.requestAccess(for: .contacts) {granted, error in
+            if granted {
+                DispatchQueue.main.async {
+                    self.showContactsPicker()
+                    return
+                }
+            }
+        }
+    }
+    
+    //Show Contact Picker
+    fileprivate  func showContactsPicker() {
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        contactIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+        
+        picker.delegate = self
+        picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
+        if (contactIDs?.count)! > 0 {
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", contactIDs!)
+        } else {
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0)")
+        }
+        picker.predicateForSelectionOfContact = NSPredicate(format:"phoneNumbers.@count == 1")
+        self.present(picker , animated: true, completion: nil)
+    }
+    
+//    func retrieveContactsWithStore(store: CNContactStore) {
+//        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+//        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+//        do {
+//            if (objectIDs?.count)! > 0 {
+//                let predicate = CNContact.predicateForContacts(withIdentifiers: objectIDs as! [String])
+//                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
+//                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+//                self.objects = contacts
+//            } else {
+//                self.objects = nil
+//            }
+//            DispatchQueue.main.async (execute: { () -> Void in
+//                self.groupMemberListTable.reloadData()
+//            })
+//        } catch {
+//            print(error)
+//        }
+//    }
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
+        var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        
+//        contactsCollectionView.beginUpdates()
+        if contactIDs != nil {
+            
+            
+            objects?.append(contactProperty.contact as NSObject)
+            contactIDs?.append(contactProperty.contact.identifier as NSString)
+            let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
+            var indexForCorrectPhoneNumber: Int?
+            for indexOfPhoneNumber in 0...(allPhoneNumbersForContact.count - 1) {
+                if allPhoneNumbersForContact[indexOfPhoneNumber].value == contactProperty.value as! CNPhoneNumber {
+                    indexForCorrectPhoneNumber = indexOfPhoneNumber
+                }
+            }
+            let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
+            contactPhoneNumbers.append(phoneNumberToAdd)
+            
+            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+        }
+        else {
+            
+            
+            objects = [contactProperty.contact as NSObject]
+            contactIDs?.append(contactProperty.contact.identifier as NSString)
+            let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
+            var indexForCorrectPhoneNumber: Int?
+            for indexOfPhoneNumber in 0...(allPhoneNumbersForContact.count - 1) {
+                if allPhoneNumbersForContact[indexOfPhoneNumber].value == contactProperty.value as! CNPhoneNumber {
+                    indexForCorrectPhoneNumber = indexOfPhoneNumber
+                }
+            }
+            let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
+            contactPhoneNumbers.append(phoneNumberToAdd)
+            
+            let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+                
+        }
+        
+//        contactsCollectionView.reloadData()
+//        contactsCollectionView.endUpdates()
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+        //Save updated trip preferences dictionary
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        
+        // activate hotels room
+        if objects != nil {
+            var roundedValue = roundf(Float((objects?.count)! + 1)/2)
+            if roundedValue > 4 {
+                roundedValue = 4
+            }
+            if roundedValue < 1 {
+                roundedValue = 1
+            }
+            numberHotelRoomsControl.setValue(roundedValue, animated: false)
+            
+            //Update changed preferences as variables
+            let hotelRoomsValue = [NSNumber(value: roundedValue)]
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        }
+    }
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
+        
+        //Update changed preferences as variables
+//        groupMemberListTable.beginUpdates()
+        if contactIDs != nil {
+            objects?.append(contact as NSObject)
+            contactIDs?.append(contact.identifier as NSString)
+            let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
+            contactPhoneNumbers.append(phoneNumberToAdd)
+            
+            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            
+        }
+        else {
+            objects = [contact as NSObject]
+            contactIDs?.append(contact.identifier as NSString)
+            let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
+            contactPhoneNumbers.append(phoneNumberToAdd)
+            
+            let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+        }
+//        contactsCollectionView.reloadData()
+//        groupMemberListTable.endUpdates()
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+        //Save updated trip preferences dictionary
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        
+        // activate hotels room
+        if objects != nil {
+            var roundedValue = roundf(Float((objects?.count)! + 1)/2)
+            if roundedValue > 4 {
+                roundedValue = 4
+            }
+            if roundedValue < 1 {
+                roundedValue = 1
+            }
+            numberHotelRoomsControl.setValue(roundedValue, animated: true)
+            
+            //Update changed preferences as variables
+            let hotelRoomsValue = [NSNumber(value: roundedValue)]
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        }
+    }
+    
+    // MARK: Actions
+    @IBAction func addContact(_ sender: Any) {
+        checkContactsAccess()
+    }
+    func roundSlider() {
+        //Update changed preferences
+        let hotelRoomsValue = [NSNumber(value: (round(numberHotelRoomsControl.value / sliderStep)))]
+        numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+        //Save updated trip preferences dictionary
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    
+    @IBAction func SliderTouchDragExit(_ sender: Any) {
+        roundSlider()
+    }
+    @IBAction func SliderEditingChanged(_ sender: Any) {
+        roundSlider()
+    }
+    @IBAction func SliderValueChanged(_ sender: Any) {
+        roundSlider()
+    }
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
