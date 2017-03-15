@@ -10,13 +10,17 @@ import UIKit
 import Contacts
 import ContactsUI
 
-class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CNContactPickerDelegate, CNContactViewControllerDelegate {
+class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CNContactPickerDelegate, CNContactViewControllerDelegate, UITextFieldDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var numberHotelRoomsControl: UISlider!
     @IBOutlet weak var numberHotelRoomsStack: UIStackView!
+    @IBOutlet weak var budget: UITextField!
+    @IBOutlet weak var homeAirport: UITextField!
+    @IBOutlet weak var topDestination: UILabel!
+    @IBOutlet weak var averageGroupBudget: UILabel!
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
@@ -27,28 +31,97 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
 //    var objectIDs: [NSString]?
     var contactPhoneNumbers = [NSString]()
     let sliderStep: Float = 1
+    var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
+        retrieveContactsWithStore(store: addressBookStore)
+        
+        self.budget.delegate = self
 
-        // Load trip preferences and install
+        // Set appearance of textfield
+        budget.layer.cornerRadius = 5
+        budget.layer.borderWidth = 1
+        budget.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
+        budget.layer.masksToBounds = true
+        let budgetLabelPlaceholder = budget!.value(forKey: "placeholderLabel") as? UILabel
+        budgetLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        
+        homeAirport.layer.cornerRadius = 5
+        homeAirport.layer.borderWidth = 1
+        homeAirport.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
+        homeAirport.layer.masksToBounds = true
+        let homeAirportLabelPlaceholder = homeAirport!.value(forKey: "placeholderLabel") as? UILabel
+        homeAirportLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        homeAirport.text =  "\(homeAirportValue)"
+        
+        // Set average group budget label
+        averageGroupBudget.text = "Avg. budget of your group is $XYZ"
+        
+
+        // Load trip preferences
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+
+        // Install top destination
+        let decidedOnDestinationControlValue = SavedPreferencesForTrip["decided_destination_control"] as! NSString
+        let decidedOnDestinationValue = SavedPreferencesForTrip["decided_destination_value"] as! NSString
+        let finishedEnteringPreferencesStatus = SavedPreferencesForTrip["finished_entering_preferences_status"] as! NSString
+        if decidedOnDestinationValue != "" && decidedOnDestinationControlValue == "Yes" {
+            topDestination.text = decidedOnDestinationValue as String
+        }
+        else if finishedEnteringPreferencesStatus == "Ranking" {
+            topDestination.text = "[top destination]"
+        } else {
+            topDestination.text = "TBD, tap for options"
+        }
+        
+        // Install  trip name
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as? NSString
-        //Install the value into the label.
         if tripNameValue != "" {
             self.tripNameLabel.text =  "\(tripNameValue!)"
         }
-                retrieveContactsWithStore(store: addressBookStore)
         
+        // Install  hotel rooms value
         let hotelRoomsValue = SavedPreferencesForTrip["hotel_rooms"] as! [NSNumber]
         if hotelRoomsValue.count > 0 {
             self.numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: false)
         }
-
+        
+        // Install  budget value
+        let budgetValue = SavedPreferencesForTrip["budget"] as! NSString
+        if budgetValue != "" {
+            budget.text =  "\(budgetValue)"
+        }
+        
     }
+    
+    // TEXT FIELDS
+    func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
+        // Hide the keyboard.
+        if textField == budget {
+            budget.resignFirstResponder()
+            return true
+        }
+        if textField == homeAirport {
+            homeAirport.resignFirstResponder()
+            return true
+        }
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
     
     ///////////////////////////////////COLLECTION VIEW/////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -339,9 +412,14 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             contactPhoneNumbers.append(phoneNumberToAdd)
             
             let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let visibleIndexPaths = contactsCollectionView.indexPathsForVisibleItems
+            let existingSectionNumber = visibleIndexPaths[0].section
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            let newSectionNumber = addedRowIndexPath[0].section
             
+            contactsCollectionView.reloadData()
             contactsCollectionView.insertItems(at: addedRowIndexPath)
+            contactsCollectionView.reloadData()
             
         }
         else {
@@ -409,6 +487,20 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     @IBAction func SliderValueChanged(_ sender: Any) {
         roundSlider()
     }
+    @IBAction func budgetEditingChanged(_ sender: Any) {
+        var budgetValue = String()
+        if budget.text != nil {
+            budgetValue = budget.text!
+        }
+        //Update trip preferences in dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["budget"] = budgetValue as NSString
+        //Save
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    @IBAction func homeAirportEditingChanged(_ sender: Any) {
+        DataContainerSingleton.sharedDataContainer.homeAirport = homeAirport.text
+    }
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -450,6 +542,26 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if budget.isEditing {
+            
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                if self.view.frame.origin.y == 0{
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
 }

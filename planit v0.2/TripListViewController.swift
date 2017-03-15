@@ -278,16 +278,17 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         let finishedEnteringPreferencesStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "finished_entering_preferences_status") as? NSString ?? NSString()
+        let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? NSNumber()
 
-        if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" {
+        if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" && bookingStatus == 0 {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToCalendar", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Calendar" {
+        } else if finishedEnteringPreferencesStatus == "Calendar"  && bookingStatus == 0 {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToDestination", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Destination" {
+        } else if finishedEnteringPreferencesStatus == "Destination"  && bookingStatus == 0 {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToBudget", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Budget" {
+        } else if finishedEnteringPreferencesStatus == "Budget"  && bookingStatus == 0 {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToActivities", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Activities" {
+        } else if (finishedEnteringPreferencesStatus == "Activities" || finishedEnteringPreferencesStatus == "Swiping" || finishedEnteringPreferencesStatus == "Ranking")  && bookingStatus == 0 {
             self.performSegue(withIdentifier: "FinishedExistingTripsToUnbookedSummary", sender: self)
         } else {
             self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
