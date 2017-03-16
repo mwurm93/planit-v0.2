@@ -184,61 +184,6 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         return contactsCell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-//        if collectionView == contactsCollectionView {
-//            retrieveContactsWithStore(store: addressBookStore)
-//            
-//            //  Create budget list and color array
-//            let sampleAirport_1 = "JFK"
-//            let sampleAirport_2 = "SFO"
-//            let sampleAirport_3 = "ORF"
-//            let sampleAirport_4 = "BOS"
-//            let sampleAirport_5 = "DEN"
-//            let sampleAirport_6 = "MIA"
-//            let sampleAirport_7 = "MCO"
-//            let sampleAirports = [sampleAirport_1, sampleAirport_2,sampleAirport_3,sampleAirport_4,sampleAirport_5,sampleAirport_6,sampleAirport_7]
-//            
-//            let colors = [UIColor.purple, UIColor.gray, UIColor.red, UIColor.green, UIColor.orange, UIColor.yellow, UIColor.brown, UIColor.black]
-//            
-//            // Change color of thumbnail image
-//            let contact = contacts?[indexPath.row]
-//            let SelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
-//            
-//            if (contact?.imageDataAvailable)! {
-//                SelectedContact.thumbnailImageFilter.alpha = 0
-//            } else {
-//                SelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image_selected")!
-//                //                SelectedContact.initialsLabel.textColor = UIColor(red: 132/255, green: 137/255, blue: 147/255, alpha: 1)
-//                SelectedContact.initialsLabel.textColor = colors[indexPath.row]
-//            }
-//            
-//            homeAirport.text = sampleAirports[indexPath.row]
-//        }
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-//        if collectionView == contactsCollectionView {
-//            retrieveContactsWithStore(store: addressBookStore)
-//            
-//            let contact = contacts?[indexPath.row]
-//            let DeSelectedContact = contactsCollectionView.cellForItem(at: indexPath) as! contactsCollectionViewCell
-//            
-//            if (contact?.imageDataAvailable)! {
-//                DeSelectedContact.thumbnailImageFilter.alpha = 0.5
-//            } else {
-//                DeSelectedContact.thumbnailImage.image = UIImage(named: "no_contact_image")!
-//                DeSelectedContact.initialsLabel.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-//            }
-//            
-//            let homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
-//            if homeAirportValue != "" {
-//                homeAirport.text = homeAirportValue
-//            } else {
-//                homeAirport.text = ""
-//            }
-//        }
-//    }
-    
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let picDimension = 55
@@ -307,32 +252,10 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         self.present(picker , animated: true, completion: nil)
     }
     
-//    func retrieveContactsWithStore(store: CNContactStore) {
-//        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-//        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
-//        do {
-//            if (objectIDs?.count)! > 0 {
-//                let predicate = CNContact.predicateForContacts(withIdentifiers: objectIDs as! [String])
-//                let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
-//                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-//                self.objects = contacts
-//            } else {
-//                self.objects = nil
-//            }
-//            DispatchQueue.main.async (execute: { () -> Void in
-//                self.groupMemberListTable.reloadData()
-//            })
-//        } catch {
-//            print(error)
-//        }
-//    }
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
         var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
-//        contactsCollectionView.beginUpdates()
         if contactIDs != nil {
-            
-            
             objects?.append(contactProperty.contact as NSObject)
             contactIDs?.append(contactProperty.contact.identifier as NSString)
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
@@ -346,9 +269,17 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             contactPhoneNumbers.append(phoneNumberToAdd)
             
             let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
-            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             
-            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+            SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+            
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+            
+            let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
+            self.contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
         }
         else {
             
@@ -365,20 +296,18 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+            SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+            
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+
+            
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
-            contactsCollectionView.insertItems(at: addedRowIndexPath)
-                
+            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
         }
-        
-//        contactsCollectionView.reloadData()
-//        contactsCollectionView.endUpdates()
-        
-        //Update trip preferences dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
-        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
-        //Save updated trip preferences dictionary
-        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
         // activate hotels room
         if objects != nil {
@@ -404,7 +333,6 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         //Update changed preferences as variables
-//        groupMemberListTable.beginUpdates()
         if contactIDs != nil {
             objects?.append(contact as NSObject)
             contactIDs?.append(contact.identifier as NSString)
@@ -412,14 +340,17 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             contactPhoneNumbers.append(phoneNumberToAdd)
             
             let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
-            let visibleIndexPaths = contactsCollectionView.indexPathsForVisibleItems
-            let existingSectionNumber = visibleIndexPaths[0].section
-            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
-            let newSectionNumber = addedRowIndexPath[0].section
             
-            contactsCollectionView.reloadData()
-            contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+            SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+            
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
             
         }
         else {
@@ -428,18 +359,17 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
+            //Update trip preferences dictionary
+            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+            SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+            
+            //Save updated trip preferences dictionary
+            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+            
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
-            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
         }
-//        contactsCollectionView.reloadData()
-//        groupMemberListTable.endUpdates()
-        
-        //Update trip preferences dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
-        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
-        //Save updated trip preferences dictionary
-        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
         // activate hotels room
         if objects != nil {
@@ -461,6 +391,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
         }
     }
+    
     
     // MARK: Actions
     @IBAction func addContact(_ sender: Any) {
