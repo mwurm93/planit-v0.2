@@ -313,6 +313,8 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         for activity in selectedActivities {
             selectedActivitiesForUpdate.append(activity as NSString)
         }
+            
+            
         //Update trip preferences in dictionary
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["selected_activities"] = selectedActivitiesForUpdate as [NSString]
@@ -333,7 +335,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
     // Item SELECTED: update border color and save data when
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == activitiesCollectionView {
-
+            
         // Change border color to grey
         let SelectedCell = activitiesCollectionView.cellForItem(at: indexPath)
             SelectedCell?.tintColor = UIColor.blue
@@ -346,11 +348,11 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let selectedActivity = currentCell.activityLabel.text
             selectedActivities.append(selectedActivity!)
         }
-        
         var selectedActivitiesForUpdate = [NSString]()
         for activity in selectedActivities {
             selectedActivitiesForUpdate.append(activity as NSString)
         }
+        
         //Update trip preferences in dictionary
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["selected_activities"] = selectedActivitiesForUpdate as [NSString]
@@ -382,8 +384,7 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             let leftRightInset = self.view.frame.size.width / 18.0
             return UIEdgeInsetsMake(0, leftRightInset, 0, leftRightInset)
         }
-
-        //COPY
+        // if collectionView == contactsCollectionView
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         let spacing = 10
@@ -414,7 +415,6 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
             print(error)
         }
     }
-
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////

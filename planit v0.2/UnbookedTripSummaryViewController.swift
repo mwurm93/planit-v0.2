@@ -21,6 +21,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     @IBOutlet weak var homeAirport: UITextField!
     @IBOutlet weak var topDestination: UILabel!
     @IBOutlet weak var averageGroupBudget: UILabel!
+    @IBOutlet weak var activitiesCollectionView: UICollectionView!
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
@@ -31,6 +32,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     var contactPhoneNumbers = [NSString]()
     let sliderStep: Float = 1
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
+    var activityItems: [ActivityItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,6 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
         
         // Initialize address book - COPY
         addressBookStore = CNContactStore()
@@ -104,6 +105,17 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        // Call collection initializer
+        initActivityItems()
+        activitiesCollectionView.reloadData()
+        
+        //update aesthetics
+        activitiesCollectionView.layer.cornerRadius = 5
+        activitiesCollectionView.layer.backgroundColor = UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 0).cgColor
+        
+    }
+    
     // TEXT FIELDS
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
         // Hide the keyboard.
@@ -143,11 +155,46 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         }
     }
     
+    // MARK: Activities collection View item init
+    fileprivate func initActivityItems() {
+        
+        var items = [ActivityItem]()
+        let inputFile = Bundle.main.path(forResource: "items", ofType: "plist")
+        
+        let inputDataArray = NSArray(contentsOfFile: inputFile!)
+        
+        for inputItem in inputDataArray as! [Dictionary<String, String>] {
+            let activityItem = ActivityItem(dataDictionary: inputItem)
+            items.append(activityItem)
+        }
+        
+        let selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [String]
+        var indexesToRemove = [Int]()
+        
+        if selectedActivities != nil {
+        for index in (0...(items.count - 1)).reversed() {
+            
+                let searchString = items[index].itemImage
+                if !selectedActivities!.contains(searchString) {
+                    indexesToRemove.append(index)
+                }
+        }
+            for item in indexesToRemove {
+                items.remove(at: item)
+            }
+        }
+        activityItems = items
+    }
+    
     // MARK: - UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == activitiesCollectionView {
+            return activityItems.count
+        }
+        // if collectionView == contactsCollectionView
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         if (contactIDs?.count)! > 0 {
             return (contactIDs?.count)!
@@ -155,6 +202,18 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+        if collectionView == activitiesCollectionView {
+            activitiesCollectionView.allowsMultipleSelection = true
+            
+            let cell = activitiesCollectionView.dequeueReusableCell(withReuseIdentifier: "activitiesViewPrototypeCell", for: indexPath) as! ActivitiesCollectionViewCell
+            cell.setActivityItem(activityItems[indexPath.row])
+            cell.activityImage.image = cell.activityImage.image?.withRenderingMode(.alwaysTemplate)
+            
+            return cell
+        }
+
+        
         let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
         
         retrieveContactsWithStore(store: addressBookStore)
@@ -186,11 +245,20 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == activitiesCollectionView {
+            let picDimension = self.view.frame.size.width / 4.2
+            return CGSize(width: picDimension, height: picDimension)
+        }
+        // if collectionView == contactsCollectionView
         let picDimension = 55
         return CGSize(width: picDimension, height: picDimension)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        //COPY
+        if collectionView == activitiesCollectionView {
+            let leftRightInset = self.view.frame.size.width / 18.0
+            return UIEdgeInsetsMake(0, leftRightInset, 0, leftRightInset)
+        }
+        // if collectionView == contactsCollectionView
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         return UIEdgeInsetsMake(0, 0, 0, 0)
