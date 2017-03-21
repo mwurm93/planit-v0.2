@@ -280,10 +280,9 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             
             let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
+            self.contactsCollectionView.reloadData()
         }
         else {
-            
-            
             objects = [contactProperty.contact as NSObject]
             contactIDs?.append(contactProperty.contact.identifier as NSString)
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
@@ -303,10 +302,10 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             
             //Save updated trip preferences dictionary
             saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
-
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
+            self.contactsCollectionView.reloadData()
         }
         
         // activate hotels room
@@ -351,7 +350,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
 
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
-            
+            self.contactsCollectionView.reloadData()
         }
         else {
             objects = [contact as NSObject]
@@ -369,6 +368,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
+            self.contactsCollectionView.reloadData()
         }
         
         // activate hotels room
@@ -462,9 +462,11 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         let suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? NSString ?? NSString()
         //Activities VC
         let selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [NSString] ?? [NSString]()
-        
+        //Ranking VC
+        topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
+
         //SavedPreferences
-        let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus, "finished_entering_preferences_status": finishedEnteringPreferencesStatus,"trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities] as NSMutableDictionary
+        let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus, "finished_entering_preferences_status": finishedEnteringPreferencesStatus,"trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities,"top_trips":topTrips] as NSMutableDictionary
         
         return fetchedSavedPreferencesForTrip
     }

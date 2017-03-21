@@ -517,6 +517,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         var suggestedDestinationValue = NSString()
         //Activities VC
         var selectedActivities = [NSString]()
+        //Ranking VC
+        var topTrips = [NSString]()
         
         //Update preference vars if an existing trip
         if isNewOrAddedTrip == 0 {
@@ -544,28 +546,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         suggestedDestinationValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "suggested_destination") as? NSString ?? NSString()
         //Activities VC
         selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [NSString] ?? [NSString]()
+        //Ranking VC
+        topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
         }
         
-//        let test_0 = bookingStatus == nil
-//        let test_1 = tripNameValue == nil
-//        let test_2 = contacts == nil
-//        let test_3 = contactPhoneNumbers == nil
-//        let test_4 = hotelRoomsValue == nil
-//        let test_5 = segmentLengthValue == nil
-//        let test_6 = selectedDates == nil
-//        let test_7 = leftDateTimeArrays == nil
-//        let test_8 = rightDateTimeArrays == nil
-//        let test_9 = budgetValue == nil
-//        let test_10 = expectedRoundtripFare == nil
-//        let test_11 = expectedNightlyRate == nil
-//        let test_12 = decidedOnDestinationControlValue == nil
-//        let test_13 = decidedOnDestinationValue == nil
-//        let test_14 = suggestDestinationControlValue == nil
-//        let test_15 = suggestedDestinationValue == nil
-//        let test_16 = selectedActivities == nil
-        
         //SavedPreferences
-        let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus,"finished_entering_preferences_status": finishedEnteringPreferencesStatus, "trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities] as NSMutableDictionary
+        let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus,"finished_entering_preferences_status": finishedEnteringPreferencesStatus, "trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities,"top_trips":topTrips] as NSMutableDictionary
         
         return fetchedSavedPreferencesForTrip
         
