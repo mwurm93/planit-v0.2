@@ -82,6 +82,12 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         cell.layer.cornerRadius = 10
         
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["top_trips"] = destinationsLabelsArray as [NSString]
+        //Save
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+
+        
         return cell
     }
     
@@ -128,6 +134,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
             (result : UIAlertAction) -> Void in
             
             let visibleItems = self.recommendationRankingTableView.indexPathsForVisibleRows
+            var destinationsLabelsArray = [NSString]()
             
             if destinationIndexPath == IndexPath(row: 0, section: 0) && sourceIndexPath.section == 1 {
                 
@@ -136,6 +143,20 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.recommendationRankingTableView.selectRow(at: IndexPath(row: 0, section: 0)
                     , animated: true, scrollPosition: UITableViewScrollPosition.top)
                 self.recommendationRankingTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.layer.backgroundColor = UIColor.blue.cgColor
+            
+                for _ in visibleItems! {
+                    var row = 0
+                    let topCell = self.recommendationRankingTableView.cellForRow(at:IndexPath(row: 0, section: 0)) as! rankedRecommendationsTableViewCell
+                    let lowerRankedCell = self.recommendationRankingTableView.cellForRow(at:IndexPath(row: 0, section: 0)) as! rankedRecommendationsTableViewCell
+                    destinationsLabelsArray.append(topCell.destinationLabel.text! as NSString)
+                    destinationsLabelsArray.append(lowerRankedCell.destinationLabel.text! as NSString)
+                    row += 1
+                }
+            
+            let SavedPreferencesForTrip = self.fetchSavedPreferencesForTrip()
+            SavedPreferencesForTrip["top_trips"] = destinationsLabelsArray as [NSString]
+            //Save
+            self.saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
             }
             
 //            self.recommendationRankingTableView.selectRow(at: IndexPath(row: 0, section: 0)
@@ -229,7 +250,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         //Activities VC
         let selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [NSString] ?? [NSString]()
         //Ranking VC
-        topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
+        let topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
 
         //SavedPreferences
         let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus,"finished_entering_preferences_status": finishedEnteringPreferencesStatus, "trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities,"top_trips":topTrips] as NSMutableDictionary

@@ -28,7 +28,6 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     fileprivate var addressBookStore: CNContactStore!
     let picker = CNContactPickerViewController()
     var objects: [NSObject]?
-//    var objectIDs: [NSString]?
     var contactPhoneNumbers = [NSString]()
     let sliderStep: Float = 1
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
@@ -75,11 +74,12 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         let decidedOnDestinationControlValue = SavedPreferencesForTrip["decided_destination_control"] as! NSString
         let decidedOnDestinationValue = SavedPreferencesForTrip["decided_destination_value"] as! NSString
         let finishedEnteringPreferencesStatus = SavedPreferencesForTrip["finished_entering_preferences_status"] as! NSString
+        let topTrips = SavedPreferencesForTrip["top_trips"] as! [NSString]
         if decidedOnDestinationValue != "" && decidedOnDestinationControlValue == "Yes" {
             topDestination.text = decidedOnDestinationValue as String
         }
         else if finishedEnteringPreferencesStatus == "Ranking" {
-            topDestination.text = "[top destination]"
+            topDestination.text = topTrips[0] as String
         } else {
             topDestination.text = "TBD, tap for options"
         }
@@ -193,14 +193,6 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         //COPY
         let contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
-//        let spacing = 10
-//        if (contactIDs?.count)! > 0 {
-//            var leftRightInset = (self.contactsCollectionView.frame.size.width / 2.0) - CGFloat((contactIDs?.count)!) * 27.5 - CGFloat(spacing / 2 * ((contactIDs?.count)! - 1))
-//            if (contactIDs?.count)! > 4 {
-//                leftRightInset = 30
-//            }
-//            return UIEdgeInsetsMake(0, 0, 0, 0)
-//        }
         return UIEdgeInsetsMake(0, 0, 0, 0)
     }
     
@@ -463,7 +455,7 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         //Activities VC
         let selectedActivities = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "selected_activities") as? [NSString] ?? [NSString]()
         //Ranking VC
-        topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
+        let topTrips = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "top_trips") as? [NSString] ?? [NSString]()
 
         //SavedPreferences
         let fetchedSavedPreferencesForTrip = ["booking_status": bookingStatus, "finished_entering_preferences_status": finishedEnteringPreferencesStatus,"trip_name": tripNameValue, "contacts_in_group": contacts,"contact_phone_numbers": contactPhoneNumbers, "hotel_rooms": hotelRoomsValue, "Availability_segment_lengths": segmentLengthValue,"selected_dates": selectedDates, "origin_departure_times": leftDateTimeArrays, "return_departure_times": rightDateTimeArrays, "budget": budgetValue, "expected_roundtrip_fare":expectedRoundtripFare, "expected_nightly_rate": expectedNightlyRate,"decided_destination_control":decidedOnDestinationControlValue, "decided_destination_value":decidedOnDestinationValue, "suggest_destination_control": suggestDestinationControlValue,"suggested_destination":suggestedDestinationValue, "selected_activities":selectedActivities,"top_trips":topTrips] as NSMutableDictionary
