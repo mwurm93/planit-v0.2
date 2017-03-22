@@ -2390,24 +2390,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js9-Ot-WYO">
-                                <rect key="frame" x="273" y="568" width="30" height="30"/>
+                                <rect key="frame" x="273" y="568" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="info icon"/>
                                 <connections>
                                     <action selector="infoButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="dwm-pB-maz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39D-zi-KJf">
-                                <rect key="frame" x="130" y="538" width="113" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="Book now">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="bookButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="QjX-9s-PnR"/>
-                                    <action selector="bookNowButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="JNn-Pe-klR"/>
-                                    <segue destination="c7O-w7-no5" kind="show" id="ovb-M0-dhH"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5PN-hy-72c">
@@ -2502,17 +2489,11 @@
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="39D-zi-KJf"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="adjustLogisticsView" destination="dXb-5M-bD5" id="bGa-Kb-wXD"/>
                         <outlet property="adjustTravelLogisticsButton" destination="9qf-mF-s6C" id="DWl-6I-OUf"/>
                         <outlet property="birthdate" destination="fW5-pv-a9m" id="mCC-2M-AcN"/>
-                        <outlet property="bookNowButton" destination="39D-zi-KJf" id="qOB-94-VIu"/>
                         <outlet property="bookOnlyIfTheyDoInfoButton" destination="js9-Ot-WYO" id="6Bl-wQ-pJR"/>
                         <outlet property="bookOnlyIfTheyDoInfoView" destination="Ldb-9Z-cE4" id="i6S-fW-z9f"/>
                         <outlet property="bookThisTripButton" destination="Dcc-Bx-hVv" id="r7e-f3-bkN"/>
@@ -2831,13 +2812,6 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;book now&quot;; &quot;book if they do&quot; buttons" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggK-9c-dw4">
-                                            <rect key="frame" x="195" y="607" width="156" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Activities" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggQ-Ti-fMs">
                                             <rect key="frame" x="17" y="475" width="99" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2889,25 +2863,25 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0r-hk-HsK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="11" height="21"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="11" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69B-pq-PUX">
-                                                    <rect key="frame" x="53" y="0.0" width="11" height="21"/>
+                                                    <rect key="frame" x="53" y="0.0" width="11" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwL-4G-tQX">
-                                                    <rect key="frame" x="106" y="0.0" width="11" height="21"/>
+                                                    <rect key="frame" x="106" y="0.0" width="11" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h34-zW-vJA">
-                                                    <rect key="frame" x="159" y="0.0" width="11" height="21"/>
+                                                    <rect key="frame" x="159" y="0.0" width="11" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -2939,11 +2913,11 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-0O-UjI">
-                                <rect key="frame" x="17" y="614" width="162" height="46"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-0O-UjI">
+                                <rect key="frame" x="0.0" y="607" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Back to trip list">
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -3033,7 +3007,7 @@
                                     <action selector="homeAirportEditingChanged:" destination="9Q5-Bs-FEW" eventType="editingChanged" id="vyX-SR-0rf"/>
                                 </connections>
                             </textField>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-0c-jdI">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x4k-0c-jdI">
                                 <rect key="frame" x="17" y="501" width="340" height="76"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3090,24 +3064,71 @@
                                     <outlet property="delegate" destination="9Q5-Bs-FEW" id="Cr2-tP-M74"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iXt-OT-pTq" userLabel="Book this trip (if they do)">
+                                <rect key="frame" x="110" y="597" width="154" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <state key="normal">
+                                    <string key="title">Book this trip
+(if they do)</string>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bookButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="KpS-gG-qce"/>
+                                    <action selector="bookButtonPressed:" destination="9Q5-Bs-FEW" eventType="touchUpInside" id="rJd-8o-9JL"/>
+                                    <segue destination="c7O-w7-no5" kind="show" animates="NO" id="7P8-mp-BUH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-Da-Z0N">
+                                <rect key="frame" x="273" y="607" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="info icon"/>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="EbK-0o-iEt"/>
+                                    <action selector="infoButtonPressed:" destination="9Q5-Bs-FEW" eventType="touchUpInside" id="MUL-0A-dQa"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMa-cS-MxB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpk-Tw-94A">
+                                <rect key="frame" x="82" y="488" width="210" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We'll wait until everyone in your group commits before we book for you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqd-t9-Don">
+                                        <rect key="frame" x="4" y="0.0" width="202" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="activitiesCollectionView" destination="x4k-0c-jdI" id="FuG-9d-CuT"/>
                         <outlet property="averageGroupBudget" destination="THT-cd-c32" id="cAK-wY-zAP"/>
+                        <outlet property="bookOnlyIfTheyDoInfoButton" destination="aFi-Da-Z0N" id="7q6-hY-eWG"/>
+                        <outlet property="bookOnlyIfTheyDoInfoView" destination="mpk-Tw-94A" id="3f8-VV-yvi"/>
+                        <outlet property="bookThisTripButton" destination="iXt-OT-pTq" id="UkQ-BE-6sH"/>
                         <outlet property="budget" destination="dAE-Px-gww" id="FTK-yP-FPk"/>
                         <outlet property="contactsCollectionView" destination="i97-MQ-YUZ" id="szC-YS-4KS"/>
                         <outlet property="homeAirport" destination="R6k-7h-OOy" id="lUz-SZ-k8f"/>
                         <outlet property="numberHotelRoomsControl" destination="01N-v3-zfl" id="P5t-H3-Akr"/>
                         <outlet property="numberHotelRoomsStack" destination="9hy-nA-BJQ" id="MKu-3x-0B4"/>
+                        <outlet property="popupBackgroundView" destination="yMa-cS-MxB" id="JMt-Jo-TEY"/>
                         <outlet property="topDestination" destination="q0d-Y5-hQv" id="5M1-9P-f49"/>
                         <outlet property="tripNameLabel" destination="XMP-5W-bbb" id="1F5-X6-Nqd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiP-VK-ADH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-660" y="110.19490254872565"/>
+            <point key="canvasLocation" x="-777" y="132"/>
         </scene>
     </scenes>
     <resources>
@@ -3134,13 +3155,13 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5Cy-Be-NXP"/>
-        <segue reference="ZZw-Xw-k7p"/>
+        <segue reference="7P8-mp-BUH"/>
         <segue reference="ElG-rI-GdU"/>
         <segue reference="L9q-Uv-kQt"/>
-        <segue reference="fOv-FV-Odd"/>
         <segue reference="YhE-0L-EX8"/>
         <segue reference="fb8-f1-2cj"/>
-        <segue reference="9ZB-Ko-LdT"/>
+        <segue reference="bs2-LI-qHj"/>
+        <segue reference="jUF-36-ylm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

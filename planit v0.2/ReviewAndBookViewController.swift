@@ -33,7 +33,6 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     @IBOutlet weak var redressNumber: UITextField!
     @IBOutlet weak var birthdate: UITextField!
     @IBOutlet weak var bookOnlyIfTheyDoInfoView: UIView!
-    @IBOutlet weak var bookNowButton: UIButton!
     
     // Outlets for buttons
     @IBOutlet weak var adjustTravelLogisticsButton: UIButton!
@@ -49,6 +48,12 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Appearance of booking buttons
+        bookThisTripButton.layer.borderWidth = 1
+        bookThisTripButton.layer.borderColor = UIColor.white.cgColor
+        bookThisTripButton.layer.cornerRadius = 5
+        bookThisTripButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
         
         // book info view appearance
         bookOnlyIfTheyDoInfoView.layer.cornerRadius = 5
@@ -91,16 +96,6 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
         adjustLogisticsView.layer.cornerRadius = 5
         editTextBox.layer.cornerRadius = 5
         topItineraryTable.layer.cornerRadius = 5
-        
-        //Appearance of booking buttons
-        bookNowButton.layer.borderWidth = 1
-        bookNowButton.layer.borderColor = UIColor.white.cgColor
-        bookNowButton.layer.cornerRadius = 5
-        bookNowButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
-        bookThisTripButton.layer.borderWidth = 1
-        bookThisTripButton.layer.borderColor = UIColor.white.cgColor
-        bookThisTripButton.layer.cornerRadius = 5
-        bookThisTripButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
         
         // Set appearance of textfield
         firstName.layer.borderWidth = 0.5
@@ -505,9 +500,6 @@ class ReviewAndBookViewController: UIViewController, UITextFieldDelegate, UITabl
         adjustTravelLogisticsButton.isEnabled = true
     }
     @IBAction func bookButtonPressed(_ sender: Any) {
-        handleBookingStatus()
-    }
-    @IBAction func bookNowButtonPressed(_ sender: Any) {
         handleBookingStatus()
     }
     @IBAction func bookLaterButtonPressed(_ sender: Any) {

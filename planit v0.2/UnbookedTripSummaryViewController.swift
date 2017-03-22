@@ -10,7 +10,7 @@ import UIKit
 import Contacts
 import ContactsUI
 
-class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CNContactPickerDelegate, CNContactViewControllerDelegate, UITextFieldDelegate {
+class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CNContactPickerDelegate, CNContactViewControllerDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var tripNameLabel: UILabel!
@@ -22,6 +22,10 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     @IBOutlet weak var topDestination: UILabel!
     @IBOutlet weak var averageGroupBudget: UILabel!
     @IBOutlet weak var activitiesCollectionView: UICollectionView!
+    @IBOutlet weak var popupBackgroundView: UIView!
+    @IBOutlet weak var bookOnlyIfTheyDoInfoButton: UIButton!
+    @IBOutlet weak var bookOnlyIfTheyDoInfoView: UIView!
+    @IBOutlet weak var bookThisTripButton: UIButton!
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
@@ -36,6 +40,28 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Appearance of booking buttons
+        bookThisTripButton.layer.borderWidth = 1
+        bookThisTripButton.layer.borderColor = UIColor.white.cgColor
+        bookThisTripButton.layer.cornerRadius = 5
+        bookThisTripButton.layer.backgroundColor = UIColor(red:1,green:1,blue:1,alpha:0.18).cgColor
+        
+        // book info view appearance
+        bookOnlyIfTheyDoInfoView.layer.cornerRadius = 5
+        bookOnlyIfTheyDoInfoView.alpha = 0
+        bookOnlyIfTheyDoInfoView.layer.isHidden = true
+        
+        // Center booking button text
+        bookThisTripButton.titleLabel?.textAlignment = .center
+        
+        // Set up tap outside info view
+        popupBackgroundView.isHidden = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
+        tap.numberOfTapsRequired = 1
+        tap.delegate = self
+        popupBackgroundView.addGestureRecognizer(tap)
+
         
         self.hideKeyboardWhenTappedAround()
         
@@ -115,6 +141,34 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         activitiesCollectionView.layer.backgroundColor = UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 0).cgColor
         
     }
+    
+    //UITapGestureRecognizer
+    func dismissPopup(touch: UITapGestureRecognizer) {
+        dismissInfoViewOut()
+    }
+    
+    func animateInfoViewIn(){
+        bookOnlyIfTheyDoInfoView.layer.isHidden = false
+        bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        bookOnlyIfTheyDoInfoView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.popupBackgroundView.isHidden = false
+            self.bookOnlyIfTheyDoInfoView.alpha = 1
+            self.bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func dismissInfoViewOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.bookOnlyIfTheyDoInfoView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.bookOnlyIfTheyDoInfoView.alpha = 0
+            self.popupBackgroundView.isHidden = true
+        }) { (Success:Bool) in
+            self.bookOnlyIfTheyDoInfoView.layer.isHidden = true
+        }
+    }
+
     
     // TEXT FIELDS
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
@@ -492,6 +546,14 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
     @IBAction func homeAirportEditingChanged(_ sender: Any) {
         DataContainerSingleton.sharedDataContainer.homeAirport = homeAirport.text
     }
+    @IBAction func infoButtonPressed(_ sender: Any) {
+        animateInfoViewIn()
+    }
+    @IBAction func bookButtonPressed(_ sender: Any) {
+        handleBookingStatus()
+    }
+    
+    
     
     ////// ADD NEW TRIP VARS (NS ONLY) HERE ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -535,6 +597,14 @@ class UnbookedTripSummaryViewController: UIViewController, UICollectionViewDataS
         let currentTripIndex = DataContainerSingleton.sharedDataContainer.currenttrip!
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
+    }
+    
+    func handleBookingStatus() {
+        let bookingStatusValue = 1 as NSNumber
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["booking_status"] = bookingStatusValue as NSNumber
+        //Save
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
     }
     
     func keyboardWillShow(notification: NSNotification) {

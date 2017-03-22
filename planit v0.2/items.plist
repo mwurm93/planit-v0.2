@@ -30,5 +30,13 @@
 		<key>itemImage</key>
 		<string>Ski</string>
 	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Drink</string>
+	</dict>
+	<dict>
+		<key>itemImage</key>
+		<string>Scuba</string>
+	</dict>
 </array>
 </plist>
