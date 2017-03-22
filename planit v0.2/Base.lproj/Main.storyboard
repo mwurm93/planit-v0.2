@@ -3064,8 +3064,22 @@
                                     <outlet property="delegate" destination="9Q5-Bs-FEW" id="Cr2-tP-M74"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-Da-Z0N">
+                                <rect key="frame" x="273" y="602" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="info icon"/>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="EbK-0o-iEt"/>
+                                    <action selector="infoButtonPressed:" destination="9Q5-Bs-FEW" eventType="touchUpInside" id="MUL-0A-dQa"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMa-cS-MxB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="iXt-OT-pTq" userLabel="Book this trip (if they do)">
-                                <rect key="frame" x="110" y="597" width="154" height="59"/>
+                                <rect key="frame" x="110" y="592" width="154" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <state key="normal">
@@ -3079,20 +3093,6 @@
                                     <segue destination="c7O-w7-no5" kind="show" animates="NO" id="7P8-mp-BUH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFi-Da-Z0N">
-                                <rect key="frame" x="273" y="607" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="info icon"/>
-                                <connections>
-                                    <action selector="infoButtonPressed:" destination="9Zf-or-QAX" eventType="touchUpInside" id="EbK-0o-iEt"/>
-                                    <action selector="infoButtonPressed:" destination="9Q5-Bs-FEW" eventType="touchUpInside" id="MUL-0A-dQa"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMa-cS-MxB">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpk-Tw-94A">
                                 <rect key="frame" x="82" y="488" width="210" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3155,7 +3155,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5Cy-Be-NXP"/>
-        <segue reference="7P8-mp-BUH"/>
+        <segue reference="ZZw-Xw-k7p"/>
         <segue reference="ElG-rI-GdU"/>
         <segue reference="L9q-Uv-kQt"/>
         <segue reference="YhE-0L-EX8"/>
