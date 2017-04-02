@@ -2812,13 +2812,6 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Activities" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggQ-Ti-fMs">
-                                            <rect key="frame" x="17" y="475" width="99" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Avg. budget of your group is $XYZ" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THT-cd-c32">
                                             <rect key="frame" x="195" y="418" width="172" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2826,26 +2819,6 @@
                                             <color key="textColor" white="1" alpha="0.90790881850000005" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="three_people" translatesAutoresizingMaskIntoConstraints="NO" id="iXq-8c-J4u">
-                                            <rect key="frame" x="17" y="141" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Calendar-Time" translatesAutoresizingMaskIntoConstraints="NO" id="VaJ-g0-rNi">
-                                            <rect key="frame" x="17" y="285" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bed icon" translatesAutoresizingMaskIntoConstraints="NO" id="gZM-9V-OB0">
-                                            <rect key="frame" x="17" y="206" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="ZmG-zJ-gcn">
-                                            <rect key="frame" x="17" y="355" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="budgetICon" translatesAutoresizingMaskIntoConstraints="NO" id="ye7-6Y-TV2">
-                                            <rect key="frame" x="17" y="420" width="35" height="35"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                         <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01N-v3-zfl">
                                             <rect key="frame" x="91" y="210" width="192" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2914,7 +2887,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-0O-UjI">
-                                <rect key="frame" x="0.0" y="607" width="60" height="60"/>
+                                <rect key="frame" x="15" y="592" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <state key="normal" title="&lt;">
@@ -2922,6 +2895,54 @@
                                 </state>
                                 <connections>
                                     <segue destination="c7O-w7-no5" kind="show" id="ZZw-Xw-k7p"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RsX-OB-9Mg">
+                                <rect key="frame" x="17" y="141" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="three_people"/>
+                                <connections>
+                                    <segue destination="E8d-J0-NPc" kind="show" animates="NO" id="LCg-yH-cDa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhz-eN-9Gq">
+                                <rect key="frame" x="17" y="206" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="bed icon"/>
+                                <connections>
+                                    <segue destination="E8d-J0-NPc" kind="show" animates="NO" id="iC5-lr-XRB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpF-bE-2M6">
+                                <rect key="frame" x="17" y="285" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Calendar-Time"/>
+                                <connections>
+                                    <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="z39-TT-5CW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qon-So-yyK">
+                                <rect key="frame" x="17" y="355" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="map"/>
+                                <connections>
+                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="SsN-Ce-PbB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojU-z7-VUc">
+                                <rect key="frame" x="17" y="420" width="35" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="budgetICon"/>
+                                <connections>
+                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="oxc-Q2-u4X"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAM-pB-Dze">
+                                <rect key="frame" x="17" y="471" width="326" height="106"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Activities"/>
+                                <connections>
+                                    <segue destination="oN0-zx-La3" kind="show" animates="NO" id="1a7-x0-bbe"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i97-MQ-YUZ">
@@ -3019,7 +3040,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="activitiesViewPrototypeCell" id="qIt-mi-cJ7" customClass="ActivitiesCollectionViewCell" customModule="planit_v0_2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="88" height="75"/>
+                                        <rect key="frame" x="0.0" y="0.5" width="88" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="88" height="75"/>
@@ -3128,7 +3149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiP-VK-ADH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-777" y="132"/>
+            <point key="canvasLocation" x="-661" y="-443"/>
         </scene>
     </scenes>
     <resources>
@@ -3154,14 +3175,14 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Cy-Be-NXP"/>
-        <segue reference="ZZw-Xw-k7p"/>
-        <segue reference="ElG-rI-GdU"/>
-        <segue reference="L9q-Uv-kQt"/>
-        <segue reference="YhE-0L-EX8"/>
-        <segue reference="fb8-f1-2cj"/>
-        <segue reference="bs2-LI-qHj"/>
         <segue reference="jUF-36-ylm"/>
+        <segue reference="z39-TT-5CW"/>
+        <segue reference="7P8-mp-BUH"/>
+        <segue reference="LCg-yH-cDa"/>
+        <segue reference="SsN-Ce-PbB"/>
+        <segue reference="1a7-x0-bbe"/>
+        <segue reference="oxc-Q2-u4X"/>
+        <segue reference="YhE-0L-EX8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

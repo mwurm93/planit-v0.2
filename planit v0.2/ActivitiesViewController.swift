@@ -75,25 +75,25 @@ class ActivitiesViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         //Uncomment for testing on Simulator
-        chatButton.isHidden = true
-        tripRecommendationsLabel.isHidden = false
-        buttonBeneathLabel.isHidden = false
-        rightArrowButton.isHidden = false
+    //    chatButton.isHidden = true
+    //    tripRecommendationsLabel.isHidden = false
+    //    buttonBeneathLabel.isHidden = false
+    //    rightArrowButton.isHidden = false
         
         let contactsInGroup = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         //Uncomment for testing on iPhone
-//        if (contactsInGroup?.count)! > 0 {
-//            chatButton.isHidden = false
-//            tripRecommendationsLabel.isHidden = true
-//            buttonBeneathLabel.isHidden = true
-//            rightArrowButton.isHidden = true
-//        } else {
-//            chatButton.isHidden = true
-//            tripRecommendationsLabel.isHidden = false
-//            buttonBeneathLabel.isHidden = false
-//            rightArrowButton.isHidden = false
-//        }
+        if (contactsInGroup?.count)! > 0 {
+            chatButton.isHidden = false
+            tripRecommendationsLabel.isHidden = true
+            buttonBeneathLabel.isHidden = true
+            rightArrowButton.isHidden = true
+        } else {
+            chatButton.isHidden = true
+            tripRecommendationsLabel.isHidden = false
+            buttonBeneathLabel.isHidden = false
+            rightArrowButton.isHidden = false
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
