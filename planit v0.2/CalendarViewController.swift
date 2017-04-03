@@ -105,6 +105,13 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     func dismissPopup(touch: UITapGestureRecognizer) {
         if timeOfDayTableView.indexPathsForSelectedRows != nil {
         dismissTimeOfDayTableOut()
+            
+        let when = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            if self.leftDateTimeArrays.count == self.rightDateTimeArrays.count {
+                self.performSegue(withIdentifier: "calendarVCtoHomeairportVC", sender: nil)
+            }
+        }
         }
     }
     

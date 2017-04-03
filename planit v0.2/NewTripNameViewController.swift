@@ -59,7 +59,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             groupMemberListTable.alpha = 0
             whoToTravelWithLabel.alpha = 0
             addFromContactsButton.alpha = 0
-            
+            newTripNameTextField.becomeFirstResponder()
         } else {
             //load trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -472,15 +472,34 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     @IBAction func SliderTouchDragExit(_ sender: Any) {
         roundSlider()
+        updateCompletionStatus()
+        let when = DispatchTime.now() + 0.3
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "tripNameVCToCalendarVC", sender: nil)
+        }
     }
     @IBAction func sliderEditingChanged(_ sender: Any) {
         roundSlider()
+        updateCompletionStatus()
+        let when = DispatchTime.now() + 0.3
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "tripNameVCToCalendarVC", sender: nil)
+        }
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
-        roundSlider()        
+        roundSlider()
+        updateCompletionStatus()
+        let when = DispatchTime.now() + 0.3
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "tripNameVCToCalendarVC", sender: nil)
+        }
     }
     @IBAction func nextButtonPressed(_ sender: Any) {
         // Change preferences finished status
+        updateCompletionStatus()
+    }
+    
+    func updateCompletionStatus(){
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["finished_entering_preferences_status"] = "Name_Contacts_Rooms" as NSString
         //Save

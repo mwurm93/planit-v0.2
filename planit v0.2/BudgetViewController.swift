@@ -137,6 +137,7 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         }
         
         if expectedRoundtripFare != "" {
+            
             roundTripTicketField.text = expectedRoundtripFare as String
         } else {
             roundTripTicketField.text = "400"
@@ -149,6 +150,8 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         
         if budgetValue != "" {
             budget.text =  "\(budgetValue)"
+        } else {
+            budget.becomeFirstResponder()
         }
 
         //Update totals
@@ -391,6 +394,12 @@ class BudgetViewController: UIViewController, UITextFieldDelegate, UICollectionV
         SavedPreferencesForTrip["budget"] = budgetValue as NSString
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    @IBAction func budgetEditingDidEnd(_ sender: Any) {
+        let when = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "BudgetVCtoActivitiesVC", sender: nil)
+        }
     }
     @IBAction func nightsEditingChanged(_ sender: Any) {
         var hotelTotalValue = 200

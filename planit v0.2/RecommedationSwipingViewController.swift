@@ -123,6 +123,11 @@ extension RecommendationSwipingViewController: KolodaViewDelegate {
         heartIcon.isHidden = true
         rejectIcon.isHidden = true
         
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
+        }
+
 //        let position = kolodaView.currentCardIndex
 //        for i in 1...4 {
 //            dataSource.append(UIImage(named: "Card_like_\(i)")!)

@@ -83,6 +83,7 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
         if homeAirport.text == "" {
             decidedOnDestinationControl.alpha = 0
             decidedOnDestinationLabel.alpha = 0
+            homeAirport.becomeFirstResponder()
         } else {
             decidedOnDestinationControl.alpha = 1
             decidedOnDestinationLabel.alpha = 1
@@ -370,6 +371,7 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
                     }
                     if suggestedDestinationValue != "" {
                         self.suggestDestinationField.text =  "\(suggestedDestinationValue)"
+                    } else {
                     }
                 }
                 else if suggestDestinationControlValue == "No" {
@@ -390,6 +392,7 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
             UIView.animate(withDuration: 0.7) {
                 self.decidedOnDestinationTextField.alpha = 1
             }
+            self.decidedOnDestinationTextField.becomeFirstResponder()
         }
         else {
             decidedOnDestinationControlValue = "No"
@@ -422,6 +425,7 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
         var suggestDestinationControlValue = NSString()
         if wantToSuggestDestination.selectedSegmentIndex == 0 {
             suggestDestinationControlValue = "Yes"
+            self.suggestDestinationField.becomeFirstResponder()
         }
         else {
             suggestDestinationControlValue = "No"
@@ -432,6 +436,13 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
         SavedPreferencesForTrip["suggest_destination_control"] = suggestDestinationControlValue as NSString
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        
+        if wantToSuggestDestination.selectedSegmentIndex == 1 {
+            let when = DispatchTime.now() + 0.6
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.performSegue(withIdentifier: "destinationVCtoBudgetVC", sender: nil)
+            }
+        }
     }
     @IBAction func wantToSuggestDestinationValueYes(_ sender: Any) {
         if wantToSuggestDestination.selectedSegmentIndex == 0 && decidedOnDestinationControl.selectedSegmentIndex == 1{
@@ -460,6 +471,18 @@ class SuggestDestinationViewController: UIViewController, UITextFieldDelegate, U
         SavedPreferencesForTrip["finished_entering_preferences_status"] = "Destination" as NSString
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    @IBAction func decidedDestinationEditingDidEnd(_ sender: Any) {
+        let when = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "destinationVCtoBudgetVC", sender: nil)
+        }
+    }
+    @IBAction func suggestedDestinationEditingDidEnd(_ sender: Any) {
+        let when = DispatchTime.now() + 0.6
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.performSegue(withIdentifier: "destinationVCtoBudgetVC", sender: nil)
+        }
     }
     
     func keyboardWillShow(notification: NSNotification) {

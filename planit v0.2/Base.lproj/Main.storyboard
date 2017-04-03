@@ -336,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dN8-XR-JKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-660" y="1611"/>
+            <point key="canvasLocation" x="-661" y="1800"/>
         </scene>
         <!--Trip List View Controller-->
         <scene sceneID="iu3-GD-Dwe">
@@ -460,7 +460,7 @@
                                 <rect key="frame" x="17" y="242" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe through your group's unique recommendations" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-d8-Qcp">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe through your group's recommendations" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFa-d8-Qcp">
                                 <rect key="frame" x="55" y="234" width="251" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
@@ -640,7 +640,7 @@
                                 <state key="normal" title="Group rankings"/>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="e1o-La-2RE" eventType="touchUpInside" id="AtQ-6B-RRU"/>
-                                    <segue destination="6Nf-ZD-7fF" kind="show" animates="NO" id="9ZB-Ko-LdT"/>
+                                    <segue destination="6Nf-ZD-7fF" kind="presentation" identifier="swipingVCtoRankingVC" modalTransitionStyle="coverVertical" id="9ZB-Ko-LdT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lc-7o-boO">
@@ -664,7 +664,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You've swiped through all your group's recommendations... time to check out the rankings!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nK-lh-dh8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time to check out the rankings!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nK-lh-dh8">
                                 <rect key="frame" x="43" y="300" width="290" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -726,6 +726,7 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                                             <connections>
                                                 <action selector="budgetEditingChanged:" destination="64C-0J-to2" eventType="editingChanged" id="wIC-GC-Xbc"/>
+                                                <action selector="budgetEditingDidEnd:" destination="64C-0J-to2" eventType="editingDidEnd" id="E8I-qI-xV8"/>
                                             </connections>
                                         </textField>
                                     </subviews>
@@ -883,7 +884,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="64C-0J-to2" eventType="touchUpInside" id="hqu-5f-Pye"/>
-                                    <segue destination="oN0-zx-La3" kind="show" animates="NO" id="S2r-5z-Heu"/>
+                                    <segue destination="oN0-zx-La3" kind="presentation" identifier="BudgetVCtoActivitiesVC" modalTransitionStyle="coverVertical" id="S2r-5z-Heu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8c-Pf-e66">
@@ -1059,7 +1060,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="Cpd-I2-Ulf" eventType="touchUpInside" id="0dC-is-Kor"/>
-                                    <segue destination="64C-0J-to2" kind="show" animates="NO" id="Jg5-md-oJp"/>
+                                    <segue destination="64C-0J-to2" kind="presentation" identifier="destinationVCtoBudgetVC" modalTransitionStyle="coverVertical" id="Jg5-md-oJp"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Do you want to suggest a destination to your group?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBy-gU-SVt">
@@ -1120,6 +1121,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
+                                    <action selector="suggestedDestinationEditingDidEnd:" destination="Cpd-I2-Ulf" eventType="editingDidEnd" id="o1D-wd-j1r"/>
                                     <action selector="suggestedDestinationValueChanged:" destination="Cpd-I2-Ulf" eventType="valueChanged" id="MTB-wb-pMi"/>
                                     <action selector="suggestedDestinationValueChanged:" destination="Cpd-I2-Ulf" eventType="editingChanged" id="Oio-VO-26e"/>
                                 </connections>
@@ -1133,6 +1135,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="decidedDestinationEditingChanged:" destination="Cpd-I2-Ulf" eventType="editingChanged" id="6uh-cO-L85"/>
+                                    <action selector="decidedDestinationEditingDidEnd:" destination="Cpd-I2-Ulf" eventType="editingDidEnd" id="5T7-uR-Vts"/>
                                     <action selector="suggestedDestinationValueChanged:" destination="Cpd-I2-Ulf" eventType="valueChanged" id="NyU-NX-9LL"/>
                                     <action selector="suggestedDestinationValueChanged:" destination="Cpd-I2-Ulf" eventType="editingChanged" id="bOz-hR-r2w"/>
                                 </connections>
@@ -1679,7 +1682,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="w3M-hs-AT7" eventType="touchUpInside" id="M64-6j-SZ3"/>
-                                    <segue destination="Cpd-I2-Ulf" kind="show" animates="NO" id="tzy-O1-dB3"/>
+                                    <segue destination="Cpd-I2-Ulf" kind="presentation" identifier="calendarVCtoHomeairportVC" modalTransitionStyle="coverVertical" id="tzy-O1-dB3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlr-TS-m7B">
@@ -1859,7 +1862,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="Luu-Nc-osp"/>
-                                    <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="bs2-LI-qHj"/>
+                                    <segue destination="w3M-hs-AT7" kind="presentation" identifier="tripNameVCToCalendarVC" modalTransitionStyle="coverVertical" id="bs2-LI-qHj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-br-X3d">
@@ -3149,7 +3152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiP-VK-ADH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-661" y="-443"/>
+            <point key="canvasLocation" x="-662" y="-212"/>
         </scene>
     </scenes>
     <resources>
@@ -3175,14 +3178,14 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jUF-36-ylm"/>
-        <segue reference="z39-TT-5CW"/>
-        <segue reference="7P8-mp-BUH"/>
-        <segue reference="LCg-yH-cDa"/>
-        <segue reference="SsN-Ce-PbB"/>
-        <segue reference="1a7-x0-bbe"/>
-        <segue reference="oxc-Q2-u4X"/>
+        <segue reference="9ZB-Ko-LdT"/>
         <segue reference="YhE-0L-EX8"/>
+        <segue reference="zQA-c3-mCq"/>
+        <segue reference="fOv-FV-Odd"/>
+        <segue reference="lvK-3n-0ZO"/>
+        <segue reference="Jg5-md-oJp"/>
+        <segue reference="ZZw-Xw-k7p"/>
+        <segue reference="iC5-lr-XRB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
