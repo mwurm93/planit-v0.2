@@ -58,6 +58,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var groupMemberListTable: UITableView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var addFromContactsButton: UIButton!
+    @IBOutlet weak var addFromFacebookButton: UIButton!
+    @IBOutlet weak var soloForNowButton: UIButton!
     @IBOutlet weak var ranOutOfSwipesLabel: UILabel!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet var homeAirportSubview: UIView!
@@ -380,6 +382,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
             self.contactsCollectionView.reloadData()
+            groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
+            groupMemberListTable.reloadData()
         }
         else {
             contacts = [contactProperty.contact]
@@ -406,9 +410,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
             self.contactsCollectionView.reloadData()
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
+            groupMemberListTable.reloadData()
         }
-        
+        addFromContactsButton.layer.frame = CGRect(x: 101, y: 21, width: 148, height: 22)
+        addFromFacebookButton.layer.frame = CGRect(x: 95, y: 61, width: 160, height: 22)
+        soloForNowButton.alpha = 0
+        groupMemberListTable.alpha = 1
+        groupMemberListTable.layer.frame = CGRect(x: 29, y: 116, width: 292, height: 221)
     }
+    
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
 //        var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
@@ -433,6 +444,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
             self.contactsCollectionView.reloadData()
+            groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
+            groupMemberListTable.reloadData()
         }
         else {
             contacts = [contact]
@@ -452,8 +465,15 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             self.contactsCollectionView.insertItems(at: addedRowIndexPath)
             self.contactsCollectionView.reloadData()
+            groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
+            groupMemberListTable.reloadData()
         }
         
+        addFromContactsButton.layer.frame = CGRect(x: 101, y: 21, width: 148, height: 22)
+        addFromFacebookButton.layer.frame = CGRect(x: 95, y: 61, width: 160, height: 22)
+        soloForNowButton.alpha = 0
+        groupMemberListTable.alpha = 1
+        groupMemberListTable.layer.frame = CGRect(x: 29, y: 116, width: 292, height: 221)
     }
     
 //saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
@@ -474,10 +494,14 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     // MARK: UITableviewdelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows = 7
+        var numberOfRows = 0
+        
+        if tableView == timeOfDayTableView {
+            var numberOfRows = 7
+        }
         if tableView == groupMemberListTable {
-            if objects != nil {
-                numberOfRows += objects!.count
+            if contacts != nil {
+                numberOfRows += contacts!.count
             }
         }
         return numberOfRows
@@ -573,7 +597,20 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             objects?.remove(at: indexPath.row)
             objectIDs?.remove(at: indexPath.row)
             objectPhoneNumbers.remove(at: indexPath.row)
+            contacts?.remove(at: indexPath.row)
+            contactIDs?.remove(at: indexPath.row)
+            contactPhoneNumbers.remove(at: indexPath.row)
+            
             groupMemberListTable.deleteRows(at: [indexPath], with: .left)
+            contactsCollectionView.deleteItems(at: [indexPath])
+            
+            if objects?.count == 0 || objects == nil || contacts?.count == 0 || contacts == nil{
+                addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
+                addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
+                soloForNowButton.alpha = 1
+                soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
+                groupMemberListTable.alpha = 0
+            }
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -605,6 +642,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.view.addSubview(addContactsSubview)
         addContactsSubview.center = self.view.center
         self.addContactsSubview.alpha = 1
+        if contacts != nil {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 21, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 61, width: 160, height: 22)
+            soloForNowButton.alpha = 0
+            groupMemberListTable.alpha = 1
+            groupMemberListTable.layer.frame = CGRect(x: 29, y: 116, width: 292, height: 221)
+        } else {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
+            soloForNowButton.alpha = 1
+            soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
+            groupMemberListTable.alpha = 0
+        }
         
         self.homeAirportSubview.alpha = 0
         self.homeAirportSubview.removeFromSuperview()
@@ -632,6 +682,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.view.addSubview(addContactsSubview)
         addContactsSubview.center = self.view.center
         self.addContactsSubview.alpha = 1
+        if contacts != nil {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 21, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 61, width: 160, height: 22)
+            soloForNowButton.alpha = 0
+            groupMemberListTable.alpha = 1
+            groupMemberListTable.layer.frame = CGRect(x: 29, y: 116, width: 292, height: 221)
+        } else {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
+            soloForNowButton.alpha = 1
+            soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
+            groupMemberListTable.alpha = 0
+        }
 
         self.calendarSubview.alpha = 0
         self.calendarSubview.removeFromSuperview()
@@ -698,6 +761,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     @IBAction func calendarSubviewBackButtonTouchedUpInside(_ sender: Any) {
         CalendarSubViewToAddContactsSubview()
+    }
+    @IBAction func goingSoloButtonTouchedUpInside(_ sender: Any) {
+        AddContactsSubViewToCalendarSubview()
     }
     
     @IBAction func previousMonthTouchedUpInside(_ sender: Any) {

@@ -1942,6 +1942,7 @@
                         <outlet property="addContactPlusIconMainVC" destination="eBS-CC-JRz" id="gKI-by-pR8"/>
                         <outlet property="addContactsSubview" destination="dZK-JS-HpS" id="tai-4K-zml"/>
                         <outlet property="addFromContactsButton" destination="uoZ-1l-yxx" id="g93-kJ-B1D"/>
+                        <outlet property="addFromFacebookButton" destination="U7y-7c-V4B" id="kOQ-u0-oJc"/>
                         <outlet property="calendarSubview" destination="N4B-s3-vY2" id="qcU-Zn-1ta"/>
                         <outlet property="calendarView" destination="ax1-pr-iaI" id="34y-h3-tgk"/>
                         <outlet property="contactsCollectionView" destination="zAa-lr-Ha0" id="k3h-gJ-zZM"/>
@@ -1954,6 +1955,7 @@
                         <outlet property="popupBlurView" destination="qjA-FX-eDz" id="Y5c-yC-eH6"/>
                         <outlet property="ranOutOfSwipesLabel" destination="9qU-ho-tom" id="lmd-Jv-XD9"/>
                         <outlet property="rejectIcon" destination="6aj-5Q-Dyn" id="Wzh-Ih-k0E"/>
+                        <outlet property="soloForNowButton" destination="f2T-RU-qgg" id="fCg-J7-4Ue"/>
                         <outlet property="timeOfDayTableView" destination="zPq-pN-9Dm" id="hN6-3K-IBw"/>
                     </connections>
                 </viewController>
@@ -1999,7 +2001,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nrJ-cj-pzr">
-                            <rect key="frame" x="16" y="111" width="292" height="221"/>
+                            <rect key="frame" x="29" y="116" width="292" height="221"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2045,38 +2047,33 @@
                             </connections>
                         </tableView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7y-7c-V4B">
-                            <rect key="frame" x="82" y="51" width="160" height="22"/>
+                            <rect key="frame" x="95" y="199" width="160" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Add from Facebook">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <connections>
-                                <action selector="addContactToTrip:" destination="JtR-jW-4x4" eventType="touchUpInside" id="J5s-xi-6zS"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-RU-qgg">
-                            <rect key="frame" x="82" y="81" width="160" height="22"/>
+                            <rect key="frame" x="95" y="229" width="160" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Solo for now">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="addContactToTrip:" destination="JtR-jW-4x4" eventType="touchUpInside" id="jH0-RF-KX1"/>
+                                <action selector="goingSoloButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="o1c-VY-cqt"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoZ-1l-yxx">
-                            <rect key="frame" x="88" y="21" width="148" height="22"/>
+                            <rect key="frame" x="101" y="169" width="148" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Add from contacts">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="addContactToTrip:" destination="JtR-jW-4x4" eventType="touchUpInside" id="UOr-3y-utr"/>
                                 <action selector="addFromContacts:" destination="E8d-J0-NPc" eventType="touchUpInside" id="nHy-Bt-1yC"/>
-                                <action selector="addTrip:" destination="c7O-w7-no5" eventType="touchUpInside" id="hzJ-fV-P6t"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLW-CA-KvI">
