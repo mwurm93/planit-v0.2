@@ -484,13 +484,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if tableView == timeOfDayTableView {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timeOfDayPrototypeCell", for: indexPath) as! timeOfDayTableViewCell
         cell.timeOfDayTableLabel.text = timesOfDayArray[indexPath.row]
-        
-        if tableView == groupMemberListTable {
+        return cell
+        }
+//        else if tableView == groupMemberListTable {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactsPrototypeCell", for: indexPath) as! contactsTableViewCell
         let contacts = objects as! [CNContact]?
         
+        if contacts != nil {
         let contact = contacts?[indexPath.row]
         cell.nameLabel.text = (contact?.givenName)! + " " + (contact?.familyName)!
         

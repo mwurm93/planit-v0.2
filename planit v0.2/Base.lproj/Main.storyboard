@@ -2053,7 +2053,6 @@
                             </state>
                             <connections>
                                 <action selector="addContactToTrip:" destination="JtR-jW-4x4" eventType="touchUpInside" id="J5s-xi-6zS"/>
-                                <action selector="addTrip:" destination="c7O-w7-no5" eventType="touchUpInside" id="bfG-Jo-ouU"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-RU-qgg">
@@ -2065,7 +2064,6 @@
                             </state>
                             <connections>
                                 <action selector="addContactToTrip:" destination="JtR-jW-4x4" eventType="touchUpInside" id="jH0-RF-KX1"/>
-                                <action selector="addTrip:" destination="c7O-w7-no5" eventType="touchUpInside" id="TeQ-p7-rsM"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoZ-1l-yxx">
@@ -3493,7 +3491,7 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z47-Ol-CB3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="z47-Ol-CB3">
                                 <rect key="frame" x="34" y="233" width="307" height="237"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3541,6 +3539,11 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="z47-Ol-CB3"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="addFromContactsButton" destination="LGt-iV-CAo" id="egX-QH-jtR"/>
@@ -3581,10 +3584,10 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tzy-O1-dB3"/>
-        <segue reference="bs2-LI-qHj"/>
-        <segue reference="tx3-5T-LG7"/>
+        <segue reference="ElG-rI-GdU"/>
         <segue reference="lra-AY-k3U"/>
+        <segue reference="EEv-3e-wvn"/>
+        <segue reference="bs2-LI-qHj"/>
         <segue reference="jUF-36-ylm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
