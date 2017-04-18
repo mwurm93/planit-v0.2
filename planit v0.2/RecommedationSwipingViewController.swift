@@ -35,8 +35,8 @@ class RecommendationSwipingViewController: UIViewController {
         super.viewDidLoad()
         
         //Set Koloda delegate and View Controller
-        kolodaView.dataSource = self
-        kolodaView.delegate = self
+        kolodaView.dataSource = self as? KolodaViewDataSource
+        kolodaView.delegate = self as? KolodaViewDelegate
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
         heartIcon.setImage(#imageLiteral(resourceName: "fullHeart"), for: .highlighted)
@@ -98,72 +98,4 @@ class RecommendationSwipingViewController: UIViewController {
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
     
-    //MARK: Actions
-    @IBAction func rejectSelected(_ sender: Any) {
-        kolodaView?.swipe(.left)
-    }
-    
-    @IBAction func heartSelected(_ sender: Any) {
-        kolodaView?.swipe(.right)
-    }
-    @IBAction func nextButtonPressed(_ sender: Any) {
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["finished_entering_preferences_status"] = "Swiping" as NSString
-        //Save
-        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
-    }
-}
-
-// MARK: KolodaViewDelegate
-
-extension RecommendationSwipingViewController: KolodaViewDelegate {
-    
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        ranOutOfSwipesLabel.isHidden = false
-        heartIcon.isHidden = true
-        rejectIcon.isHidden = true
-        
-        let when = DispatchTime.now() + 1
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
-        }
-
-//        let position = kolodaView.currentCardIndex
-//        for i in 1...4 {
-//            dataSource.append(UIImage(named: "Card_like_\(i)")!)
-//        }
-//        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
-    }
-    
-    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-    }
-    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
-        let when = DispatchTime.now() + 1
-        
-        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomLeft || direction == SwipeResultDirection.left || direction == SwipeResultDirection.topLeft) && (direction != SwipeResultDirection.bottomRight || direction != SwipeResultDirection.right || direction != SwipeResultDirection.topRight) {
-            rejectIcon.isHighlighted = true
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.rejectIcon.isHighlighted = false
-            }
-        }
-        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomRight || direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight) && (direction != SwipeResultDirection.bottomLeft || direction != SwipeResultDirection.left || direction != SwipeResultDirection.topLeft){
-            heartIcon.isHighlighted = true
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.heartIcon.isHighlighted = false
-            }
-        }
-    }
-}
-
-// MARK: KolodaViewDataSource
-
-extension RecommendationSwipingViewController: KolodaViewDataSource {
-    
-    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return dataSource.count
-    }
-    
-    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        return UIImageView(image: dataSource[Int(index)])
-    }
 }
