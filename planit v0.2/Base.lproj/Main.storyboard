@@ -1928,22 +1928,35 @@
                                     <action selector="addTrip:" destination="c7O-w7-no5" eventType="touchUpInside" id="Xq1-3F-sip"/>
                                 </connections>
                             </button>
+                            <visualEffectView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjA-FX-eDz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Iyl-Ox-rab">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addContactsSubview" destination="dZK-JS-HpS" id="tai-4K-zml"/>
                         <outlet property="addFromContactsButton" destination="uoZ-1l-yxx" id="g93-kJ-B1D"/>
+                        <outlet property="calendarSubview" destination="N4B-s3-vY2" id="qcU-Zn-1ta"/>
                         <outlet property="contactsCollectionView" destination="zAa-lr-Ha0" id="k3h-gJ-zZM"/>
                         <outlet property="groupMemberListTable" destination="nrJ-cj-pzr" id="tCv-ev-A0L"/>
                         <outlet property="heartIcon" destination="Myc-ln-NPH" id="DUW-hk-4sv"/>
+                        <outlet property="homeAirportSubview" destination="XpJ-uq-Mpy" id="9fW-IA-71X"/>
                         <outlet property="kolodaView" destination="4k9-00-F3k" id="oCD-S6-0ax"/>
                         <outlet property="nextButton" destination="Eyq-dV-AXx" id="QJu-Ot-U7f"/>
+                        <outlet property="popupBlurView" destination="qjA-FX-eDz" id="Y5c-yC-eH6"/>
                         <outlet property="ranOutOfSwipesLabel" destination="9qU-ho-tom" id="lmd-Jv-XD9"/>
                         <outlet property="rejectIcon" destination="6aj-5Q-Dyn" id="Wzh-Ih-k0E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Tr-yG-Z3P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="XpJ-uq-Mpy" customClass="homeAirportSubView">
+                <view contentMode="scaleToFill" id="XpJ-uq-Mpy">
                     <rect key="frame" x="0.0" y="0.0" width="324" height="383"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -1965,15 +1978,27 @@
                                 <action selector="homeAirportFieldEditingChanged:" destination="Cpd-I2-Ulf" eventType="editingChanged" id="Uwb-ca-9KV"/>
                             </connections>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YP6-ZL-YNG">
+                            <rect key="frame" x="264" y="323" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&gt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="homeAiportSubviewNextButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="gGz-Y1-T5E"/>
+                                <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="tRS-m9-oCd"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="dZK-JS-HpS" customClass="addContactsSubView">
+                <view contentMode="scaleToFill" id="dZK-JS-HpS">
                     <rect key="frame" x="0.0" y="0.0" width="324" height="383"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nrJ-cj-pzr">
-                            <rect key="frame" x="16" y="111" width="292" height="257"/>
+                            <rect key="frame" x="16" y="111" width="292" height="221"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2055,12 +2080,62 @@
                                 <action selector="addTrip:" destination="c7O-w7-no5" eventType="touchUpInside" id="hzJ-fV-P6t"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLW-CA-KvI">
+                            <rect key="frame" x="264" y="323" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&gt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="addContactsSubviewNextButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="D6s-Rw-dNA"/>
+                                <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="Zar-2L-oVZ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PG1-Nb-RVw">
+                            <rect key="frame" x="0.0" y="323" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&lt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="addContactsSubviewBackButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="Nph-vu-zcl"/>
+                                <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="1yb-hZ-j8z"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" id="N4B-s3-vY2" customClass="CalendarSubView">
+                <view contentMode="scaleToFill" id="N4B-s3-vY2">
                     <rect key="frame" x="0.0" y="0.0" width="324" height="383"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xi-Ey-KqW">
+                            <rect key="frame" x="264" y="323" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&gt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="calendarSubviewNextButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="iK8-MS-nFg"/>
+                                <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="CEr-xf-m4G"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geI-mO-Zhh">
+                            <rect key="frame" x="0.0" y="323" width="60" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&lt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="calendarSubviewBackButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="s3D-0U-DXd"/>
+                                <action selector="nextButtonPressed:" destination="E8d-J0-NPc" eventType="touchUpInside" id="QLB-AR-HbB"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
@@ -3443,7 +3518,7 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9ZB-Ko-LdT"/>
+        <segue reference="jUF-36-ylm"/>
         <segue reference="lra-AY-k3U"/>
         <segue reference="5Cy-Be-NXP"/>
         <segue reference="bs2-LI-qHj"/>

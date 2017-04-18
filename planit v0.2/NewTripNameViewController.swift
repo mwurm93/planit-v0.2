@@ -34,6 +34,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var objectPhoneNumbers = [NSString]()
     var contactPhoneNumbers = [NSString]()
     var NewOrAddedTripFromSegue: Int?
+    var effect:UIVisualEffect!
 
 // MARK: Outlets
     
@@ -45,9 +46,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var addFromContactsButton: UIButton!
     @IBOutlet weak var ranOutOfSwipesLabel: UILabel!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
+    @IBOutlet var homeAirportSubview: UIView!
+    @IBOutlet var addContactsSubview: UIView!
+    @IBOutlet var calendarSubview: UIView!
+    @IBOutlet weak var popupBlurView: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        effect = popupBlurView.effect
+        popupBlurView.effect = nil
         
         //Set Koloda delegate and View Controller
         kolodaView.dataSource = self
@@ -95,7 +103,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
             if contactIDs.count > 0  {
             }
-//        
+//
 //        //Install the value into the label.
 //        let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
 //            
@@ -109,6 +117,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 //            groupMemberListTable.alpha = 1
 //            addFromContactsButton.alpha = 1
 //        }
+        }
+        let when = DispatchTime.now() + 1
+            DispatchQueue.main.asyncAfter(deadline: when) {
+            self.animateInHomeAirportSubview()
         }
     }
     
@@ -139,8 +151,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var numberOfContacts = 0
-        let testvar = contacts?.count
-        
         if contacts != nil {
             numberOfContacts += contacts!.count
         }
@@ -292,7 +302,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         else {
             contacts = [contactProperty.contact]
             objects = [contactProperty.contact as NSObject]
-            contactIDs?.append(contactProperty.contact.identifier as NSString)
+            contactIDs = [contactProperty.contact.identifier as NSString]
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
             var indexForCorrectPhoneNumber: Int?
             for indexOfPhoneNumber in 0...(allPhoneNumbersForContact.count - 1) {
@@ -345,7 +355,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         else {
             contacts = [contact]
             objects = [contact as NSObject]
-            contactIDs?.append(contact.identifier as NSString)
+            contactIDs = [contact.identifier as NSString]
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
@@ -442,6 +452,67 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
     }
+    
+    func animateInHomeAirportSubview(){
+        self.view.addSubview(homeAirportSubview)
+        homeAirportSubview.center = self.view.center
+        homeAirportSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        homeAirportSubview.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.popupBlurView.effect = self.effect
+            self.homeAirportSubview.alpha = 1
+            self.homeAirportSubview.transform = CGAffineTransform.identity
+        }
+    }
+
+    func HomeAirportSubViewToAddContactsSubview() {
+        self.view.addSubview(addContactsSubview)
+        addContactsSubview.center = self.view.center
+        self.addContactsSubview.alpha = 1
+        
+        self.homeAirportSubview.alpha = 0
+        self.homeAirportSubview.removeFromSuperview()
+    }
+
+    func AddContactsSubViewToHomeAirportSubview() {
+        self.view.addSubview(homeAirportSubview)
+        homeAirportSubview.center = self.view.center
+        self.homeAirportSubview.alpha = 1
+        
+        self.addContactsSubview.alpha = 0
+        self.addContactsSubview.removeFromSuperview()
+    }
+    
+    func AddContactsSubViewToCalendarSubview() {
+        self.view.addSubview(calendarSubview)
+        calendarSubview.center = self.view.center
+        self.calendarSubview.alpha = 1
+        
+        self.addContactsSubview.alpha = 0
+        self.addContactsSubview.removeFromSuperview()
+    }
+    
+    func CalendarSubViewToAddContactsSubview() {
+        self.view.addSubview(addContactsSubview)
+        addContactsSubview.center = self.view.center
+        self.addContactsSubview.alpha = 1
+
+        self.calendarSubview.alpha = 0
+        self.calendarSubview.removeFromSuperview()
+    }
+
+
+    func animateOutCalendarSubview() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.calendarSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.popupBlurView.effect = nil
+            self.calendarSubview.alpha = 0
+        }) { (Success:Bool) in
+            self.calendarSubview.removeFromSuperview()
+        }
+    }
+
 
     //MARK: Actions
     @IBAction func nextButtonPressed(_ sender: Any) {
@@ -462,6 +533,21 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     @IBAction func heartSelected(_ sender: Any) {
         kolodaView?.swipe(.right)
+    }
+    @IBAction func homeAiportSubviewNextButtonTouchedUpInside(_ sender: Any) {
+        HomeAirportSubViewToAddContactsSubview()
+    }
+    @IBAction func addContactsSubviewNextButtonTouchedUpInside(_ sender: Any) {
+        AddContactsSubViewToCalendarSubview()
+    }
+    @IBAction func calendarSubviewNextButtonTouchedUpInside(_ sender: Any) {
+        animateOutCalendarSubview()
+    }
+    @IBAction func addContactsSubviewBackButtonTouchedUpInside(_ sender: Any) {
+        AddContactsSubViewToHomeAirportSubview()
+    }
+    @IBAction func calendarSubviewBackButtonTouchedUpInside(_ sender: Any) {
+        CalendarSubViewToAddContactsSubview()
     }
     
     
