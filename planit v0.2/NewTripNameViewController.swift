@@ -50,6 +50,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet var addContactsSubview: UIView!
     @IBOutlet var calendarSubview: UIView!
     @IBOutlet weak var popupBlurView: UIVisualEffectView!
+    @IBOutlet weak var addContactPlusIconMainVC: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,18 +67,18 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         rejectIcon.setImage(#imageLiteral(resourceName: "fullX"), for: .highlighted)
         ranOutOfSwipesLabel.isHidden = true
 
-        if NewOrAddedTripFromSegue == 1 {
-            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
-        }
-        //Update changed preferences as variables
-        NewOrAddedTripFromSegue = 0
+//        if NewOrAddedTripFromSegue == 1 {
+//            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
+//        }
+//        //Update changed preferences as variables
+//        NewOrAddedTripFromSegue = 0
         
-        let tripNameValue = Date().description as NSString
-        //Update trip preferences in dictionary
-        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["trip_name"] = tripNameValue
-        //Save
-        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+//        let tripNameValue = Date().description as NSString
+//        //Update trip preferences in dictionary
+//        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+//        SavedPreferencesForTrip["trip_name"] = tripNameValue
+//        //Save
+//        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
         
         view.autoresizingMask = .flexibleTopMargin
@@ -91,19 +92,23 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         if NewOrAddedTripFromSegue == 1 {
             DataContainerSingleton.sharedDataContainer.currenttrip! -= 1
             nextButton.alpha =  0
-//            groupMemberListTable.alpha = 0
-            addFromContactsButton.alpha = 0
-        } else {
-            //load trip preferences dictionary
-            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-
-            retrieveContactsWithStore(store: addressBookStore)
+            contactsCollectionView.alpha = 0
+            addContactPlusIconMainVC.alpha = 0
             
-            let contactIDs = SavedPreferencesForTrip["contacts_in_group"] as! [NSString]
-
-            if contactIDs.count > 0  {
+            let when = DispatchTime.now() + 1.5
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.animateInHomeAirportSubview()
             }
-//
+        } else {
+            retrieveContactsWithStore(store: addressBookStore)
+
+            //load trip preferences dictionary
+//            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+//            let contactIDs = SavedPreferencesForTrip["contacts_in_group"] as! [NSString]
+
+//            if contactIDs.count > 0  {
+//            }
+////
 //        //Install the value into the label.
 //        let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
 //            
@@ -117,11 +122,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 //            groupMemberListTable.alpha = 1
 //            addFromContactsButton.alpha = 1
 //        }
-        }
-        let when = DispatchTime.now() + 1
-            DispatchQueue.main.asyncAfter(deadline: when) {
-            self.animateInHomeAirportSubview()
-        }
+        }        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -515,8 +516,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
-    @IBAction func nextButtonPressed(_ sender: Any) {
-        // Change preferences finished status
+    @IBAction func nextButtonTouchedUpInside(_ sender: Any) {
         updateCompletionStatus()
     }
 
@@ -536,11 +536,27 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     @IBAction func homeAiportSubviewNextButtonTouchedUpInside(_ sender: Any) {
         HomeAirportSubViewToAddContactsSubview()
+        if NewOrAddedTripFromSegue == 1 {
+            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
+        }
+        //Update changed preferences as variables
+        NewOrAddedTripFromSegue = 0
+        
+        let tripNameValue = "Trip created \(Date().description.substring(to: 9) as NSString)" as NSString
+        //Update trip preferences in dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["trip_name"] = tripNameValue
+        //Save
+        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+
     }
     @IBAction func addContactsSubviewNextButtonTouchedUpInside(_ sender: Any) {
         AddContactsSubViewToCalendarSubview()
     }
     @IBAction func calendarSubviewNextButtonTouchedUpInside(_ sender: Any) {
+        nextButton.alpha = 1
+        contactsCollectionView.alpha = 1
+        addContactPlusIconMainVC.alpha = 1
         animateOutCalendarSubview()
     }
     @IBAction func addContactsSubviewBackButtonTouchedUpInside(_ sender: Any) {
@@ -563,6 +579,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func fetchSavedPreferencesForTrip() -> NSMutableDictionary {
         //Determine if new or added trip
         let isNewOrAddedTrip = determineIfNewOrAddedTrip()
+
         //Init preference vars for if new or added trip
         //Trip status
         var bookingStatus = NSNumber(value: 0)
@@ -597,7 +614,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? 0 as NSNumber
         finishedEnteringPreferencesStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "finished_entering_preferences_status") as? NSString ?? NSString()
         //New Trip VC
-        tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString ?? NSString()
+            tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? NSString ?? NSString()
+
         contacts = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString] ?? [NSString]()
         contactPhoneNumbers = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contact_phone_numbers") as? [NSString] ?? [NSString]()
         hotelRoomsValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "hotel_rooms") as? [NSNumber] ?? [NSNumber]()
@@ -714,7 +732,6 @@ extension UIViewController {
 
 
 // MARK: KolodaViewDelegate
-
 extension NewTripNameViewController: KolodaViewDelegate {
     
     func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
@@ -722,7 +739,7 @@ extension NewTripNameViewController: KolodaViewDelegate {
         heartIcon.isHidden = true
         rejectIcon.isHidden = true
         
-        let when = DispatchTime.now() + 1
+//        let when = DispatchTime.now() + 1
 //        DispatchQueue.main.asyncAfter(deadline: when) {
 //            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
 //        }
@@ -755,7 +772,6 @@ extension NewTripNameViewController: KolodaViewDelegate {
 }
 
 // MARK: KolodaViewDataSource
-
 extension NewTripNameViewController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
