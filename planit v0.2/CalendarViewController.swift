@@ -21,7 +21,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     
     var firstDate: Date?
-    let timesOfDayArray = ["Early morning (12am-5am)","Morning (5am-11am)","Midday (11pm-5pm)","Night (5pm-12am)","Anytime"]
+    let timesOfDayArray = ["Early morning (before 8am)","Morning (8am-11am)","Midday (11am-2pm)","Afternoon (2pm-5pm)","Evening (5pm-9pm)","Night (after 9pm)","Anytime"]
     
     // Set up vars for Contacts - COPY
     var contacts: [CNContact]?
@@ -121,7 +121,7 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -133,14 +133,14 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let topRows = [IndexPath(row:0, section: 0),IndexPath(row:1, section: 0),IndexPath(row:2, section: 0),IndexPath(row:3, section: 0)]
-        if indexPath == IndexPath(row:4, section: 0) {
+        let topRows = [IndexPath(row:0, section: 0),IndexPath(row:1, section: 0),IndexPath(row:2, section: 0),IndexPath(row:3, section: 0),IndexPath(row:4, section: 0),IndexPath(row:5, section: 0)]
+        if indexPath == IndexPath(row:6, section: 0) {
             for rowIndex in topRows {
                 self.timeOfDayTableView.deselectRow(at: rowIndex, animated: false)
             }
         }
         if topRows.contains(indexPath) {
-            self.timeOfDayTableView.deselectRow(at: IndexPath(row:4, section:0), animated: false)
+            self.timeOfDayTableView.deselectRow(at: IndexPath(row:6, section:0), animated: false)
         }
         
         let selectedTimesOfDay = timeOfDayTableView.indexPathsForSelectedRows
