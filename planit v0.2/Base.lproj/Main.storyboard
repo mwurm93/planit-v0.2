@@ -3581,11 +3581,11 @@
         <image name="three_people" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ElG-rI-GdU"/>
-        <segue reference="lra-AY-k3U"/>
-        <segue reference="EEv-3e-wvn"/>
-        <segue reference="bs2-LI-qHj"/>
         <segue reference="jUF-36-ylm"/>
+        <segue reference="tzy-O1-dB3"/>
+        <segue reference="bs2-LI-qHj"/>
+        <segue reference="tx3-5T-LG7"/>
+        <segue reference="lra-AY-k3U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

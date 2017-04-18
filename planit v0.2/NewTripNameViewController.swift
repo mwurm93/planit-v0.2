@@ -74,12 +74,17 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        homeAirportSubview.layer.cornerRadius = 5
+        addContactsSubview.layer.cornerRadius = 5
+        calendarSubview.layer.cornerRadius = 5
+        
         //Calendar subview
         // Set up tap outside time of day table
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
         tap.numberOfTapsRequired = 1
         tap.delegate = self
         popupBackgroundView.addGestureRecognizer(tap)
+        popupBackgroundView.isHidden = true
         
         //Time of Day
         timeOfDayTableView.delegate = self
@@ -87,11 +92,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         timeOfDayTableView.layer.cornerRadius = 5
         timeOfDayTableView.layer.isHidden = true
         timeOfDayTableView.allowsMultipleSelection = true
-        
-        //Hide next button
-        //        nextButton.isHidden = true
-        //        nextButton.isUserInteractionEnabled = false
-        popupBackgroundView.isHidden = true
         
         // Calendar header setup
         calendarView.registerHeaderView(xibFileNames: ["monthHeaderView"])
