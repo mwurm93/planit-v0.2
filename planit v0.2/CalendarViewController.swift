@@ -20,6 +20,11 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var popupBackgroundView: UIView!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     
+    //Cache colors
+    static let transparentColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
+    static let whiteColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
+    static let darkGrayColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
+
     var firstDate: Date?
     let timesOfDayArray = ["Early morning (before 8am)","Morning (8am-11am)","Midday (11am-2pm)","Afternoon (2pm-5pm)","Evening (5pm-9pm)","Night (after 9pm)","Anytime"]
     
@@ -520,14 +525,14 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
             myCustomCell?.leftSideConnector.isHidden = true
         default:
             myCustomCell?.selectedView.isHidden = true
-            myCustomCell?.selectedView.layer.backgroundColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
+            myCustomCell?.selectedView.layer.backgroundColor = CalendarViewController.transparentColor
             myCustomCell?.leftSideConnector.isHidden = true
             myCustomCell?.rightSideConnector.isHidden = true
             myCustomCell?.middleConnector.isHidden = true
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
+            myCustomCell?.dayLabel.textColor = CalendarViewController.whiteColor
         }
         if cellState.dateBelongsTo != .thisMonth {
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
+            myCustomCell?.dayLabel.textColor = CalendarViewController.darkGrayColor
         }
     }
     
@@ -539,6 +544,8 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
+        
+        
         if cellState.dateBelongsTo == .previousMonthWithinBoundary {
             calendarView.scrollToSegment(.previous)
         }

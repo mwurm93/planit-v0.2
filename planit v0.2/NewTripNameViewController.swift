@@ -37,6 +37,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var contactPhoneNumbers = [NSString]()
     var NewOrAddedTripFromSegue: Int?
     var effect:UIVisualEffect!
+    var countRightSwipes = 0
     
     //calendar subview vars
     var firstDate: Date?
@@ -67,9 +68,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet var calendarSubview: UIView!
     @IBOutlet weak var popupBlurView: UIVisualEffectView!
     @IBOutlet weak var addContactPlusIconMainVC: UIButton!
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var timeOfDayTableView: UITableView!
     @IBOutlet weak var popupBackgroundView: UIView!
+    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet weak var popupBackgroundViewMainVC: UIView!
+    @IBOutlet weak var swipingInstructionsView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +86,14 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
         tap.numberOfTapsRequired = 1
         tap.delegate = self
-        popupBackgroundView.addGestureRecognizer(tap)
         popupBackgroundView.isHidden = true
+        popupBackgroundViewMainVC.isHidden = true
+        swipingInstructionsView.isHidden = true
+        swipingInstructionsView.layer.cornerRadius = 5
+
+        self.popupBackgroundView.addGestureRecognizer(tap)
+        self.popupBackgroundViewMainVC.addGestureRecognizer(tap)
+        
         
         //Time of Day
         timeOfDayTableView.delegate = self
@@ -97,8 +106,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         calendarView.registerHeaderView(xibFileNames: ["monthHeaderView"])
         
         // Calendar setup delegate and datasource
-        calendarView.dataSource = self as JTAppleCalendarViewDataSource
-        calendarView.delegate = self as JTAppleCalendarViewDelegate
+        calendarView.dataSource = self
+        calendarView.delegate = self
         calendarView.registerCellViewXib(file: "CellView")
         calendarView.allowsMultipleSelection  = true
         calendarView.rangeSelectionWillBeUsed = true
@@ -163,9 +172,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             contactsCollectionView.alpha = 0
             addContactPlusIconMainVC.alpha = 0
             
-            let when = DispatchTime.now() + 1.5
+            let when = DispatchTime.now() + 0.6
             DispatchQueue.main.asyncAfter(deadline: when) {
-                self.animateInHomeAirportSubview()
+                self.popupBackgroundViewMainVC.isHidden = false
+                self.swipingInstructionsView.isHidden = false
+                
             }
         } else {
             retrieveContactsWithStore(store: addressBookStore)
@@ -201,11 +212,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func dismissPopup(touch: UITapGestureRecognizer) {
         if timeOfDayTableView.indexPathsForSelectedRows != nil {
             dismissTimeOfDayTableOut()
+            popupBackgroundViewMainVC.isHidden = true
+            swipingInstructionsView.isHidden = true
             
             let when = DispatchTime.now() + 0.6
             DispatchQueue.main.asyncAfter(deadline: when) {
                 if self.leftDateTimeArrays.count == self.rightDateTimeArrays.count {
-                    self.performSegue(withIdentifier: "calendarVCtoHomeairportVC", sender: nil)
                 }
             }
         }
@@ -961,6 +973,27 @@ extension NewTripNameViewController: KolodaViewDelegate {
     
     func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
     }
+    
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
+            countRightSwipes += 1
+            if countRightSwipes == 1 {
+                self.animateInHomeAirportSubview()
+            }
+        }
+    }
+
+//    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
+//        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
+//            countRightSwipes += 1
+//            if countRightSwipes == 1 {
+//                self.animateInHomeAirportSubview()
+//                return false
+//            }
+//        }
+//        return true
+//    }
+    
     func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
         let when = DispatchTime.now() + 1
         
@@ -1070,6 +1103,8 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
+       
+        
         if cellState.dateBelongsTo == .previousMonthWithinBoundary {
             calendarView.scrollToSegment(.previous)
         }
