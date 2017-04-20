@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TripListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TripListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var existingTripsTable: UITableView!
@@ -22,18 +22,35 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var instruct1Label: UILabel!
     @IBOutlet weak var instruct2Label: UILabel!
     @IBOutlet weak var instruct3Label: UILabel!
-    @IBOutlet weak var instruct4Label: UILabel!
-    @IBOutlet weak var instruct5Label: UILabel!
     @IBOutlet weak var instruct1image: UIImageView!
     @IBOutlet weak var instruct2image: UIImageView!
     @IBOutlet weak var instruct3image: UIImageView!
-    @IBOutlet weak var instruct4image: UIImageView!
+    @IBOutlet weak var destinationDecidedControl: UISegmentedControl!
+    @IBOutlet weak var popupBackgroundView: UIView!
     
-    @IBOutlet weak var instruct5image: UIImageView!
     let sectionTitles = ["Still in the works...", "Booked"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up tap outside time of day table
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissPopup(touch:)))
+        tap.numberOfTapsRequired = 1
+        tap.delegate = self
+        popupBackgroundView.isHidden = true
+        self.popupBackgroundView.addGestureRecognizer(tap)
+        
+        //Rotate segmented control view
+        destinationDecidedControl.transform =  CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
+        for segment in self.destinationDecidedControl.subviews {
+            for segmentSubview in segment.subviews {
+                if segmentSubview is UILabel {
+                    (segmentSubview as! UILabel).transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
+                }
+            }
+        }
+        destinationDecidedControl.frame = CGRect(x: 170, y: 80, width: 185, height: 70)
+        destinationDecidedControl.isHidden = true
         
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
@@ -55,11 +72,6 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             instruct2Label.isHidden = false
             instruct3image.isHidden = false
             instruct3Label.isHidden = false
-            instruct4image.isHidden = false
-            instruct4Label.isHidden = false
-            instruct5image.isHidden = false
-            instruct5Label.isHidden = false
-
             }
         else {
             existingTripsTable.isHidden = false
@@ -76,11 +88,6 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             instruct2Label.isHidden = true
             instruct3image.isHidden = true
             instruct3Label.isHidden = true
-            instruct4image.isHidden = true
-            instruct4Label.isHidden = true
-            instruct5image.isHidden = true
-            instruct5Label.isHidden = true
-
         }
     }
     
@@ -91,20 +98,44 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         super.didReceiveMemoryWarning()
     }
     
+    func dismissPopup(touch: UITapGestureRecognizer) {
+            popupBackgroundView.isHidden = true
+            destinationDecidedControl.isHidden = true
+    }
+
+    
     // MARK: Actions
     @IBAction func addTrip(_ sender: Any) {
-        let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-        if existing_trips == nil {
-            DataContainerSingleton.sharedDataContainer.currenttrip = 0
-        }
-        else {
-            DataContainerSingleton.sharedDataContainer.currenttrip = DataContainerSingleton.sharedDataContainer.currenttrip! + 1
-        }
+        DataContainerSingleton.sharedDataContainer.currenttrip = DataContainerSingleton.sharedDataContainer.currenttrip! + 1
+
+        popupBackgroundView.isHidden = false
+        destinationDecidedControl.isHidden = false
+        destinationDecidedControl.frame = CGRect(x: 170, y: 62, width: 185, height: 50)
     }
+    
     @IBAction func createTripButtonTouchDown(_ sender: Any) {
         createTripArrow.isHighlighted = true
     }
  
+    @IBAction func createFirstTripButtonTouchedUpInside(_ sender: Any) {
+        DataContainerSingleton.sharedDataContainer.currenttrip = 0
+        
+        createTripArrow.isHighlighted = false
+        popupBackgroundView.isHidden = false
+        destinationDecidedControl.isHidden = false
+        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 50)
+    }
+    @IBAction func createFirstTripArrowTouchedUpInside(_ sender: Any) {
+        destinationDecidedControl.isHidden = false
+        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 50)
+    }
+    
+    @IBAction func destinationDecidedControlValueChanged(_ sender: Any) {
+        if destinationDecidedControl.selectedSegmentIndex == 0 {
+            self.performSegue(withIdentifier: "addTripDestinationUndecided", sender: self)
+        }
+    }
+    
     // # sections in table
     func numberOfSections(in tableView: UITableView) -> Int {
         let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
@@ -280,25 +311,25 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         let finishedEnteringPreferencesStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "finished_entering_preferences_status") as? NSString ?? NSString()
         let bookingStatus = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "booking_status") as? NSNumber ?? NSNumber()
 
-        if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" && bookingStatus == 0 {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToCalendar", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Calendar"  && bookingStatus == 0 {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToDestination", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Destination"  && bookingStatus == 0 {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToBudget", sender: self)
-        } else if finishedEnteringPreferencesStatus == "Budget"  && bookingStatus == 0 {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToActivities", sender: self)
-        } else if (finishedEnteringPreferencesStatus == "Activities" || finishedEnteringPreferencesStatus == "Swiping" || finishedEnteringPreferencesStatus == "Ranking")  && bookingStatus == 0 {
-            self.performSegue(withIdentifier: "FinishedExistingTripsToUnbookedSummary", sender: self)
-        } else {
-            self.performSegue(withIdentifier: "unfinishedExistingTripsToAddContacts", sender: self)
-        }
+//        if finishedEnteringPreferencesStatus == "Name_Contacts_Rooms" && bookingStatus == 0 {
+//            self.performSegue(withIdentifier: "unfinishedExistingTripsToCalendar", sender: self)
+//        } else if finishedEnteringPreferencesStatus == "Calendar"  && bookingStatus == 0 {
+//            self.performSegue(withIdentifier: "unfinishedExistingTripsToDestination", sender: self)
+//        } else if finishedEnteringPreferencesStatus == "Destination"  && bookingStatus == 0 {
+//            self.performSegue(withIdentifier: "unfinishedExistingTripsToBudget", sender: self)
+//        } else if finishedEnteringPreferencesStatus == "Budget"  && bookingStatus == 0 {
+//            self.performSegue(withIdentifier: "unfinishedExistingTripsToActivities", sender: self)
+//        } else if (finishedEnteringPreferencesStatus == "Activities" || finishedEnteringPreferencesStatus == "Swiping" || finishedEnteringPreferencesStatus == "Ranking")  && bookingStatus == 0 {
+//            self.performSegue(withIdentifier: "FinishedExistingTripsToUnbookedSummary", sender: self)
+//        } else {
+            self.performSegue(withIdentifier: "unfinishedExistingTripsToSwiping", sender: self)
+//        }
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "addedTripToAddContacts" || segue.identifier == "firstTripToAddContacts" {
+        if segue.identifier == "addTripDestinationUndecided" {
             let destination = segue.destination as? NewTripNameViewController
             
             var NewOrAddedTripForSegue = Int()
@@ -309,8 +340,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             if existing_trips == nil {
                 numberSavedTrips = 0
                 NewOrAddedTripForSegue = 1
-            }
-            else {
+            } else {
                 numberSavedTrips = (existing_trips?.count)! - 1
                 if currentTripIndex <= numberSavedTrips! {
                     NewOrAddedTripForSegue = 0
@@ -373,10 +403,6 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                         instruct2Label.isHidden = false
                         instruct3image.isHidden = false
                         instruct3Label.isHidden = false
-                        instruct4image.isHidden = false
-                        instruct4Label.isHidden = false
-                        instruct5image.isHidden = false
-                        instruct5Label.isHidden = false
                     }
                     //Return if delete cell trip name found
                     return

@@ -39,7 +39,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var effect:UIVisualEffect!
     var countRightSwipes = 0
     
-    //calendar subview vars
+    //subview vars
+    var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
     var firstDate: Date?
     let timesOfDayArray = ["Early morning (before 8am)","Morning (8am-11am)","Midday (11am-2pm)","Afternoon (2pm-5pm)","Evening (5pm-9pm)","Night (after 9pm)","Anytime"]
         
@@ -80,9 +81,33 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var nextMonth: UIButton!
     @IBOutlet weak var previousMonth: UIButton!
+    @IBOutlet weak var subviewNextButton: UIButton!
+    @IBOutlet weak var month1: UIButton!
+    @IBOutlet weak var month2: UIButton!
+    @IBOutlet weak var month3: UIButton!
+    @IBOutlet weak var month4: UIButton!
+    @IBOutlet weak var specificDatesButton: UIButton!
+    @IBOutlet weak var weekend: UIButton!
+    @IBOutlet weak var oneWeek: UIButton!
+    @IBOutlet weak var twoWeeks: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        weekend.layer.cornerRadius = 15
+        oneWeek.layer.cornerRadius = 15
+        twoWeeks.layer.cornerRadius = 15
+        month1.layer.cornerRadius = 15
+        month2.layer.cornerRadius = 15
+        month3.layer.cornerRadius = 15
+        month4.layer.cornerRadius = 15
+        
+        let monthDateFormatter = DateFormatter()
+        monthDateFormatter.dateFormat = "MM"
+        let currentMonth = monthDateFormatter.string(from: Date())
+        
+        //WORK HERE NEXT
+        month1.setTitle("\(currentMonth)",for: .normal)
         
         popupSubview.layer.cornerRadius = 5
         subviewDoneButton.isHidden = true
@@ -101,6 +126,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         timeOfDayTableView.layer.cornerRadius = 5
         timeOfDayTableView.layer.isHidden = true
         timeOfDayTableView.allowsMultipleSelection = true
+        
+        //home airport textfield
+        self.homeAirportTextField.delegate = self
+        homeAirportTextField.layer.borderWidth = 1
+        homeAirportTextField.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:0.25).cgColor
+        homeAirportTextField.layer.masksToBounds = true
+        homeAirportTextField.layer.cornerRadius = 5
+        homeAirportTextField.text =  "\(homeAirportValue)"
+        let homeAirportLabelPlaceholder = homeAirportTextField!.value(forKey: "placeholderLabel") as? UILabel
+        homeAirportLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        if (homeAirportTextField.text?.characters.count)! >= 3 {
+            subviewWho()
+        }
         
         // Calendar header setup
         calendarView.registerHeaderView(xibFileNames: ["monthHeaderView"])
@@ -151,14 +189,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         addressBookStore = CNContactStore()
         
         if NewOrAddedTripFromSegue == 1 {
-            DataContainerSingleton.sharedDataContainer.currenttrip! -= 1
             nextButton.alpha =  0
             contactsCollectionView.alpha = 0
             addContactPlusIconMainVC.alpha = 0
             
-            let when = DispatchTime.now() + 0.6
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.animateInstructionsIn()
+            let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+            if existing_trips == nil {
+                let when = DispatchTime.now() + 0.6
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.animateInstructionsIn()
+                }
             }
         } else {
             retrieveContactsWithStore(store: addressBookStore)
@@ -395,6 +435,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             soloForNowButton.isHidden = true
             groupMemberListTable.isHidden = false
             groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
+            subviewNextButton.isHidden = false
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
@@ -450,6 +491,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         soloForNowButton.isHidden = true
         groupMemberListTable.isHidden = false
         groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
+        subviewNextButton.isHidden = false
     }
     
 //saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
@@ -461,7 +503,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
         // Hide the keyboard.
-//        newTripNameTextField.resignFirstResponder()
+        homeAirportTextField.resignFirstResponder()
+        
+        //Move to who
+        subviewWho()
         return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -586,6 +631,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 soloForNowButton.isHidden = false
                 soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
                 groupMemberListTable.isHidden = true
+                subviewNextButton.isHidden = true
             }
             
             //Update trip preferences dictionary
@@ -607,7 +653,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         popupSubview.center = self.view.center
         popupSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         popupSubview.alpha = 0
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.2) {
             self.popupBlurView.effect = self.effect
             self.popupSubview.alpha = 1
             self.popupSubview.transform = CGAffineTransform.identity
@@ -617,17 +663,23 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         underline.layer.frame = CGRect(x: 50, y: 30, width: 55, height: 51)
         subviewWhere()
         
-        //Save data model
-        if NewOrAddedTripFromSegue == 1 {
-            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
+        //Create trip name
+        var tripNameValue = "Trip created \(Date().description.substring(to: 10))"
+        //Check if trip name used already
+        if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil {
+            var countTripsMadeToday = 0
+            for trip in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
+                if (DataContainerSingleton.sharedDataContainer.usertrippreferences?[trip].object(forKey: "trip_name") as? String)!.substring(to: 23) == tripNameValue {
+                    countTripsMadeToday += 1
+                }
+            }
+            if countTripsMadeToday != 0 {
+                tripNameValue = "Trip " + ("#\(countTripsMadeToday+1) ") + tripNameValue.substring(from: 5)
+            }
         }
-        //Update changed preferences as variables
-        NewOrAddedTripFromSegue = 0
-        
-        let tripNameValue = "Trip created \(Date().description.substring(to: 10) as NSString)" as NSString
         //Update trip preferences in dictionary
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        SavedPreferencesForTrip["trip_name"] = tripNameValue
+        SavedPreferencesForTrip["trip_name"] = tripNameValue as NSString
         //Save
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
     }
@@ -641,32 +693,112 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         addFromContactsButton.isHidden = true
         addFromFacebookButton.isHidden = true
         soloForNowButton.isHidden = true
+        subviewNextButton.isHidden = true
         calendarView.isHidden = true
         nextMonth.isHidden = true
         previousMonth.isHidden = true
         popupBackgroundView.isHidden = true
         timeOfDayTableView.isHidden = true
         subviewDoneButton.isHidden = true
+        month1.isHidden = true
+        month2.isHidden = true
+        month3.isHidden = true
+        month4.isHidden = true
+        weekend.isHidden = true
+        oneWeek.isHidden = true
+        twoWeeks.isHidden = true
+        specificDatesButton.isHidden = true
+        if self.subviewWhereButton.tintColor == UIColor.green {
+            self.underline.tintColor = UIColor.green
+        } else {
+            underline.tintColor = UIColor.white
+        }
     }
 
+    func subviewWho(){
+        subviewWhereButton.tintColor = UIColor.green
+        questionLabel.text = "Do you have a group in mind?"
+        homeAirportTextField.isHidden = true
+        homeAirportTextField.resignFirstResponder()
+        groupMemberListTable.isHidden = true
+        addFromContactsButton.isHidden = false
+        addFromFacebookButton.isHidden = false
+        soloForNowButton.isHidden = false
+        subviewNextButton.isHidden = true
+        calendarView.isHidden = true
+        nextMonth.isHidden = true
+        previousMonth.isHidden = true
+        popupBackgroundView.isHidden = true
+        timeOfDayTableView.isHidden = true
+        subviewDoneButton.isHidden = true
+        month1.isHidden = true
+        month2.isHidden = true
+        month3.isHidden = true
+        month4.isHidden = true
+        weekend.isHidden = true
+        oneWeek.isHidden = true
+        twoWeeks.isHidden = true
+        specificDatesButton.isHidden = true
+        
+        if contacts != nil {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 170, width: 160, height: 22)
+            soloForNowButton.isHidden = true
+            groupMemberListTable.isHidden = false
+            groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
+            subviewNextButton.isHidden = false
+        } else {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
+            soloForNowButton.isHidden = false
+            soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
+            groupMemberListTable.isHidden = true
+            subviewNextButton.isHidden = true
+        }
+        
+        UIView.animate(withDuration: 0.4) {
+            self.underline.layer.frame = CGRect(x: 148, y: 30, width: 55, height: 51)
+        }
+        if self.subviewWhoButton.tintColor == UIColor.green {
+            self.underline.tintColor = UIColor.green
+        } else {
+            underline.tintColor = UIColor.white
+        }
+
+    }
+    
     func subviewWhen() {
-        questionLabel.text = "TO BE REPLACED WITH SIMPLIFIED WHEN QUESTION"
+        questionLabel.text = "When are you thinking?"
         homeAirportTextField.isHidden = true
         homeAirportTextField.resignFirstResponder()
         groupMemberListTable.isHidden = true
         addFromContactsButton.isHidden = true
         addFromFacebookButton.isHidden = true
         soloForNowButton.isHidden = true
-        calendarView.isHidden = false
+        calendarView.isHidden = true
         nextMonth.isHidden = false
         previousMonth.isHidden = false
         popupBackgroundView.isHidden = true
         timeOfDayTableView.isHidden = true
         subviewDoneButton.isHidden = true
+        subviewNextButton.isHidden = true
+        month1.isHidden = false
+        month2.isHidden = false
+        month3.isHidden = false
+        month4.isHidden = false
+        weekend.isHidden = false
+        oneWeek.isHidden = false
+        twoWeeks.isHidden = false
+        specificDatesButton.isHidden = false
+        
         UIView.animate(withDuration: 0.4) {
             self.underline.layer.frame = CGRect(x: 241, y: 30, width: 55, height: 51)
         }
-        
+        if subviewWhenButton.tintColor == UIColor.green {
+            underline.tintColor = UIColor.green
+        } else {
+            underline.tintColor = UIColor.white
+        }
     }
 
     func animateOutSubview() {
@@ -682,6 +814,26 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
+    @IBAction func specificDatesButtonTouchedUpInside(_ sender: Any) {
+        month1.isHidden = true
+        month2.isHidden = true
+        month3.isHidden = true
+        month4.isHidden = true
+        weekend.isHidden = true
+        oneWeek.isHidden = true
+        twoWeeks.isHidden = true
+        specificDatesButton.isHidden = true
+        questionLabel.isHidden = true
+        calendarView.isHidden = false
+    }
+    @IBAction func homeAirportEditingChanged(_ sender: Any) {
+        DataContainerSingleton.sharedDataContainer.homeAirport = homeAirportTextField.text
+        
+        //Replace with logic for matching airport database
+        if (homeAirportTextField.text?.characters.count)! >= 3 {
+        //Enter code here for if airport code is entered
+        }
+    }
     @IBAction func nextButtonTouchedUpInside(_ sender: Any) {
         updateCompletionStatus()
     }
@@ -709,39 +861,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func subviewWhoButtonTouchedUpInside(_ sender: Any) {
-        questionLabel.text = "Do you have a group in mind?"
-        homeAirportTextField.isHidden = true
-        homeAirportTextField.resignFirstResponder()
-        groupMemberListTable.isHidden = true
-        addFromContactsButton.isHidden = false
-        addFromFacebookButton.isHidden = false
-        soloForNowButton.isHidden = false
-        calendarView.isHidden = true
-        nextMonth.isHidden = true
-        previousMonth.isHidden = true
-        popupBackgroundView.isHidden = true
-        timeOfDayTableView.isHidden = true
-        subviewDoneButton.isHidden = true
-        
-        if contacts != nil {
-            addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
-            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 170, width: 160, height: 22)
-            soloForNowButton.isHidden = true
-            groupMemberListTable.isHidden = false
-            groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
-        } else {
-            addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
-            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
-            soloForNowButton.isHidden = false
-            soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
-            groupMemberListTable.isHidden = true
-        }
-
-        UIView.animate(withDuration: 0.4) {
-            self.underline.layer.frame = CGRect(x: 148, y: 30, width: 55, height: 51)
-        }
+        subviewWho()
     }
     
+    @IBAction func subviewNextButtonTouchedUpInside(_ sender: Any) {
+        subviewWhen()
+    }
     @IBAction func subviewWhenButtonTouchedUpInside(_ sender: Any) {
         subviewWhen()
     }
@@ -1213,7 +1338,7 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
         yearDateFormatter.dateFormat = "yyyy"
         let YearHeader = yearDateFormatter.string(from: range.start)
         
-        //C reate Month String
+        //Create Month String
         let monthDateFormatter = DateFormatter()
         monthDateFormatter.dateFormat = "MM"
         let MonthHeader = monthDateFormatter.string(from: range.start)
