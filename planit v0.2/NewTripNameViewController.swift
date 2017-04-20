@@ -331,7 +331,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
     }
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
-//        var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         if contactIDs != nil {
             contacts?.append(contactProperty.contact)
@@ -399,7 +398,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-//        var contactIDs = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contacts_in_group") as? [NSString]
         
         //Update changed preferences as variables
         if contactIDs != nil {
@@ -1143,11 +1141,6 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
         //Save
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
-        if selectedDates.count > 0 {
-            //            nextButton.isHidden = false
-            //            nextButton.isUserInteractionEnabled = true
-        }
-        
         mostRecentSelectedCellDate = date as NSDate
     }
     
@@ -1172,10 +1165,6 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
         //Save
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
-        if selectedDates.count == 0 {
-            //            nextButton.isHidden = true
-            //            nextButton.isUserInteractionEnabled = false
-        }
     }
     
     // MARK custom func to get length of selected availability segments
