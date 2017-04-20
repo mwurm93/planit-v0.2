@@ -14,7 +14,7 @@ import JTAppleCalendar
 
 private var numberOfCards: Int = 5
 
-class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate {
+class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
     
     fileprivate var dataSource: [UIImage] = {
         var array: [UIImage] = []
@@ -87,13 +87,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         tap.numberOfTapsRequired = 1
         tap.delegate = self
         popupBackgroundView.isHidden = true
-        popupBackgroundViewMainVC.isHidden = true
-        swipingInstructionsView.isHidden = true
-        swipingInstructionsView.layer.cornerRadius = 5
-
         self.popupBackgroundView.addGestureRecognizer(tap)
-        self.popupBackgroundViewMainVC.addGestureRecognizer(tap)
-        
         
         //Time of Day
         timeOfDayTableView.delegate = self
@@ -115,23 +109,23 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         calendarView.scrollingMode = .nonStopToSection(withResistance: 0.9)
         calendarView.direction = .horizontal
         
-        //        //Multiple selection
-        //        let panGensture = UILongPressGestureRecognizer(target: self, action: #selector(didStartRangeSelecting(gesture:)))
-        //        panGensture.minimumPressDuration = 0.5
-        //        calendarView.addGestureRecognizer(panGensture)
-        
-        
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         let selectedDatesValue = SavedPreferencesForTrip["selected_dates"] as? [NSDate]
         if (selectedDatesValue?.count)! > 0 {
             self.calendarView.selectDates(selectedDatesValue! as [Date],triggerSelectionDelegate: false)
-            //            nextButton.isHidden = false
-            //            nextButton.isUserInteractionEnabled = true
-
         }
+        
         //Main VC
         
+        let atap = UITapGestureRecognizer(target: self, action: #selector(self.dismissInstructions(touch:)))
+        atap.numberOfTapsRequired = 1
+        atap.delegate = self
+        self.popupBackgroundViewMainVC.addGestureRecognizer(atap)
+        popupBackgroundViewMainVC.isHidden = true
+        swipingInstructionsView.isHidden = true
+        swipingInstructionsView.layer.cornerRadius = 5
+
         effect = popupBlurView.effect
         popupBlurView.effect = nil
         
@@ -143,28 +137,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         heartIcon.setImage(#imageLiteral(resourceName: "fullHeart"), for: .highlighted)
         rejectIcon.setImage(#imageLiteral(resourceName: "fullX"), for: .highlighted)
         ranOutOfSwipesLabel.isHidden = true
-
-//        if NewOrAddedTripFromSegue == 1 {
-//            DataContainerSingleton.sharedDataContainer.currenttrip! += 1
-//        }
-//        //Update changed preferences as variables
-//        NewOrAddedTripFromSegue = 0
-        
-//        let tripNameValue = Date().description as NSString
-//        //Update trip preferences in dictionary
-//        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-//        SavedPreferencesForTrip["trip_name"] = tripNameValue
-//        //Save
-//        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
-        
         
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
         
-        self.hideKeyboardWhenTappedAround()
+//        self.hideKeyboardWhenTappedAround()
         addressBookStore = CNContactStore()
-        
-        // Set appearance of textfield
         
         if NewOrAddedTripFromSegue == 1 {
             DataContainerSingleton.sharedDataContainer.currenttrip! -= 1
@@ -174,52 +152,51 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             
             let when = DispatchTime.now() + 0.6
             DispatchQueue.main.asyncAfter(deadline: when) {
-                self.popupBackgroundViewMainVC.isHidden = false
-                self.swipingInstructionsView.isHidden = false
-                
+                self.animateInstructionsIn()
             }
         } else {
             retrieveContactsWithStore(store: addressBookStore)
-
-            //load trip preferences dictionary
-//            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-//            let contactIDs = SavedPreferencesForTrip["contacts_in_group"] as! [NSString]
-
-//            if contactIDs.count > 0  {
-//            }
-////
-//        //Install the value into the label.
-//        let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
-//            
-//        if tripNameValue == "" {
-//                nextButton.alpha =  0
-//            groupMemberListTable.alpha = 0
-//            addFromContactsButton.alpha = 0
-//        }
-//        else {
-//            nextButton.alpha = 1
-//            groupMemberListTable.alpha = 1
-//            addFromContactsButton.alpha = 1
-//        }
-            }
+        }
     }
-
-
+    
     override func viewWillAppear(_ animated: Bool) {
     }
+    
+    func animateInstructionsIn(){
+        swipingInstructionsView.layer.isHidden = false
+        swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        swipingInstructionsView.alpha = 0
+        kolodaView.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.4) {
+            self.popupBackgroundViewMainVC.isHidden = false
+            self.swipingInstructionsView.alpha = 1
+            self.swipingInstructionsView.transform = CGAffineTransform.identity
+        }
+    }
+
     
     //UITapGestureRecognizer
     func dismissPopup(touch: UITapGestureRecognizer) {
         if timeOfDayTableView.indexPathsForSelectedRows != nil {
             dismissTimeOfDayTableOut()
-            popupBackgroundViewMainVC.isHidden = true
-            swipingInstructionsView.isHidden = true
+            popupBackgroundView.isHidden = true
             
             let when = DispatchTime.now() + 0.6
             DispatchQueue.main.asyncAfter(deadline: when) {
                 if self.leftDateTimeArrays.count == self.rightDateTimeArrays.count {
                 }
             }
+        }
+    }
+    
+    func dismissInstructions(touch: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.swipingInstructionsView.alpha = 0
+            self.popupBackgroundViewMainVC.isHidden = true
+            self.kolodaView.isUserInteractionEnabled = true
+        }) { (Success:Bool) in
+            self.swipingInstructionsView.layer.isHidden = true
         }
     }
     
@@ -509,7 +486,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         var numberOfRows = 0
         
         if tableView == timeOfDayTableView {
-            var numberOfRows = 7
+            numberOfRows = 7
         }
         if tableView == groupMemberListTable {
             if contacts != nil {
@@ -718,6 +695,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             self.calendarSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             self.popupBlurView.effect = nil
             self.calendarSubview.alpha = 0
+            self.calendarSubview.transform = CGAffineTransform.init(scaleX: 1, y: 1)
         }) { (Success:Bool) in
             self.calendarSubview.removeFromSuperview()
         }
@@ -1010,6 +988,7 @@ extension NewTripNameViewController: KolodaViewDelegate {
             }
         }
     }
+    
 }
 
 // MARK: KolodaViewDataSource
@@ -1084,14 +1063,14 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
             myCustomCell?.leftSideConnector.isHidden = true
         default:
             myCustomCell?.selectedView.isHidden = true
-            myCustomCell?.selectedView.layer.backgroundColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
+            myCustomCell?.selectedView.layer.backgroundColor = CalendarViewController.transparentColor
             myCustomCell?.leftSideConnector.isHidden = true
             myCustomCell?.rightSideConnector.isHidden = true
             myCustomCell?.middleConnector.isHidden = true
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
+            myCustomCell?.dayLabel.textColor = CalendarViewController.whiteColor
         }
         if cellState.dateBelongsTo != .thisMonth {
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
+            myCustomCell?.dayLabel.textColor = CalendarViewController.darkGrayColor
         }
     }
     
@@ -1103,7 +1082,7 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-       
+        
         
         if cellState.dateBelongsTo == .previousMonthWithinBoundary {
             calendarView.scrollToSegment(.previous)

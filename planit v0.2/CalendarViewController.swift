@@ -9,29 +9,60 @@
 import UIKit
 import JTAppleCalendar
 import Contacts
+import Koloda
+import ContactsUI
 
-class CalendarViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+private var numberOfCards: Int = 5
+
+class CalendarViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate {
 
     //MARK: Outlets
-    @IBOutlet weak var tripNameLabel: UILabel!
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var timeOfDayTableView: UITableView!
+    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet var calendarSubview: UIView!
     @IBOutlet weak var popupBackgroundView: UIView!
+    @IBOutlet weak var rejectIcon: UIButton!
+    @IBOutlet weak var heartIcon: UIButton!
+    @IBOutlet weak var ranOutOfSwipesLabel: UILabel!
+    @IBOutlet weak var swipingInstructionsView: UIView!
+    @IBOutlet weak var kolodaView: KolodaView!
     @IBOutlet weak var contactsCollectionView: UICollectionView!
+    @IBOutlet weak var addContactPlusIconMainVC: UIButton!
+    @IBOutlet weak var popupBlurView: UIVisualEffectView!
+    @IBOutlet weak var popupBackgroundViewMainVC: UIView!
     
     //Cache colors
     static let transparentColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
     static let whiteColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
     static let darkGrayColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
 
+    fileprivate var dataSource: [UIImage] = {
+        var array: [UIImage] = []
+        for index in 0..<numberOfCards {
+            array.append(UIImage(named: "Card_like_\(index + 1)")!)
+        }
+        
+        return array
+    }()
+    
+    //main VC vars
+    fileprivate var addressBookStore: CNContactStore!
+    fileprivate var menuArray: NSMutableArray?
+    let picker = CNContactPickerViewController()
+    var contacts: [CNContact]?
+    var objects: [NSObject]?
+    var contactIDs: [NSString]?
+    var objectIDs: [NSString]?
+    var objectPhoneNumbers = [NSString]()
+    var contactPhoneNumbers = [NSString]()
+    var NewOrAddedTripFromSegue: Int?
+    var effect:UIVisualEffect!
+    var countRightSwipes = 0
+    
+    //calendar subview vars
     var firstDate: Date?
     let timesOfDayArray = ["Early morning (before 8am)","Morning (8am-11am)","Midday (11am-2pm)","Afternoon (2pm-5pm)","Evening (5pm-9pm)","Night (after 9pm)","Anytime"]
-    
-    // Set up vars for Contacts - COPY
-    var contacts: [CNContact]?
-    var contactIDs: [NSString]?
-    fileprivate var addressBookStore: CNContactStore!
     
     var leftDates = [Date]()
     var rightDates = [Date]()
@@ -60,9 +91,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         timeOfDayTableView.layer.isHidden = true
         timeOfDayTableView.allowsMultipleSelection = true
         
-        //Hide next button
-//        nextButton.isHidden = true
-//        nextButton.isUserInteractionEnabled = false
         popupBackgroundView.isHidden = true
         
         // Calendar header setup
@@ -78,24 +106,12 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         calendarView.scrollingMode = .nonStopToSection(withResistance: 0.9)
         calendarView.direction = .horizontal
         
-//        //Multiple selection
-//        let panGensture = UILongPressGestureRecognizer(target: self, action: #selector(didStartRangeSelecting(gesture:)))
-//        panGensture.minimumPressDuration = 0.5
-//        calendarView.addGestureRecognizer(panGensture)
-
         
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         let selectedDatesValue = SavedPreferencesForTrip["selected_dates"] as? [NSDate]
         if (selectedDatesValue?.count)! > 0 {
             self.calendarView.selectDates(selectedDatesValue! as [Date],triggerSelectionDelegate: false)
-//            nextButton.isHidden = false
-//            nextButton.isUserInteractionEnabled = true
-        }
-        let tripNameValue = SavedPreferencesForTrip["trip_name"] as? NSString
-        //Install the value into the label.
-        if tripNameValue != "" {
-            self.tripNameLabel.text =  "\(tripNameValue!)"
         }
     }
     
@@ -179,6 +195,19 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     // MARK: Actions
+    @IBAction func animateInCalendarSubview(_ sender: Any) {
+        self.view.addSubview(calendarSubview)
+        calendarSubview.center = self.view.center
+        calendarSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        calendarSubview.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.popupBackgroundView.isHidden = true
+            self.calendarSubview.alpha = 1
+            self.calendarSubview.transform = CGAffineTransform.identity
+        }
+
+    }
     @IBAction func previousMonthPressed(_ sender: Any) {
         calendarView.scrollToSegment(.previous)
     }
@@ -373,96 +402,6 @@ class CalendarViewController: UIViewController, UITableViewDelegate, UITableView
         existing_trips?[currentTripIndex] = SavedPreferencesForTrip as NSDictionary
         DataContainerSingleton.sharedDataContainer.usertrippreferences = existing_trips
     }
-//UNCOMMENT FOR MULTIPLE SELECTION DATE PICKER
-//    var rangeSelectedDates: [Date] = []
-//    func didStartRangeSelecting(gesture: UILongPressGestureRecognizer) {
-//        let point = gesture.location(in: gesture.view!)
-////        rangeSelectedDates = calendarView.selectedDates
-//        if let cellState = calendarView.cellStatus(at: point) {
-//            let date = cellState.date
-//            if !rangeSelectedDates.contains(date) {
-//                if firstDate != nil && firstDate! < date {
-//                    let dateRange = calendarView.generateDateRange(from: firstDate ?? date, to: date)
-//                    for aDate in dateRange {
-//                        if !rangeSelectedDates.contains(aDate) {
-//                            rangeSelectedDates.append(aDate)
-//                        }
-//                    }
-//                } else {
-//                    firstDate = date
-//                }
-//                
-//                calendarView.selectDates(from: firstDate!, to: date, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
-//            } else {
-//                let indexOfNewlySelectedDate = rangeSelectedDates.index(of: date)! + 1
-//                let lastIndex = rangeSelectedDates.endIndex
-//                let testCalendar = Calendar.current
-//                let followingDay = testCalendar.date(byAdding: .day, value: 1, to: date)!
-//                calendarView.selectDates(from: followingDay, to: rangeSelectedDates.last!, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: false)
-//                rangeSelectedDates.removeSubrange(indexOfNewlySelectedDate..<lastIndex)
-//            }
-//
-////            handleSelection(cell: cell, cellState: cellState)
-//            
-//            // Create array of selected dates
-//            let selectedDates = calendarView.selectedDates as [NSDate]
-//            getLengthOfSelectedAvailabilities()
-//            
-//            //Update trip preferences in dictionary
-//            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-//            SavedPreferencesForTrip["selected_dates"] = selectedDates
-//            SavedPreferencesForTrip["Availability_segment_lengths"] = lengthOfAvailabilitySegmentsArray as [NSNumber]
-//            //Save
-//            saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
-//            
-//            if selectedDates.count > 0 {
-//                nextButton.isHidden = false
-//                nextButton.isUserInteractionEnabled = true
-//            }
-//        }
-//        
-//        if gesture.state == .ended {
-//            //Get times to travel
-//            for date in rangeSelectedDates {
-//                let cellState = calendarView.cellStatus(for: date)
-//                if cellState?.selectedPosition() == .left {
-//                    let cellRow = cellState?.row()
-//                    let cellCol = cellState?.column()
-//                    var timeOfDayTable_X = cellCol! * 50 + 39
-//                    let timeOfDayTable_Y = cellRow! * 50 + 145 + 2 * (cellRow! - 1)
-//                    if cellCol == 0 {
-//                        timeOfDayTable_X = (cellCol! + 1) * 50 + 39
-//                    }
-//                    if cellCol == 6 {
-//                        timeOfDayTable_X = (cellCol! - 1) * 50 + 39
-//                    }
-//                    timeOfDayTableView.center = CGPoint(x: timeOfDayTable_X, y: timeOfDayTable_Y)
-//                    animateTimeOfDayTableIn()
-//                }
-//            }
-//            for date in rangeSelectedDates {
-//                let cellState = calendarView.cellStatus(for: date)
-//                if cellState?.selectedPosition() == .left {
-//                    let cellRow = cellState?.row()
-//                    let cellCol = cellState?.column()
-//                    var timeOfDayTable_X = cellCol! * 50 + 39
-//                    let timeOfDayTable_Y = cellRow! * 50 + 145 + 2 * (cellRow! - 1)
-//                    if cellCol == 0 {
-//                        timeOfDayTable_X = (cellCol! + 1) * 50 + 39
-//                    }
-//                    if cellCol == 6 {
-//                        timeOfDayTable_X = (cellCol! - 1) * 50 + 39
-//                    }
-//                    timeOfDayTableView.center = CGPoint(x: timeOfDayTable_X, y: timeOfDayTable_Y)
-//                    animateTimeOfDayTableIn()
-//                }
-//            }
-//            //Reset segment range and first date vars
-//            rangeSelectedDates.removeAll()
-//            firstDate = nil
-//
-//        }
-//    }
 }
 
 // MARK: JTCalendarView Extension
@@ -602,11 +541,6 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
         
-        if selectedDates.count > 0 {
-//            nextButton.isHidden = false
-//            nextButton.isUserInteractionEnabled = true
-        }
-        
         mostRecentSelectedCellDate = date as NSDate
     }
     
@@ -631,10 +565,6 @@ extension CalendarViewController: JTAppleCalendarViewDataSource, JTAppleCalendar
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
                 
-        if selectedDates.count == 0 {
-//            nextButton.isHidden = true
-//            nextButton.isUserInteractionEnabled = false
-        }
     }
     
     // MARK custom func to get length of selected availability segments
