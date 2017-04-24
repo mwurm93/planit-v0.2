@@ -10,6 +10,7 @@ import UIKit
 
 class CardView: UIView {
 
+    @IBOutlet weak var DestinationTextView: UITextView!
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

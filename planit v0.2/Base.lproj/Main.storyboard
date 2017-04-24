@@ -540,7 +540,6 @@
                         <outlet property="myTripsTitleLabel" destination="FnC-Mh-kbn" id="QJp-4q-Tri"/>
                         <outlet property="popupBackgroundView" destination="vJr-yk-AGA" id="vHT-q4-6gN"/>
                         <segue destination="E8d-J0-NPc" kind="show" identifier="unfinishedExistingTripsToSwiping" animates="NO" id="5Cy-Be-NXP"/>
-                        <segue destination="Cpd-I2-Ulf" kind="show" identifier="unfinishedExistingTripsToDestination" animates="NO" id="ElG-rI-GdU"/>
                         <segue destination="E8d-J0-NPc" kind="show" identifier="addTripDestinationUndecided" animates="NO" id="anE-cP-H4U"/>
                     </connections>
                 </viewController>
@@ -648,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="exr-Gq-RnN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2858" y="893"/>
+            <point key="canvasLocation" x="3537" y="1940"/>
         </scene>
         <!--Budget View Controller-->
         <scene sceneID="Vgz-mF-ryT">
@@ -1179,7 +1178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zEP-0c-FS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2185" y="893"/>
+            <point key="canvasLocation" x="2660" y="1940"/>
         </scene>
         <!--Activities View Controller-->
         <scene sceneID="1uc-8z-bqx">
@@ -1915,7 +1914,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aj-5Q-Dyn">
-                                <rect key="frame" x="109" y="499" width="71" height="71"/>
+                                <rect key="frame" x="109" y="518" width="71" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="emptyX"/>
                                 <connections>
@@ -1924,7 +1923,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-ln-NPH">
-                                <rect key="frame" x="196" y="499" width="71" height="71"/>
+                                <rect key="frame" x="196" y="518" width="71" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="emptyHeart"/>
                                 <connections>
@@ -1945,7 +1944,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-Fz-fbi">
-                                <rect key="frame" x="47" y="575" width="281" height="51"/>
+                                <rect key="frame" x="47" y="600" width="281" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe right ❤️ if you're interested, or swipe left ❌ if you're not!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaX-AB-n04">
@@ -1958,8 +1957,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4k9-00-F3k" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="29" y="87" width="316" height="404"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abL-F6-54j" customClass="ZLSwipeableView" customModule="planit_v0_2" customModuleProvider="target">
+                                <rect key="frame" x="28" y="69" width="320" height="422"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -2031,24 +2030,33 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-vq-XBj" customClass="CardView" customModule="planit_v0_2" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-fv-79X">
+                                <rect key="frame" x="5" y="20" width="30" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="cards"/>
+                                <connections>
+                                    <action selector="closeDetailedCardViewButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="5Ea-xC-0x5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="4k9-00-F3k"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="addContactPlusIconMainVC" destination="eBS-CC-JRz" id="gKI-by-pR8"/>
                         <outlet property="addFromContactsButton" destination="uoZ-1l-yxx" id="g93-kJ-B1D"/>
                         <outlet property="addFromFacebookButton" destination="U7y-7c-V4B" id="kOQ-u0-oJc"/>
                         <outlet property="calendarView" destination="FLp-jz-zNI" id="YCx-TS-S93"/>
+                        <outlet property="closeDetailedCardViewButton" destination="BdU-fv-79X" id="sqv-JD-2dQ"/>
                         <outlet property="contactsCollectionView" destination="zAa-lr-Ha0" id="k3h-gJ-zZM"/>
+                        <outlet property="detailedCardView" destination="3AZ-vq-XBj" id="8w5-r0-T1t"/>
                         <outlet property="groupMemberListTable" destination="nrJ-cj-pzr" id="tCv-ev-A0L"/>
                         <outlet property="heartIcon" destination="Myc-ln-NPH" id="DUW-hk-4sv"/>
                         <outlet property="homeAirportTextField" destination="sXI-YY-Fjo" id="bf7-4f-9c1"/>
-                        <outlet property="kolodaView" destination="4k9-00-F3k" id="oCD-S6-0ax"/>
                         <outlet property="month1" destination="z8x-iy-zTQ" id="a3p-dx-0ZO"/>
                         <outlet property="month2" destination="Bui-xb-scp" id="Mn3-Dq-73O"/>
                         <outlet property="month3" destination="mux-cm-6IE" id="fi3-qB-4HT"/>
@@ -2072,6 +2080,7 @@
                         <outlet property="subviewWhenButton" destination="YJY-Q1-YoJ" id="GSh-Oc-o2u"/>
                         <outlet property="subviewWhereButton" destination="oEm-py-f71" id="RPp-3v-338"/>
                         <outlet property="subviewWhoButton" destination="zbP-QO-rfO" id="b2I-pM-jkO"/>
+                        <outlet property="swipeableView" destination="abL-F6-54j" id="zxm-6Q-WNX"/>
                         <outlet property="swipingInstructionsView" destination="ShI-Fz-fbi" id="Fk8-1L-r6e"/>
                         <outlet property="timeOfDayTableView" destination="zPq-pN-9Dm" id="hN6-3K-IBw"/>
                         <outlet property="twoWeeks" destination="dsN-la-ffi" id="nhz-w1-OCC"/>
@@ -2435,7 +2444,7 @@
                                 <rect key="frame" x="90" y="569" width="194" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Proceed to booking"/>
+                                <state key="normal" title="Find a place to stay"/>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="6Nf-ZD-7fF" eventType="touchUpInside" id="lOw-dr-379"/>
                                     <action selector="readyToBookButtonPressed:" destination="6Nf-ZD-7fF" eventType="touchUpInside" id="9mG-mb-BcC"/>
@@ -2446,6 +2455,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Let's swipe some more"/>
+                                <connections>
+                                    <segue destination="E8d-J0-NPc" kind="show" animates="NO" id="R8r-yB-rJ1"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s8X-dS-Z6n">
                                 <rect key="frame" x="17" y="197" width="343" height="374"/>
@@ -3744,6 +3756,7 @@
         <image name="bermudaSunset" width="1500" height="1125"/>
         <image name="bermudaSunsetTop" width="563" height="487"/>
         <image name="budgetICon" width="256" height="256"/>
+        <image name="cards" width="100" height="100"/>
         <image name="emptyHeart" width="71" height="71"/>
         <image name="emptyX" width="71" height="71"/>
         <image name="expand" width="800" height="800"/>
@@ -3757,8 +3770,8 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="R8r-yB-rJ1"/>
         <segue reference="lra-AY-k3U"/>
-        <segue reference="5Cy-Be-NXP"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

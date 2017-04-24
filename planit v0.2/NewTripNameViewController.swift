@@ -9,7 +9,6 @@
 import UIKit
 import ContactsUI
 import Contacts
-import Koloda
 import JTAppleCalendar
 import UIColor_FlatColors
 import Cartography
@@ -29,9 +28,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     
     //ZLSwipeableView
-    var swipeableView: ZLSwipeableView!
-    
-    var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Clouds", "Silver", "Concrete", "Asbestos"]
+    var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Silver", "Concrete", "Asbestos"]
     var colorIndex = 0
     var loadCardsFromXib = false
 
@@ -65,7 +62,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 // MARK: Outlets
     
-    @IBOutlet weak var kolodaView: KolodaView!
     @IBOutlet weak var rejectIcon: UIButton!
     @IBOutlet weak var heartIcon: UIButton!
     @IBOutlet weak var groupMemberListTable: UITableView!
@@ -102,6 +98,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var oneWeek: UIButton!
     @IBOutlet weak var twoWeeks: UIButton!
     @IBOutlet weak var noSpecificDatesButton: UIButton!
+    @IBOutlet weak var swipeableView: ZLSwipeableView!
+    @IBOutlet weak var closeDetailedCardViewButton: UIButton!
+    @IBOutlet weak var detailedCardView: UIView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -112,6 +111,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        detailedCardView.isHidden = true
+        closeDetailedCardViewButton.isHidden = true
+        closeDetailedCardViewButton.tintColor = UIColor.black
         
         weekend.layer.cornerRadius = 15
         oneWeek.layer.cornerRadius = 15
@@ -213,9 +216,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         effect = popupBlurView.effect
         popupBlurView.effect = nil
         
-        //Set Koloda delegate and View Controller
-        kolodaView.dataSource = self as KolodaViewDataSource
-        kolodaView.delegate = self as KolodaViewDelegate
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
         heartIcon.setImage(#imageLiteral(resourceName: "fullHeart"), for: .highlighted)
@@ -245,8 +245,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         //ZLSwipeableview
-        swipeableView = ZLSwipeableView()
-        view.addSubview(swipeableView)
+        swipeableView.allowedDirection = .Horizontal
+        
         swipeableView.didStart = {view, location in
             print("Did start swiping view at location: \(location)")
         }
@@ -257,13 +257,49 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             print("Did end swiping view at location: \(location)")
         }
         swipeableView.didSwipe = {view, direction, vector in
-            print("Did swipe view in direction: \(direction), vector: \(vector)")
+                    self.countSwipes += 1
+                    if self.countSwipes == 1 && self.NewOrAddedTripFromSegue == 1 {
+                        self.animateInSubview()
+                    }
+
+                    let when = DispatchTime.now() + 0.8
+
+            if direction == .Right {
+                self.heartIcon.isHighlighted = true
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.heartIcon.isHighlighted = false
+                }
+            }
+
+            
+            if direction == .Left {
+                    self.rejectIcon.isHighlighted = true
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.rejectIcon.isHighlighted = false
+                    }
+            }
+
         }
         swipeableView.didCancel = {view in
             print("Did cancel swiping view")
         }
         swipeableView.didTap = {view, location in
-            print("Did tap at location \(location)")
+            self.closeDetailedCardViewButton.isHidden = false
+            self.detailedCardView.isHidden = false
+            self.detailedCardView.backgroundColor = self.swipeableView.topView()?.backgroundColor
+            let contentView = Bundle.main.loadNibNamed("CardContentView", owner: self, options: nil)?.first! as! UIView
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.backgroundColor = self.swipeableView.topView()?.backgroundColor
+            contentView.layer.cornerRadius = 0
+            contentView.layer.shadowOpacity = 0
+            self.detailedCardView.addSubview(contentView)
+            constrain(contentView, self.detailedCardView) { view1, view2 in
+                view1.left == view2.left
+                view1.top == view2.top + 70
+                view1.width == self.detailedCardView.bounds.width
+                view1.height == self.detailedCardView.bounds.height
+            }
+
         }
         swipeableView.didDisappear = { view in
             print("Did disappear swiping view")
@@ -272,9 +308,34 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         constrain(swipeableView, view) { view1, view2 in
             view1.left == view2.left+50
             view1.right == view2.right-50
-            view1.top == view2.top + 120
-            view1.bottom == view2.bottom - 100
+            view1.top == view2.top + 70
+            view1.bottom == view2.bottom - 170
         }
+        
+        //Custom animation
+        func toRadian(_ degree: CGFloat) -> CGFloat {
+            return degree * CGFloat(Double.pi/180)
+        }
+        func rotateAndTranslateView(_ view: UIView, forDegree degree: CGFloat, translation: CGPoint, duration: TimeInterval, offsetFromCenter offset: CGPoint, swipeableView: ZLSwipeableView) {
+            UIView.animate(withDuration: duration, delay: 0, options: .allowUserInteraction, animations: {
+                view.center = swipeableView.convert(swipeableView.center, from: swipeableView.superview)
+                var transform = CGAffineTransform(translationX: offset.x, y: offset.y)
+                transform = transform.rotated(by: toRadian(degree))
+                transform = transform.translatedBy(x: -offset.x, y: -offset.y)
+                transform = transform.translatedBy(x: translation.x, y: translation.y)
+                view.transform = transform
+            }, completion: nil)
+        }
+        swipeableView.numberOfActiveView = 8
+        swipeableView.animateView = {(view: UIView, index: Int, views: [UIView], swipeableView: ZLSwipeableView) in
+            let degree = CGFloat(sin(0.5*Double(index)))
+            let offset = CGPoint(x: 0, y: swipeableView.bounds.height*0.3)
+            let translation = CGPoint(x: degree*10, y: CGFloat(-index*5))
+            let duration = 0.4
+            rotateAndTranslateView(view, forDegree: degree, translation: translation, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
+        }
+
+        
         self.loadCardsFromXib = true
         self.colorIndex = 0
         self.swipeableView.discardViews()
@@ -347,7 +408,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         swipingInstructionsView.layer.isHidden = false
         swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         swipingInstructionsView.alpha = 0
-        kolodaView.isUserInteractionEnabled = false
+        swipeableView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.4) {
             self.popupBackgroundViewMainVC.isHidden = false
             self.swipingInstructionsView.alpha = 1
@@ -417,7 +478,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             self.swipingInstructionsView.alpha = 0
             self.popupBackgroundViewMainVC.isHidden = true
-            self.kolodaView.isUserInteractionEnabled = true
+            self.swipeableView.isUserInteractionEnabled = true
         }) { (Success:Bool) in
             self.swipingInstructionsView.layer.isHidden = true
         }
@@ -843,7 +904,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         //Create trip name
         var tripNameValue = "Trip created \(Date().description.substring(to: 10))"
         //Check if trip name used already
-        if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil {
+        if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && DataContainerSingleton.sharedDataContainer.usertrippreferences?.count != 0 {
             var countTripsMadeToday = 0
             for trip in 0...((DataContainerSingleton.sharedDataContainer.usertrippreferences?.count)! - 1) {
                 if (DataContainerSingleton.sharedDataContainer.usertrippreferences?[trip].object(forKey: "trip_name") as? String)!.substring(to: 23) == tripNameValue {
@@ -997,6 +1058,20 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
+    @IBAction func closeDetailedCardViewButtonTouchedUpInside(_ sender: Any) {
+detailedCardView.isHidden = true
+        closeDetailedCardViewButton.isHidden = true
+        
+        //        UIView.animate(withDuration: 0.3, animations: {
+//            self.detailedCardView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+//            self.detailedCardView.alpha = 0
+//            self.detailedCardView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+//            self.closeDetailedCardViewButton.isHidden = true
+//            self.closeDetailedCardViewButton.removeFromSuperview()
+//        }) { (Success:Bool) in
+//            self.detailedCardView.removeFromSuperview()
+//        }
+    }
     @IBAction func specificDatesButtonTouchedUpInside(_ sender: Any) {
         month1.isHidden = true
         month2.isHidden = true
@@ -1166,12 +1241,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func rejectSelected(_ sender: Any) {
-        kolodaView?.swipe(.left)
         leftButtonAction()
     }
     
     @IBAction func heartSelected(_ sender: Any) {
-        kolodaView?.swipe(.right)
         rightButtonAction()
     }
     
@@ -1377,78 +1450,79 @@ extension UIViewController {
 }
 
 
-// MARK: KolodaViewDelegate
-extension NewTripNameViewController: KolodaViewDelegate {
-    
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        ranOutOfSwipesLabel.isHidden = false
-        heartIcon.isHidden = true
-        rejectIcon.isHidden = true
-        
-//        let when = DispatchTime.now() + 1
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
-//        }
-        
-        //        let position = kolodaView.currentCardIndex
-        //        for i in 1...4 {
-        //            dataSource.append(UIImage(named: "Card_like_\(i)")!)
-        //        }
-        //        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
-    }
-    
-    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-    }
-    
-    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        countSwipes += 1
-        if countSwipes == 1 {
-            self.animateInSubview()
-        }
-        
-    }
 
-//    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
-//        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
-//            countRightSwipes += 1
-//            if countRightSwipes == 1 {
-//                self.animateInHomeAirportSubview()
-//                return false
+//// MARK: KolodaViewDelegate
+//extension NewTripNameViewController: KolodaViewDelegate {
+//    
+//    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+//        ranOutOfSwipesLabel.isHidden = false
+//        heartIcon.isHidden = true
+//        rejectIcon.isHidden = true
+//        
+////        let when = DispatchTime.now() + 1
+////        DispatchQueue.main.asyncAfter(deadline: when) {
+////            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
+////        }
+//        
+//        //        let position = kolodaView.currentCardIndex
+//        //        for i in 1...4 {
+//        //            dataSource.append(UIImage(named: "Card_like_\(i)")!)
+//        //        }
+//        //        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+//    }
+//    
+//    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+//    }
+//    
+//    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+//        countSwipes += 1
+//        if countSwipes == 1 {
+//            self.animateInSubview()
+//        }
+//        
+//    }
+//
+////    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
+////        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
+////            countRightSwipes += 1
+////            if countRightSwipes == 1 {
+////                self.animateInHomeAirportSubview()
+////                return false
+////            }
+////        }
+////        return true
+////    }
+//    
+//    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
+//        let when = DispatchTime.now() + 1
+//        
+//        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomLeft || direction == SwipeResultDirection.left || direction == SwipeResultDirection.topLeft) && (direction != SwipeResultDirection.bottomRight || direction != SwipeResultDirection.right || direction != SwipeResultDirection.topRight) {
+//            rejectIcon.isHighlighted = true
+//            DispatchQueue.main.asyncAfter(deadline: when) {
+//                self.rejectIcon.isHighlighted = false
 //            }
 //        }
-//        return true
+//        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomRight || direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight) && (direction != SwipeResultDirection.bottomLeft || direction != SwipeResultDirection.left || direction != SwipeResultDirection.topLeft){
+//            heartIcon.isHighlighted = true
+//            DispatchQueue.main.asyncAfter(deadline: when) {
+//                self.heartIcon.isHighlighted = false
+//            }
+//        }
 //    }
-    
-    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
-        let when = DispatchTime.now() + 1
-        
-        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomLeft || direction == SwipeResultDirection.left || direction == SwipeResultDirection.topLeft) && (direction != SwipeResultDirection.bottomRight || direction != SwipeResultDirection.right || direction != SwipeResultDirection.topRight) {
-            rejectIcon.isHighlighted = true
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.rejectIcon.isHighlighted = false
-            }
-        }
-        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomRight || direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight) && (direction != SwipeResultDirection.bottomLeft || direction != SwipeResultDirection.left || direction != SwipeResultDirection.topLeft){
-            heartIcon.isHighlighted = true
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.heartIcon.isHighlighted = false
-            }
-        }
-    }
-    
-}
-
-// MARK: KolodaViewDataSource
-extension NewTripNameViewController: KolodaViewDataSource {
-    
-    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-        return dataSource.count
-    }
-    
-    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        return UIImageView(image: dataSource[Int(index)])
-    }
-}
+//    
+//}
+//
+//// MARK: KolodaViewDataSource
+//extension NewTripNameViewController: KolodaViewDataSource {
+//    
+//    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+//        return dataSource.count
+//    }
+//    
+//    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+//        return UIImageView(image: dataSource[Int(index)])
+//    }
+//}
 
 // MARK: JTCalendarView Extension
 extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
