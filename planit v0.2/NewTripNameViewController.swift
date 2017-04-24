@@ -11,6 +11,8 @@ import ContactsUI
 import Contacts
 import Koloda
 import JTAppleCalendar
+import UIColor_FlatColors
+import Cartography
 
 private var numberOfCards: Int = 5
 
@@ -25,6 +27,15 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         return array
     }()
     
+    
+    //ZLSwipeableView
+    var swipeableView: ZLSwipeableView!
+    
+    var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Clouds", "Silver", "Concrete", "Asbestos"]
+    var colorIndex = 0
+    var loadCardsFromXib = false
+
+    
     //main VC vars
     fileprivate var addressBookStore: CNContactStore!
     fileprivate var menuArray: NSMutableArray?
@@ -37,7 +48,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var contactPhoneNumbers = [NSString]()
     var NewOrAddedTripFromSegue: Int?
     var effect:UIVisualEffect!
-    var countRightSwipes = 0
+    var countSwipes = 0
     
     //subview vars
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
@@ -90,6 +101,14 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var weekend: UIButton!
     @IBOutlet weak var oneWeek: UIButton!
     @IBOutlet weak var twoWeeks: UIButton!
+    @IBOutlet weak var noSpecificDatesButton: UIButton!
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        swipeableView.nextView = {
+            return self.nextCardView()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,12 +121,33 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         month3.layer.cornerRadius = 15
         month4.layer.cornerRadius = 15
         
+        weekend.backgroundColor = UIColor.darkGray
+        oneWeek.backgroundColor = UIColor.darkGray
+        twoWeeks.backgroundColor = UIColor.darkGray
+        month1.backgroundColor = UIColor.darkGray
+        month2.backgroundColor = UIColor.darkGray
+        month3.backgroundColor = UIColor.darkGray
+        month4.backgroundColor = UIColor.darkGray
+        
         let monthDateFormatter = DateFormatter()
         monthDateFormatter.dateFormat = "MM"
         let currentMonth = monthDateFormatter.string(from: Date())
-        
-        //WORK HERE NEXT
-        month1.setTitle("\(currentMonth)",for: .normal)
+        let month1Numerical = Int(currentMonth)
+        let month2Numerical = month1Numerical! + 1
+        let month3Numerical = month1Numerical! + 2
+        let month4Numerical = month1Numerical! + 3
+        month1.setTitle("\(getMonth(Month: month1Numerical!))",for: .normal)
+        month2.setTitle("\(getMonth(Month: month2Numerical))",for: .normal)
+        month3.setTitle("\(getMonth(Month: month3Numerical))",for: .normal)
+        month4.setTitle("\(getMonth(Month: month4Numerical))",for: .normal)
+        month1.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        month2.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        month3.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        month4.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        weekend.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        oneWeek.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+        twoWeeks.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
+
         
         popupSubview.layer.cornerRadius = 5
         subviewDoneButton.isHidden = true
@@ -203,6 +243,101 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         } else {
             retrieveContactsWithStore(store: addressBookStore)
         }
+        
+        //ZLSwipeableview
+        swipeableView = ZLSwipeableView()
+        view.addSubview(swipeableView)
+        swipeableView.didStart = {view, location in
+            print("Did start swiping view at location: \(location)")
+        }
+        swipeableView.swiping = {view, location, translation in
+            print("Swiping at view location: \(location) translation: \(translation)")
+        }
+        swipeableView.didEnd = {view, location in
+            print("Did end swiping view at location: \(location)")
+        }
+        swipeableView.didSwipe = {view, direction, vector in
+            print("Did swipe view in direction: \(direction), vector: \(vector)")
+        }
+        swipeableView.didCancel = {view in
+            print("Did cancel swiping view")
+        }
+        swipeableView.didTap = {view, location in
+            print("Did tap at location \(location)")
+        }
+        swipeableView.didDisappear = { view in
+            print("Did disappear swiping view")
+        }
+        
+        constrain(swipeableView, view) { view1, view2 in
+            view1.left == view2.left+50
+            view1.right == view2.right-50
+            view1.top == view2.top + 120
+            view1.bottom == view2.bottom - 100
+        }
+        self.loadCardsFromXib = true
+        self.colorIndex = 0
+        self.swipeableView.discardViews()
+        self.swipeableView.loadViews()
+
+    }
+    
+    //ZLFunctions
+    
+    func leftButtonAction() {
+        self.swipeableView.swipeTopView(inDirection: .Left)
+    }
+    
+    func upButtonAction() {
+        self.swipeableView.swipeTopView(inDirection: .Up)
+    }
+    
+    func rightButtonAction() {
+        self.swipeableView.swipeTopView(inDirection: .Right)
+    }
+    
+    func downButtonAction() {
+        self.swipeableView.swipeTopView(inDirection: .Down)
+    }
+    
+    // MARK: ()
+    func nextCardView() -> UIView? {
+        if colorIndex >= colors.count {
+            colorIndex = 0
+        }
+        
+        let cardView = CardView(frame: swipeableView.bounds)
+        cardView.backgroundColor = colorForName(colors[colorIndex])
+        colorIndex += 1
+        
+        if loadCardsFromXib {
+            let contentView = Bundle.main.loadNibNamed("CardContentView", owner: self, options: nil)?.first! as! UIView
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.backgroundColor = cardView.backgroundColor
+            cardView.addSubview(contentView)
+            
+            // This is important:
+            // https://github.com/zhxnlai/ZLSwipeableView/issues/9
+            /*// Alternative:
+             let metrics = ["width":cardView.bounds.width, "height": cardView.bounds.height]
+             let views = ["contentView": contentView, "cardView": cardView]
+             cardView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[contentView(width)]", options: .AlignAllLeft, metrics: metrics, views: views))
+             cardView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[contentView(height)]", options: .AlignAllLeft, metrics: metrics, views: views))
+             */
+            constrain(contentView, cardView) { view1, view2 in
+                view1.left == view2.left
+                view1.top == view2.top
+                view1.width == cardView.bounds.width
+                view1.height == cardView.bounds.height
+            }
+        }
+        return cardView
+    }
+    
+    func colorForName(_ name: String) -> UIColor {
+        let sanitizedName = name.replacingOccurrences(of: " ", with: "")
+        let selector = "flat\(sanitizedName)Color"
+        return UIColor.perform(Selector(selector)).takeUnretainedValue() as! UIColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -220,6 +355,48 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
     }
 
+    func buttonClicked(sender:UIButton)
+    {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected == true {
+            sender.backgroundColor = UIColor.white
+            sender.titleLabel?.textColor = UIColor.black
+        } else {
+            sender.backgroundColor = UIColor.darkGray
+            sender.titleLabel?.textColor = UIColor.white
+        }
+    }
+    
+    func getMonth(Month: Int) -> String {
+        var monthLongForm = ""
+        // Update header
+        if Month == 01 {
+            monthLongForm = "January"
+        } else if Month == 02 {
+            monthLongForm = "February"
+        } else if Month == 03 {
+            monthLongForm = "March"
+        } else if Month == 04 {
+            monthLongForm = "April"
+        } else if Month == 05 {
+            monthLongForm = "May"
+        } else if Month == 06 {
+            monthLongForm = "June"
+        } else if Month == 07 {
+            monthLongForm = "July"
+        } else if Month == 08 {
+            monthLongForm = "August"
+        } else if Month == 09 {
+            monthLongForm = "September"
+        } else if Month == 10 {
+            monthLongForm = "October"
+        } else if Month == 11 {
+            monthLongForm = "November"
+        } else if Month == 12 {
+            monthLongForm = "December"
+        }
+        return monthLongForm
+    }
     
     //UITapGestureRecognizer
     func dismissPopup(touch: UITapGestureRecognizer) {
@@ -687,6 +864,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func subviewWhere() {
         //Set to where
         questionLabel.text = "Where are you leaving from?"
+        questionLabel.isHidden = false
         homeAirportTextField.isHidden = false
         homeAirportTextField.becomeFirstResponder()
         groupMemberListTable.isHidden = true
@@ -708,6 +886,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         oneWeek.isHidden = true
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = true
+        noSpecificDatesButton.isHidden = true
         if self.subviewWhereButton.tintColor == UIColor.green {
             self.underline.tintColor = UIColor.green
         } else {
@@ -718,6 +897,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func subviewWho(){
         subviewWhereButton.tintColor = UIColor.green
         questionLabel.text = "Do you have a group in mind?"
+        questionLabel.isHidden = false
         homeAirportTextField.isHidden = true
         homeAirportTextField.resignFirstResponder()
         groupMemberListTable.isHidden = true
@@ -739,6 +919,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         oneWeek.isHidden = true
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = true
+        noSpecificDatesButton.isHidden = true
         
         if contacts != nil {
             addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
@@ -769,6 +950,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     func subviewWhen() {
         questionLabel.text = "When are you thinking?"
+        questionLabel.isHidden = false
         homeAirportTextField.isHidden = true
         homeAirportTextField.resignFirstResponder()
         groupMemberListTable.isHidden = true
@@ -776,20 +958,21 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         addFromFacebookButton.isHidden = true
         soloForNowButton.isHidden = true
         calendarView.isHidden = true
-        nextMonth.isHidden = false
-        previousMonth.isHidden = false
+        nextMonth.isHidden = true
+        previousMonth.isHidden = true
         popupBackgroundView.isHidden = true
         timeOfDayTableView.isHidden = true
         subviewDoneButton.isHidden = true
         subviewNextButton.isHidden = true
-        month1.isHidden = false
-        month2.isHidden = false
-        month3.isHidden = false
-        month4.isHidden = false
-        weekend.isHidden = false
-        oneWeek.isHidden = false
-        twoWeeks.isHidden = false
+        month1.isHidden = true
+        month2.isHidden = true
+        month3.isHidden = true
+        month4.isHidden = true
+        weekend.isHidden = true
+        oneWeek.isHidden = true
+        twoWeeks.isHidden = true
         specificDatesButton.isHidden = false
+        noSpecificDatesButton.isHidden = false
         
         UIView.animate(withDuration: 0.4) {
             self.underline.layer.frame = CGRect(x: 241, y: 30, width: 55, height: 51)
@@ -822,9 +1005,146 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         weekend.isHidden = true
         oneWeek.isHidden = true
         twoWeeks.isHidden = true
+        nextMonth.isHidden = false
+        previousMonth.isHidden = false
         specificDatesButton.isHidden = true
+        noSpecificDatesButton.isHidden = true
         questionLabel.isHidden = true
         calendarView.isHidden = false
+    }
+    @IBAction func noSpecificDatesButtonTouchedUpInside(_ sender: Any) {
+        month1.isHidden = false
+        month2.isHidden = false
+        month3.isHidden = false
+        month4.isHidden = false
+        weekend.isHidden = false
+        oneWeek.isHidden = false
+        twoWeeks.isHidden = false
+        nextMonth.isHidden = true
+        previousMonth.isHidden = true
+        specificDatesButton.isHidden = true
+        noSpecificDatesButton.isHidden = true
+        questionLabel.isHidden = false
+        calendarView.isHidden = true
+    }
+    @IBAction func weekendTouchedUpInside(_ sender: Any) {
+        if weekend.backgroundColor == UIColor.darkGray {
+            oneWeek.isSelected = false
+            oneWeek.backgroundColor = UIColor.darkGray
+            oneWeek.titleLabel?.textColor = UIColor.white
+            twoWeeks.isSelected = false
+            twoWeeks.backgroundColor = UIColor.darkGray
+            twoWeeks.titleLabel?.textColor = UIColor.white
+            if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func oneWeekTouchedUpInside(_ sender: Any) {
+        if oneWeek.backgroundColor == UIColor.darkGray {
+            weekend.isSelected = false
+            weekend.backgroundColor = UIColor.darkGray
+            weekend.titleLabel?.textColor = UIColor.white
+            twoWeeks.isSelected = false
+            twoWeeks.backgroundColor = UIColor.darkGray
+            twoWeeks.titleLabel?.textColor = UIColor.white
+            if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    @IBAction func twoWeeksTouchedUpInside(_ sender: Any) {
+        if twoWeeks.backgroundColor == UIColor.darkGray {
+            weekend.isSelected = false
+            weekend.backgroundColor = UIColor.darkGray
+            weekend.titleLabel?.textColor = UIColor.white
+            oneWeek.isSelected = false
+            oneWeek.backgroundColor = UIColor.darkGray
+            oneWeek.titleLabel?.textColor = UIColor.white
+            if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    @IBAction func month1TouchedUpInside(_ sender: Any) {
+        if month1.backgroundColor == UIColor.darkGray {
+            month2.isSelected = false
+            month2.backgroundColor = UIColor.darkGray
+            month2.titleLabel?.textColor = UIColor.white
+            month3.isSelected = false
+            month3.backgroundColor = UIColor.darkGray
+            month3.titleLabel?.textColor = UIColor.white
+            month4.isSelected = false
+            month4.backgroundColor = UIColor.darkGray
+            month4.titleLabel?.textColor = UIColor.white
+            if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    @IBAction func month2TouchedUpInside(_ sender: Any) {
+        if month2.backgroundColor == UIColor.darkGray {
+            month1.isSelected = false
+            month1.backgroundColor = UIColor.darkGray
+            month1.titleLabel?.textColor = UIColor.white
+            month3.isSelected = false
+            month3.backgroundColor = UIColor.darkGray
+            month3.titleLabel?.textColor = UIColor.white
+            month4.isSelected = false
+            month4.backgroundColor = UIColor.darkGray
+            month4.titleLabel?.textColor = UIColor.white
+            if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    @IBAction func month3TouchedUpInside(_ sender: Any) {
+        if month3.backgroundColor == UIColor.darkGray {
+            month1.isSelected = false
+            month1.backgroundColor = UIColor.darkGray
+            month1.titleLabel?.textColor = UIColor.white
+            month2.isSelected = false
+            month2.backgroundColor = UIColor.darkGray
+            month2.titleLabel?.textColor = UIColor.white
+            month4.isSelected = false
+            month4.backgroundColor = UIColor.darkGray
+            month4.titleLabel?.textColor = UIColor.white
+            if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func month4TouchedUpInside(_ sender: Any) {
+        if month4.backgroundColor == UIColor.darkGray {
+            month1.isSelected = false
+            month1.backgroundColor = UIColor.darkGray
+            month1.titleLabel?.textColor = UIColor.white
+            month2.isSelected = false
+            month2.backgroundColor = UIColor.darkGray
+            month2.titleLabel?.textColor = UIColor.white
+            month3.isSelected = false
+            month3.backgroundColor = UIColor.darkGray
+            month3.titleLabel?.textColor = UIColor.white
+            if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
+                subviewDoneButton.isHidden = false
+            } else {
+                subviewDoneButton.isHidden = true
+            }
+        }
     }
     @IBAction func homeAirportEditingChanged(_ sender: Any) {
         DataContainerSingleton.sharedDataContainer.homeAirport = homeAirportTextField.text
@@ -847,10 +1167,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     @IBAction func rejectSelected(_ sender: Any) {
         kolodaView?.swipe(.left)
+        leftButtonAction()
     }
     
     @IBAction func heartSelected(_ sender: Any) {
         kolodaView?.swipe(.right)
+        rightButtonAction()
     }
     
     @IBAction func subviewWhereButtonTouchedUpInside(_ sender: Any) {
@@ -1079,12 +1401,11 @@ extension NewTripNameViewController: KolodaViewDelegate {
     }
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
-            countRightSwipes += 1
-            if countRightSwipes == 1 {
-                self.animateInSubview()
-            }
+        countSwipes += 1
+        if countSwipes == 1 {
+            self.animateInSubview()
         }
+        
     }
 
 //    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {

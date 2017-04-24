@@ -10,7 +10,8 @@ target 'planit v0.2' do
     pod 'pop', '~> 1.0'
     pod "Apollo"
     pod 'JTAppleCalendar', '~> 7.0'
-
+    pod 'UIColor+FlatColors'
+    pod 'Cartography'
 
   target 'planit v0.2Tests' do
     inherit! :search_paths

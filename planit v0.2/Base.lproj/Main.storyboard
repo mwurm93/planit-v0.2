@@ -540,7 +540,6 @@
                         <outlet property="myTripsTitleLabel" destination="FnC-Mh-kbn" id="QJp-4q-Tri"/>
                         <outlet property="popupBackgroundView" destination="vJr-yk-AGA" id="vHT-q4-6gN"/>
                         <segue destination="E8d-J0-NPc" kind="show" identifier="unfinishedExistingTripsToSwiping" animates="NO" id="5Cy-Be-NXP"/>
-                        <segue destination="w3M-hs-AT7" kind="show" identifier="unfinishedExistingTripsToCalendar" animates="NO" id="7Cr-aG-TWm"/>
                         <segue destination="Cpd-I2-Ulf" kind="show" identifier="unfinishedExistingTripsToDestination" animates="NO" id="ElG-rI-GdU"/>
                         <segue destination="E8d-J0-NPc" kind="show" identifier="addTripDestinationUndecided" animates="NO" id="anE-cP-H4U"/>
                     </connections>
@@ -612,7 +611,6 @@
                                 <state key="normal" title="Group rankings"/>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="e1o-La-2RE" eventType="touchUpInside" id="AtQ-6B-RRU"/>
-                                    <segue destination="6Nf-ZD-7fF" kind="presentation" identifier="swipingVCtoRankingVC" modalTransitionStyle="coverVertical" id="9ZB-Ko-LdT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lc-7o-boO">
@@ -1070,9 +1068,6 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="w3M-hs-AT7" kind="show" animates="NO" id="fOv-FV-Odd"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, country, continent, etc." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lse-Fc-JRY">
                                 <rect key="frame" x="66" y="489" width="242" height="30"/>
@@ -1586,94 +1581,6 @@
         <!--Calendar View Controller-->
         <scene sceneID="TPM-zz-v5V">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ov5-hj-U32" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="sTO-1f-bJw">
-                    <rect key="frame" x="0.0" y="0.0" width="350" height="420"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When can you travel?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ini-my-NJJ">
-                            <rect key="frame" x="-13" y="80" width="375" height="24"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZS-AC-pdS" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
-                            <rect key="frame" x="0.0" y="0.0" width="350" height="374"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqz-ZM-O9n">
-                            <rect key="frame" x="267" y="380" width="83" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                            <state key="normal" title="Done">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUR-ux-tef">
-                            <rect key="frame" x="290" y="0.0" width="60" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                            <state key="normal" title="&gt;">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="nextMonthTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="c5c-ku-tSv"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cp4-vx-mtY">
-                            <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                            <state key="normal" title="&lt;">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="previousMonthTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="CjY-Wg-vTI"/>
-                            </connections>
-                        </button>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhJ-YJ-o3m">
-                            <rect key="frame" x="0.0" y="4" width="350" height="416"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.22209225169999999" colorSpace="custom" customColorSpace="sRGB"/>
-                        </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="20" sectionHeaderHeight="20" sectionFooterHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="IVe-ze-tRN">
-                            <rect key="frame" x="83" y="121" width="158" height="140"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <prototypes>
-                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timeOfDayPrototypeCell" rowHeight="20" id="ybQ-vu-UBC" customClass="timeOfDayTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="20" width="158" height="20"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ybQ-vu-UBC" id="e5K-af-pqD">
-                                        <rect key="frame" x="0.0" y="0.0" width="158" height="19.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Early morning (12am-5am)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUc-jy-Gut">
-                                                <rect key="frame" x="0.0" y="0.0" width="158" height="20"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </tableViewCellContentView>
-                                    <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
-                                    <connections>
-                                        <outlet property="timeOfDayTableLabel" destination="fUc-jy-Gut" id="FKR-J0-Yg3"/>
-                                    </connections>
-                                </tableViewCell>
-                            </prototypes>
-                            <connections>
-                                <outlet property="dataSource" destination="E8d-J0-NPc" id="OHb-5S-ZUb"/>
-                                <outlet property="delegate" destination="E8d-J0-NPc" id="9A1-lW-UhA"/>
-                            </connections>
-                        </tableView>
-                    </subviews>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
                 <viewController id="w3M-hs-AT7" customClass="CalendarViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DTU-9D-ofq"/>
@@ -1706,7 +1613,6 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="w3M-hs-AT7" eventType="touchUpInside" id="M64-6j-SZ3"/>
-                                    <segue destination="Cpd-I2-Ulf" kind="presentation" identifier="calendarVCtoHomeairportVC" modalTransitionStyle="coverVertical" id="tzy-O1-dB3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlr-TS-m7B">
@@ -1716,9 +1622,6 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="E8d-J0-NPc" kind="show" animates="NO" id="tx3-5T-LG7"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARe-Zj-2wI">
                                 <rect key="frame" x="164" y="70" width="46" height="30"/>
@@ -1871,8 +1774,96 @@
                         <outlet property="timeOfDayTableView" destination="IVe-ze-tRN" id="HPJ-2U-UTD"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ov5-hj-U32" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="sTO-1f-bJw">
+                    <rect key="frame" x="0.0" y="0.0" width="350" height="420"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="When can you travel?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ini-my-NJJ">
+                            <rect key="frame" x="-13" y="80" width="375" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cZS-AC-pdS" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                            <rect key="frame" x="0.0" y="0.0" width="350" height="374"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqz-ZM-O9n">
+                            <rect key="frame" x="267" y="380" width="83" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUR-ux-tef">
+                            <rect key="frame" x="290" y="0.0" width="60" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&gt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="nextMonthTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="c5c-ku-tSv"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cp4-vx-mtY">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="&lt;">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="previousMonthTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="CjY-Wg-vTI"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhJ-YJ-o3m">
+                            <rect key="frame" x="0.0" y="4" width="350" height="416"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.22209225169999999" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="20" sectionHeaderHeight="20" sectionFooterHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="IVe-ze-tRN">
+                            <rect key="frame" x="83" y="121" width="158" height="140"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <prototypes>
+                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="timeOfDayPrototypeCell" rowHeight="20" id="ybQ-vu-UBC" customClass="timeOfDayTableViewCell" customModule="planit_v0_2" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="20" width="158" height="20"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ybQ-vu-UBC" id="e5K-af-pqD">
+                                        <rect key="frame" x="0.0" y="0.0" width="158" height="19.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Early morning (12am-5am)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUc-jy-Gut">
+                                                <rect key="frame" x="0.0" y="0.0" width="158" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </tableViewCellContentView>
+                                    <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="timeOfDayTableLabel" destination="fUc-jy-Gut" id="FKR-J0-Yg3"/>
+                                    </connections>
+                                </tableViewCell>
+                            </prototypes>
+                            <connections>
+                                <outlet property="dataSource" destination="E8d-J0-NPc" id="OHb-5S-ZUb"/>
+                                <outlet property="delegate" destination="E8d-J0-NPc" id="9A1-lW-UhA"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="1484" y="892.80359820089961"/>
+            <point key="canvasLocation" x="1020" y="1940"/>
         </scene>
         <!--New Trip Name View Controller-->
         <scene sceneID="CQB-NJ-4kL">
@@ -1909,7 +1900,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="sb0-mK-F9d"/>
-                                    <segue destination="w3M-hs-AT7" kind="presentation" identifier="tripNameVCToCalendarVC" modalTransitionStyle="coverVertical" id="bs2-LI-qHj"/>
+                                    <segue destination="6Nf-ZD-7fF" kind="show" animates="NO" id="isD-dZ-KwN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-br-X3d">
@@ -1967,7 +1958,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.94999999999999996" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4k9-00-F3k" customClass="KolodaView" customModule="Koloda">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4k9-00-F3k" customClass="KolodaView" customModule="Koloda">
                                 <rect key="frame" x="29" y="87" width="316" height="404"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2042,6 +2033,11 @@
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="4k9-00-F3k"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="addContactPlusIconMainVC" destination="eBS-CC-JRz" id="gKI-by-pR8"/>
@@ -2059,6 +2055,7 @@
                         <outlet property="month4" destination="8Fo-2F-Zyq" id="9Ex-uW-3pz"/>
                         <outlet property="nextButton" destination="Eyq-dV-AXx" id="QJu-Ot-U7f"/>
                         <outlet property="nextMonth" destination="qMp-FL-1x2" id="U9I-cz-JPl"/>
+                        <outlet property="noSpecificDatesButton" destination="hto-KF-0ya" id="Ysy-QM-IGv"/>
                         <outlet property="oneWeek" destination="heb-3p-Giv" id="rQf-1T-quh"/>
                         <outlet property="popupBackgroundView" destination="fsO-hR-D6B" id="YUi-xH-dvT"/>
                         <outlet property="popupBackgroundViewMainVC" destination="dJQ-kv-5S8" id="Ce8-Sv-rlt"/>
@@ -2299,34 +2296,49 @@
                             <color key="tintColor" red="0.97649024213457192" green="0.98120349278647701" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z8x-iy-zTQ">
-                            <rect key="frame" x="10" y="235" width="77" height="30"/>
+                            <rect key="frame" x="10" y="201" width="77" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="September"/>
+                            <connections>
+                                <action selector="month1TouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="DE5-jf-wrU"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mux-cm-6IE">
-                            <rect key="frame" x="178" y="235" width="77" height="30"/>
+                            <rect key="frame" x="178" y="201" width="77" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="September"/>
+                            <connections>
+                                <action selector="month3TouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="mrC-Q0-Nsv"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Fo-2F-Zyq">
-                            <rect key="frame" x="262" y="235" width="77" height="30"/>
+                            <rect key="frame" x="262" y="201" width="77" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="September"/>
+                            <connections>
+                                <action selector="month4TouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="8TC-Qf-HUr"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bui-xb-scp">
-                            <rect key="frame" x="94" y="235" width="77" height="30"/>
+                            <rect key="frame" x="94" y="201" width="77" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="September"/>
+                            <connections>
+                                <action selector="month2TouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="Rgc-rb-bvP"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heb-3p-Giv">
-                            <rect key="frame" x="136" y="192" width="77" height="30"/>
+                            <rect key="frame" x="133" y="158" width="84" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="1 week"/>
+                            <connections>
+                                <action selector="oneWeekTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="G93-Wr-p9O"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTP-Jt-K42">
                             <rect key="frame" x="91" y="134" width="168" height="30"/>
@@ -2337,17 +2349,32 @@
                                 <action selector="specificDatesButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="9zQ-6Y-Eti"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hto-KF-0ya">
+                            <rect key="frame" x="86" y="180" width="179" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <state key="normal" title="No specific dates"/>
+                            <connections>
+                                <action selector="noSpecificDatesButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="n1V-nV-Oe3"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsN-la-ffi">
-                            <rect key="frame" x="220" y="192" width="77" height="30"/>
+                            <rect key="frame" x="224" y="158" width="84" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="2 weeks"/>
+                            <connections>
+                                <action selector="twoWeeksTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="2ku-ji-xmV"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auX-ss-Rh7">
-                            <rect key="frame" x="52" y="192" width="77" height="30"/>
+                            <rect key="frame" x="42" y="158" width="84" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.2417314403553299" green="0.2417314403553299" blue="0.2417314403553299" alpha="0.74761879280821919" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="Weekend"/>
+                            <connections>
+                                <action selector="weekendTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="V87-Gz-3UZ"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -2390,7 +2417,7 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Talk with your group and choose a trip to book!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvj-gp-Mx0" userLabel="Trip recommendations:">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Talk with your group and choose the best trip!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvj-gp-Mx0" userLabel="Trip recommendations:">
                                 <rect key="frame" x="59" y="128" width="257" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -2419,9 +2446,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Let's swipe some more"/>
-                                <connections>
-                                    <segue destination="e1o-La-2RE" kind="show" animates="NO" id="h5e-fZ-WOV"/>
-                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s8X-dS-Z6n">
                                 <rect key="frame" x="17" y="197" width="343" height="374"/>
@@ -2443,7 +2467,7 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100% swiped right" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXl-yo-Cuc">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="% swiped right" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXl-yo-Cuc">
                                                     <rect key="frame" x="185" y="2" width="149" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2451,7 +2475,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$1,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJa-3c-T6c">
-                                                    <rect key="frame" x="31" y="32" width="70" height="21"/>
+                                                    <rect key="frame" x="143" y="3" width="70" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2464,8 +2488,8 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Preferred activities" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvp-TY-b5D">
-                                                    <rect key="frame" x="115" y="32" width="219" height="23"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itinerary short form" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvp-TY-b5D">
+                                                    <rect key="frame" x="31" y="32" width="303" height="23"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2496,12 +2520,11 @@
                         <outlet property="recommendationRankingTableView" destination="s8X-dS-Z6n" id="gut-bg-e4G"/>
                         <outlet property="returnToSwipingButton" destination="se9-wg-6Zg" id="f5B-77-4XD"/>
                         <outlet property="tripNameLabel" destination="hhE-qq-HdI" id="Mab-65-5y5"/>
-                        <segue destination="9Zf-or-QAX" kind="show" identifier="destinationChosenSegue" animates="NO" id="OEe-bl-wXH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efk-CD-lGv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3652" y="893"/>
+            <point key="canvasLocation" x="845.60000000000002" y="892.80359820089961"/>
         </scene>
         <!--Review And Book View Controller-->
         <scene sceneID="oXU-ux-Xys">
@@ -2618,9 +2641,6 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="6Nf-ZD-7fF" kind="show" animates="NO" id="jUF-36-ylm"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Passport Number" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6hw-ht-fQ6">
                                 <rect key="frame" x="15" y="497" width="343" height="30"/>
@@ -3709,11 +3729,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9H3-hU-K6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="JeC-qX-bg9">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="1778" y="1940"/>
         </scene>
@@ -3742,11 +3757,8 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ElG-rI-GdU"/>
         <segue reference="lra-AY-k3U"/>
         <segue reference="5Cy-Be-NXP"/>
-        <segue reference="bs2-LI-qHj"/>
-        <segue reference="jUF-36-ylm"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
