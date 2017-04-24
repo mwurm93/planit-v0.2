@@ -1,22 +1,28 @@
 PODS:
   - Apollo (0.4.2)
+  - Cartography (1.0.1)
   - JTAppleCalendar (6.1.1)
   - Koloda (4.0):
     - pop (~> 1.0)
   - pop (1.0.9)
+  - UIColor+FlatColors (0.0.2)
 
 DEPENDENCIES:
   - Apollo
+  - Cartography
   - JTAppleCalendar (~> 6.0)
   - Koloda
   - pop (~> 1.0)
+  - UIColor+FlatColors
 
 SPEC CHECKSUMS:
   Apollo: 0d47a856b21404eb63bddb6446b05416b4b6bb16
+  Cartography: c1460e99395b824d9d75360b0382faeb0b33dcd7
   JTAppleCalendar: fc53eb29ec81f8a90969e2d214b3aa610ab4e5b3
   Koloda: cb171633afc6182a77821b7951e38b2cb272ba7c
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  UIColor+FlatColors: 6c699df7a575281794c688c64cee6c44fd1f93b4
 
-PODFILE CHECKSUM: 5d71156d3e11b1286c6171edfe95413caa716109
+PODFILE CHECKSUM: 5d2a86f07fc539f3ae2559739e4be6122687c5cf
 
 COCOAPODS: 1.1.1

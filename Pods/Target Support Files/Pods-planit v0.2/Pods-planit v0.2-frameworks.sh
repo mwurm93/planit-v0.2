@@ -85,13 +85,17 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Cartography/Cartography.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JTAppleCalendar/JTAppleCalendar.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Koloda/Koloda.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UIColor+FlatColors/UIColor_FlatColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Cartography/Cartography.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JTAppleCalendar/JTAppleCalendar.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Koloda/Koloda.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/UIColor+FlatColors/UIColor_FlatColors.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
 fi

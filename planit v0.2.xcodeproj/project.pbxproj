@@ -54,7 +54,10 @@
 		FAA8F2A11E351DEB00CD7337 /* items.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAA8F2A01E351DEB00CD7337 /* items.plist */; };
 		FAC1BD1E1EAE4D65008AB7C4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1BD1C1EAE4D65008AB7C4 /* CardView.swift */; };
 		FAC1BD1F1EAE4D65008AB7C4 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC1BD1D1EAE4D65008AB7C4 /* CardContentView.xib */; };
-		FAC1BD211EAE70EB008AB7C4 /* ZLSwipeableViewSwift in Resources */ = {isa = PBXBuildFile; fileRef = FAC1BD201EAE70EB008AB7C4 /* ZLSwipeableViewSwift */; };
+		FAC1BD2E1EAE7707008AB7C4 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1BD2A1EAE7707008AB7C4 /* Direction.swift */; };
+		FAC1BD2F1EAE7707008AB7C4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1BD2B1EAE7707008AB7C4 /* Scheduler.swift */; };
+		FAC1BD301EAE7707008AB7C4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1BD2C1EAE7707008AB7C4 /* ViewManager.swift */; };
+		FAC1BD311EAE7707008AB7C4 /* ZLSwipeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC1BD2D1EAE7707008AB7C4 /* ZLSwipeableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +136,10 @@
 		FAA8F2A01E351DEB00CD7337 /* items.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = items.plist; sourceTree = "<group>"; };
 		FAC1BD1C1EAE4D65008AB7C4 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FAC1BD1D1EAE4D65008AB7C4 /* CardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
-		FAC1BD201EAE70EB008AB7C4 /* ZLSwipeableViewSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ZLSwipeableViewSwift; sourceTree = "<group>"; };
+		FAC1BD2A1EAE7707008AB7C4 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		FAC1BD2B1EAE7707008AB7C4 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		FAC1BD2C1EAE7707008AB7C4 /* ViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
+		FAC1BD2D1EAE7707008AB7C4 /* ZLSwipeableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZLSwipeableView.swift; sourceTree = "<group>"; };
 		FF99F8DC1EC030B0E3C827B0 /* Pods_planit_v0_2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_planit_v0_2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -221,7 +227,6 @@
 		FAA8F2211E35194100CD7337 /* planit v0.2 */ = {
 			isa = PBXGroup;
 			children = (
-				FAC1BD201EAE70EB008AB7C4 /* ZLSwipeableViewSwift */,
 				FAC1BD1B1EAE4D4C008AB7C4 /* Swiping View */,
 				FA187E431E37003600971D47 /* Message */,
 				FAA8F2A31E3521BC00CD7337 /* API */,
@@ -403,6 +408,10 @@
 			children = (
 				FAC1BD1C1EAE4D65008AB7C4 /* CardView.swift */,
 				FAC1BD1D1EAE4D65008AB7C4 /* CardContentView.xib */,
+				FAC1BD2A1EAE7707008AB7C4 /* Direction.swift */,
+				FAC1BD2B1EAE7707008AB7C4 /* Scheduler.swift */,
+				FAC1BD2C1EAE7707008AB7C4 /* ViewManager.swift */,
+				FAC1BD2D1EAE7707008AB7C4 /* ZLSwipeableView.swift */,
 			);
 			name = "Swiping View";
 			sourceTree = "<group>";
@@ -533,7 +542,6 @@
 				FAA8F28F1E351DBF00CD7337 /* monthHeaderView.xib in Resources */,
 				FAA8F28D1E351DBF00CD7337 /* CellView.xib in Resources */,
 				FAA8F2871E351DAC00CD7337 /* GetTrip.graphql in Resources */,
-				FAC1BD211EAE70EB008AB7C4 /* ZLSwipeableViewSwift in Resources */,
 				FAA8F2A11E351DEB00CD7337 /* items.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,6 +726,9 @@
 				FAA8F29C1E351DDE00CD7337 /* ExistingTripTableViewCell.swift in Sources */,
 				FAA8F26C1E351B9500CD7337 /* EmailViewController.swift in Sources */,
 				FAA8F2711E351B9500CD7337 /* PasswordViewController.swift in Sources */,
+				FAC1BD311EAE7707008AB7C4 /* ZLSwipeableView.swift in Sources */,
+				FAC1BD2E1EAE7707008AB7C4 /* Direction.swift in Sources */,
+				FAC1BD2F1EAE7707008AB7C4 /* Scheduler.swift in Sources */,
 				FAA8F2761E351B9500CD7337 /* SuggestDestinationViewController.swift in Sources */,
 				FAA8F29F1E351DDE00CD7337 /* timeOfDayTableViewCell.swift in Sources */,
 				FAA8F28E1E351DBF00CD7337 /* monthHeaderView.swift in Sources */,
@@ -727,6 +738,7 @@
 				FAA8F2951E351DCD00CD7337 /* contactsCollectionViewCell.swift in Sources */,
 				FAA8F2231E35194100CD7337 /* AppDelegate.swift in Sources */,
 				FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */,
+				FAC1BD301EAE7707008AB7C4 /* ViewManager.swift in Sources */,
 				FA4E922B1E3526DD00231C72 /* API.swift in Sources */,
 				FAA8F2731E351B9500CD7337 /* RecommedationSwipingViewController.swift in Sources */,
 				FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */,

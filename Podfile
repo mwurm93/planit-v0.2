@@ -9,7 +9,7 @@ target 'planit v0.2' do
     pod "Koloda"
     pod 'pop', '~> 1.0'
     pod "Apollo"
-    pod 'JTAppleCalendar', '~> 7.0'
+    pod 'JTAppleCalendar', '~> 6.0'
     pod 'UIColor+FlatColors'
     pod 'Cartography'
 
