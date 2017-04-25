@@ -307,7 +307,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 view1.width == self.detailedCardView.bounds.width
                 view1.height == self.detailedCardView.bounds.height
             }
-
+            self.swipeableView.isUserInteractionEnabled = false
         }
         swipeableView.didDisappear = { view in
             print("Did disappear swiping view")
@@ -380,14 +380,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             } else {
                 recognizer.isEnabled = false
                 recognizer.isEnabled = true
-                UIView.animate(withDuration: 1) {
+                swipeableView.isUserInteractionEnabled = true
+                UIView.animate(withDuration: 0.6, animations: { () -> Void in
                     self.detailedCardView.frame = self.swipeableView.frame
-                    self.detailedCardView.alpha = 0
-            }
+                    self.detailedCardView.alpha = 0.6}, completion: { (finished: Bool) in
+                        self.detailedCardView.alpha = 0.0}
+                )
             }
         } else {
             isTrackingPanLocation = false
-        }
+            }
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith
