@@ -31,7 +31,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Silver", "Concrete", "Asbestos"]
     var colorIndex = 0
     var loadCardsFromXib = false
-
+    var isTrackingPanLocation = false
+    var panGestureRecognizer = UIPanGestureRecognizer()
     
     //main VC vars
     fileprivate var addressBookStore: CNContactStore!
@@ -99,8 +100,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var twoWeeks: UIButton!
     @IBOutlet weak var noSpecificDatesButton: UIButton!
     @IBOutlet weak var swipeableView: ZLSwipeableView!
-    @IBOutlet weak var closeDetailedCardViewButton: UIButton!
-    @IBOutlet weak var detailedCardView: UIView!
+    @IBOutlet weak var detailedCardView: UIScrollView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -113,8 +113,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         super.viewDidLoad()
         
         detailedCardView.isHidden = true
-        closeDetailedCardViewButton.isHidden = true
-        closeDetailedCardViewButton.tintColor = UIColor.black
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panRecognized(recognizer:)))
+        panGestureRecognizer.delegate = self
+        detailedCardView.addGestureRecognizer(panGestureRecognizer)
+        detailedCardView.layer.cornerRadius = 15
         
         weekend.layer.cornerRadius = 15
         oneWeek.layer.cornerRadius = 15
@@ -152,7 +154,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
 
         
-        popupSubview.layer.cornerRadius = 5
+        popupSubview.layer.cornerRadius = 10
         subviewDoneButton.isHidden = true
         
         //Calendar subview
@@ -211,7 +213,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.popupBackgroundViewMainVC.addGestureRecognizer(atap)
         popupBackgroundViewMainVC.isHidden = true
         swipingInstructionsView.isHidden = true
-        swipingInstructionsView.layer.cornerRadius = 5
+        swipingInstructionsView.layer.cornerRadius = 10
 
         effect = popupBlurView.effect
         popupBlurView.effect = nil
@@ -284,9 +286,15 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             print("Did cancel swiping view")
         }
         swipeableView.didTap = {view, location in
-            self.closeDetailedCardViewButton.isHidden = false
             self.detailedCardView.isHidden = false
+            self.detailedCardView.alpha = 1
             self.detailedCardView.backgroundColor = self.swipeableView.topView()?.backgroundColor
+
+            let bounds = UIScreen.main.bounds
+            let width = bounds.size.width
+            let height = bounds.size.height
+            self.detailedCardView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            
             let contentView = Bundle.main.loadNibNamed("CardContentView", owner: self, options: nil)?.first! as! UIView
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.backgroundColor = self.swipeableView.topView()?.backgroundColor
@@ -343,8 +351,51 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
     }
     
-    //ZLFunctions
+    //Dismissing detailed card view
+    public func panRecognized(recognizer:UIPanGestureRecognizer) {
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        let dismissTriggerOffset = height/3
+        
+        if recognizer.state == .began && detailedCardView.contentOffset.y == 0 {
+            recognizer.setTranslation(CGPoint.zero, in: detailedCardView)
+            isTrackingPanLocation = true
+        } else if recognizer.state == .cancelled || recognizer.state == .ended && isTrackingPanLocation {
+            let panOffset = recognizer.translation(in: detailedCardView)
+            if panOffset.y < dismissTriggerOffset {
+                UIView.animate(withDuration: 0.4) {
+                    self.detailedCardView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+                }
+            }
+            isTrackingPanLocation = false
+        } else if recognizer.state != .ended && recognizer.state != .cancelled &&
+            recognizer.state != .failed && isTrackingPanLocation {
+            let panOffset = recognizer.translation(in: detailedCardView)
+            if panOffset.y < 0 {
+                isTrackingPanLocation = false
+            } else if panOffset.y < dismissTriggerOffset {
+                let panOffset = recognizer.translation(in: detailedCardView)
+                self.detailedCardView.frame = CGRect(x: 0, y: panOffset.y, width: width, height: height)
+            } else {
+                recognizer.isEnabled = false
+                recognizer.isEnabled = true
+                UIView.animate(withDuration: 1) {
+                    self.detailedCardView.frame = self.swipeableView.frame
+                    self.detailedCardView.alpha = 0
+            }
+            }
+        } else {
+            isTrackingPanLocation = false
+        }
+    }
     
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith
+        otherGestureRecognizer : UIGestureRecognizer)->Bool {
+        return true
+    }
+    
+    //ZLFunctions
     func leftButtonAction() {
         self.swipeableView.swipeTopView(inDirection: .Left)
     }
@@ -1058,20 +1109,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
-    @IBAction func closeDetailedCardViewButtonTouchedUpInside(_ sender: Any) {
-detailedCardView.isHidden = true
-        closeDetailedCardViewButton.isHidden = true
-        
-        //        UIView.animate(withDuration: 0.3, animations: {
-//            self.detailedCardView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-//            self.detailedCardView.alpha = 0
-//            self.detailedCardView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-//            self.closeDetailedCardViewButton.isHidden = true
-//            self.closeDetailedCardViewButton.removeFromSuperview()
-//        }) { (Success:Bool) in
-//            self.detailedCardView.removeFromSuperview()
-//        }
-    }
     @IBAction func specificDatesButtonTouchedUpInside(_ sender: Any) {
         month1.isHidden = true
         month2.isHidden = true

@@ -2030,19 +2030,10 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3AZ-vq-XBj" customClass="CardView" customModule="planit_v0_2" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="ddx-cr-cdY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-fv-79X">
-                                <rect key="frame" x="5" y="20" width="30" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="cards"/>
-                                <connections>
-                                    <action selector="closeDetailedCardViewButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="5Ea-xC-0x5"/>
-                                </connections>
-                            </button>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -2051,9 +2042,8 @@
                         <outlet property="addFromContactsButton" destination="uoZ-1l-yxx" id="g93-kJ-B1D"/>
                         <outlet property="addFromFacebookButton" destination="U7y-7c-V4B" id="kOQ-u0-oJc"/>
                         <outlet property="calendarView" destination="FLp-jz-zNI" id="YCx-TS-S93"/>
-                        <outlet property="closeDetailedCardViewButton" destination="BdU-fv-79X" id="sqv-JD-2dQ"/>
                         <outlet property="contactsCollectionView" destination="zAa-lr-Ha0" id="k3h-gJ-zZM"/>
-                        <outlet property="detailedCardView" destination="3AZ-vq-XBj" id="8w5-r0-T1t"/>
+                        <outlet property="detailedCardView" destination="ddx-cr-cdY" id="4Cr-LR-mvL"/>
                         <outlet property="groupMemberListTable" destination="nrJ-cj-pzr" id="tCv-ev-A0L"/>
                         <outlet property="heartIcon" destination="Myc-ln-NPH" id="DUW-hk-4sv"/>
                         <outlet property="homeAirportTextField" destination="sXI-YY-Fjo" id="bf7-4f-9c1"/>
@@ -3756,7 +3746,6 @@
         <image name="bermudaSunset" width="1500" height="1125"/>
         <image name="bermudaSunsetTop" width="563" height="487"/>
         <image name="budgetICon" width="256" height="256"/>
-        <image name="cards" width="100" height="100"/>
         <image name="emptyHeart" width="71" height="71"/>
         <image name="emptyX" width="71" height="71"/>
         <image name="expand" width="800" height="800"/>
@@ -3770,7 +3759,7 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R8r-yB-rJ1"/>
+        <segue reference="anE-cP-H4U"/>
         <segue reference="lra-AY-k3U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

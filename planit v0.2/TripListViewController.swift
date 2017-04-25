@@ -49,7 +49,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        destinationDecidedControl.frame = CGRect(x: 170, y: 80, width: 185, height: 70)
+        destinationDecidedControl.frame = CGRect(x: 170, y: 80, width: 185, height: 90)
         destinationDecidedControl.isHidden = true
         
         view.autoresizingMask = .flexibleTopMargin
@@ -110,7 +110,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         popupBackgroundView.isHidden = false
         destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 62, width: 185, height: 50)
+        destinationDecidedControl.frame = CGRect(x: 170, y: 62, width: 185, height: 90)
     }
     
     @IBAction func createTripButtonTouchDown(_ sender: Any) {
@@ -123,11 +123,11 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         createTripArrow.isHighlighted = false
         popupBackgroundView.isHidden = false
         destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 50)
+        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 90)
     }
     @IBAction func createFirstTripArrowTouchedUpInside(_ sender: Any) {
         destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 50)
+        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 90)
     }
     
     @IBAction func destinationDecidedControlValueChanged(_ sender: Any) {
