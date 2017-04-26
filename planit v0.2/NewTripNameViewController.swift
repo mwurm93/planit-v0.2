@@ -838,6 +838,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             } else {
                 subviewWho()
             }
+        } else {
+            subviewWho()
         }
         
         return true
@@ -1351,6 +1353,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func goingSoloButtonTouchedUpInside(_ sender: Any) {
+        nextButton.alpha = 1
+        contactsCollectionView.alpha = 1
+        addContactPlusIconMainVC.alpha = 1
         animateOutSubview()
     }
     

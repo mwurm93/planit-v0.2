@@ -8,16 +8,16 @@
 
 import UIKit
 
-class RankingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RankingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     // MARK: Class properties
     var sectionTitles = ["Top trip", "Alternatives"]
     
     // MARK: Outlets
-    @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var recommendationRankingTableView: UITableView!
     @IBOutlet weak var readyToBookButton: UIButton!
     @IBOutlet weak var returnToSwipingButton: UIButton!
+    @IBOutlet weak var tripNameLabel: UITextField!
     
     // viewDidLoad
     override func viewDidLoad() {
@@ -45,11 +45,20 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         super.didReceiveMemoryWarning()
     }
 
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
+        // Hide the keyboard.
+        tripNameLabel.resignFirstResponder()
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    // UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
-    // UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
@@ -261,10 +270,17 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     // MARK: Actions
+    @IBAction func tripNameEditingChanged(_ sender: Any) {
+        let tripNameValue = tripNameLabel.text as! NSString
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["trip_name"] = tripNameValue
+        //Save
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    
     @IBAction func readyToBookButtonPressed(_ sender: Any) {
 
         self.performSegue(withIdentifier: "destinationChosenSegue", sender: self)
-
     }
     
     @IBAction func nextButtonPressed(_ sender: Any) {
