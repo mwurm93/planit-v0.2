@@ -275,8 +275,12 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             for unbookedIndex in 0...(bookingStatuses.count - 1)  {
                 if bookingStatuses[unbookedIndex] == 0 && unbookedIndex > lastUnbookedStatusIndexAddedToTable! {
                     let addedRowInUnbookedSection = unbookedIndex
-                    cell.layer.cornerRadius = 5
-                    cell.existingTripTableViewImage.image = #imageLiteral(resourceName: "NYE")
+                    cell.layer.cornerRadius = 10
+                    cell.layer.borderWidth = 3
+                    cell.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:1).cgColor
+                    cell.layer.masksToBounds = true
+
+//                    cell.existingTripTableViewImage.image = #imageLiteral(resourceName: "NYE")
                     cell.existingTripTableViewLabel.text = DataContainerSingleton.sharedDataContainer.usertrippreferences?[addedRowInUnbookedSection].object(forKey: "trip_name") as? String
                     existingTripsTable.isHidden = false
                     lastUnbookedStatusIndexAddedToTable = unbookedIndex

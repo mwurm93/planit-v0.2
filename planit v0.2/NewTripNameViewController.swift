@@ -112,6 +112,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var detailedCardView: UIScrollView!
     @IBOutlet weak var numberDestinationsSlider: UISlider!
     @IBOutlet weak var numberDestinationsStackView: UIStackView!
+    @IBOutlet weak var tripNameLabel: UITextField!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -123,6 +124,14 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Load the values from our shared data container singleton
+        if NewOrAddedTripFromSegue != 1 {
+        let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
+        //Install the value into the label.
+        if tripNameValue != nil {
+            self.tripNameLabel.text =  "\(tripNameValue!)"
+        }
+        }
         detailedCardView.isHidden = true
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panRecognized(recognizer:)))
         panGestureRecognizer.delegate = self
@@ -187,6 +196,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         numberDestinationsSlider.isContinuous = false
         numberDestinationsSlider.isHidden = true
         numberDestinationsStackView.isHidden = true
+        
+        //Trip Name textField
+        self.tripNameLabel.delegate = self
         
         //home airport textfield
         self.homeAirportTextField.delegate = self
@@ -327,10 +339,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         constrain(swipeableView, view) { view1, view2 in
-            view1.left == view2.left+50
-            view1.right == view2.right-50
-            view1.top == view2.top + 70
-            view1.bottom == view2.bottom - 170
+            view1.left == view2.left+30
+            view1.right == view2.right-30
+            view1.top == view2.top + 120
+            view1.bottom == view2.bottom - 150
         }
         
         //Custom animation
@@ -819,7 +831,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func textFieldShouldReturn(_ textField:  UITextField) -> Bool {
         // Hide the keyboard.
         homeAirportTextField.resignFirstResponder()
-        
+        tripNameLabel.resignFirstResponder()
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         let segmentLengthValue = SavedPreferencesForTrip["Availability_segment_lengths"] as! [NSNumber]
         if segmentLengthValue.count > 0 {
@@ -999,6 +1011,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         subviewWhen()
         
         //Create trip name
+        if tripNameLabel.text == "New Trip"{
         var tripNameValue = "Trip created \(Date().description.substring(to: 10))"
         //Check if trip name used already
         if DataContainerSingleton.sharedDataContainer.usertrippreferences != nil && DataContainerSingleton.sharedDataContainer.usertrippreferences?.count != 0 {
@@ -1012,11 +1025,15 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 tripNameValue = "Trip " + ("#\(countTripsMadeToday+1) ") + tripNameValue.substring(from: 5)
             }
         }
+        
+        tripNameLabel.text = tripNameValue
+        
         //Update trip preferences in dictionary
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["trip_name"] = tripNameValue as NSString
         //Save
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+        }
     }
     
     func subviewWhere() {
@@ -1144,6 +1161,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
+    @IBAction func tripNameLabelEditingChanged(_ sender: Any) {
+        let tripNameValue = tripNameLabel.text as! NSString
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["trip_name"] = tripNameValue
+        //Save
+        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
     @IBAction func numberDestinationsValueChanged(_ sender: Any) {
         roundSlider()
     }

@@ -23,6 +23,8 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tripNameLabel.delegate = self
+        
         //Set up table
         recommendationRankingTableView.layer.cornerRadius = 5
         recommendationRankingTableView.tableFooterView = UIView()
@@ -52,6 +54,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
         return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        
         return true
     }
 
@@ -280,7 +283,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func readyToBookButtonPressed(_ sender: Any) {
 
-        self.performSegue(withIdentifier: "destinationChosenSegue", sender: self)
+//        self.performSegue(withIdentifier: "destinationChosenSegue", sender: self)
     }
     
     @IBAction func nextButtonPressed(_ sender: Any) {

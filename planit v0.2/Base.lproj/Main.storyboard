@@ -1535,6 +1535,17 @@
                                     <segue destination="6Nf-ZD-7fF" kind="show" animates="NO" id="isD-dZ-KwN"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Trip" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hS5-VB-6Sx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.97649024210000002" green="0.98120349279999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="tripNameEditingChanged:" destination="6Nf-ZD-7fF" eventType="editingChanged" id="8IR-hA-nGz"/>
+                                    <action selector="tripNameLabelEditingChanged:" destination="E8d-J0-NPc" eventType="editingChanged" id="kvh-68-zDo"/>
+                                </connections>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-br-X3d">
                                 <rect key="frame" x="0.0" y="607" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1547,7 +1558,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aj-5Q-Dyn">
-                                <rect key="frame" x="109" y="518" width="71" height="71"/>
+                                <rect key="frame" x="109" y="525" width="71" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="emptyX"/>
                                 <connections>
@@ -1555,7 +1566,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-ln-NPH">
-                                <rect key="frame" x="196" y="518" width="71" height="71"/>
+                                <rect key="frame" x="196" y="525" width="71" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="emptyHeart"/>
                                 <connections>
@@ -1594,7 +1605,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-lr-Ha0">
-                                <rect key="frame" x="67" y="588" width="205" height="67"/>
+                                <rect key="frame" x="67" y="601" width="205" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RO6-ae-A1A">
@@ -1642,7 +1653,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBS-CC-JRz">
-                                <rect key="frame" x="271" y="598" width="43" height="47"/>
+                                <rect key="frame" x="271" y="611" width="43" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="+">
@@ -1706,6 +1717,7 @@
                         <outlet property="swipeableView" destination="abL-F6-54j" id="zxm-6Q-WNX"/>
                         <outlet property="swipingInstructionsView" destination="ShI-Fz-fbi" id="Fk8-1L-r6e"/>
                         <outlet property="timeOfDayTableView" destination="zPq-pN-9Dm" id="hN6-3K-IBw"/>
+                        <outlet property="tripNameLabel" destination="hS5-VB-6Sx" id="h0e-H9-znR"/>
                         <outlet property="twoWeeks" destination="dsN-la-ffi" id="nhz-w1-OCC"/>
                         <outlet property="underline" destination="tMi-SS-fcU" id="WD1-uk-iAV"/>
                         <outlet property="weekend" destination="auX-ss-Rh7" id="Rl4-0V-Q8H"/>
@@ -2092,7 +2104,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.97649024210000002" green="0.98120349279999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="tripNameEditingChanged:" destination="6Nf-ZD-7fF" eventType="editingChanged" id="yhC-IR-hbv"/>
                                 </connections>
@@ -2112,6 +2124,7 @@
                                 <connections>
                                     <action selector="nextButtonPressed:" destination="6Nf-ZD-7fF" eventType="touchUpInside" id="lOw-dr-379"/>
                                     <action selector="readyToBookButtonPressed:" destination="6Nf-ZD-7fF" eventType="touchUpInside" id="9mG-mb-BcC"/>
+                                    <segue destination="29a-Sc-V2X" kind="show" animates="NO" id="Nsg-W3-XNQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se9-wg-6Zg">
@@ -2200,10 +2213,10 @@
             </objects>
             <point key="canvasLocation" x="845.60000000000002" y="892.80359820089961"/>
         </scene>
-        <!--View Controller-->
+        <!--To Do View Controller-->
         <scene sceneID="UYn-Dp-RhB">
             <objects>
-                <viewController id="29a-Sc-V2X" sceneMemberID="viewController">
+                <viewController id="29a-Sc-V2X" customClass="ToDoViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="m3J-FP-riN"/>
                         <viewControllerLayoutGuide type="bottom" id="6Dq-6M-CUs"/>
@@ -2226,27 +2239,34 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Group rankings" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD8-MT-J83">
-                                <rect key="frame" x="0.0" y="321" width="375" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What do you like to do when you travel?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tD8-MT-J83">
+                                <rect key="frame" x="68" y="104" width="238" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Trip" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mim-8G-Q0d">
-                                <rect key="frame" x="0.0" y="296" width="375" height="75"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Trip" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GuA-Di-vzz">
+                                <rect key="frame" x="0.0" y="20" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="textColor" red="0.97649024210000002" green="0.98120349279999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="tripNameEditingChanged:" destination="6Nf-ZD-7fF" eventType="editingChanged" id="BeZ-7V-PzK"/>
+                                    <action selector="tripNameLabelEditingChanged:" destination="29a-Sc-V2X" eventType="editingChanged" id="Ag1-AT-8Ab"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="tripNameLabel" destination="GuA-Di-vzz" id="kkh-EQ-3os"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zYH-C8-NhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1640" y="909"/>
+            <point key="canvasLocation" x="1628" y="892.80359820089961"/>
         </scene>
         <!--Review And Book View Controller-->
         <scene sceneID="oXU-ux-Xys">
