@@ -732,7 +732,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             soloForNowButton.isHidden = true
             groupMemberListTable.isHidden = false
             groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
-            subviewNextButton.isHidden = false
+            subviewDoneButton.isHidden = false
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
@@ -788,7 +788,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         soloForNowButton.isHidden = true
         groupMemberListTable.isHidden = false
         groupMemberListTable.layer.frame = CGRect(x: 29, y: 200, width: 292, height: 221)
-        subviewNextButton.isHidden = false
+        subviewDoneButton.isHidden = false
     }
     
 //saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
@@ -956,9 +956,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             self.popupSubview.transform = CGAffineTransform.identity
         }
         
-        //Set to where
+        //Set to when
         underline.layer.frame = CGRect(x: 50, y: 30, width: 55, height: 51)
-        subviewWhere()
+        subviewWhen()
         
         //Create trip name
         var tripNameValue = "Trip created \(Date().description.substring(to: 10))"
@@ -1007,10 +1007,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = true
         noSpecificDatesButton.isHidden = true
-        if self.subviewWhereButton.tintColor == UIColor.green {
-            self.underline.tintColor = UIColor.green
-        } else {
-            underline.tintColor = UIColor.white
+        UIView.animate(withDuration: 0.4) {
+            self.underline.layer.frame = CGRect(x: 148, y: 30, width: 55, height: 51)
         }
     }
 
@@ -1058,14 +1056,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         UIView.animate(withDuration: 0.4) {
-            self.underline.layer.frame = CGRect(x: 148, y: 30, width: 55, height: 51)
+            self.underline.layer.frame = CGRect(x: 241, y: 30, width: 55, height: 51)
         }
-        if self.subviewWhoButton.tintColor == UIColor.green {
-            self.underline.tintColor = UIColor.green
-        } else {
-            underline.tintColor = UIColor.white
-        }
-
     }
     
     func subviewWhen() {
@@ -1093,15 +1085,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = false
         noSpecificDatesButton.isHidden = false
-        
-        UIView.animate(withDuration: 0.4) {
-            self.underline.layer.frame = CGRect(x: 241, y: 30, width: 55, height: 51)
-        }
-        if subviewWhenButton.tintColor == UIColor.green {
-            underline.tintColor = UIColor.green
-        } else {
-            underline.tintColor = UIColor.white
-        }
     }
 
     func animateOutSubview() {
@@ -1156,9 +1139,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             twoWeeks.backgroundColor = UIColor.darkGray
             twoWeeks.titleLabel?.textColor = UIColor.white
             if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1172,9 +1155,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             twoWeeks.backgroundColor = UIColor.darkGray
             twoWeeks.titleLabel?.textColor = UIColor.white
             if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1187,9 +1170,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             oneWeek.backgroundColor = UIColor.darkGray
             oneWeek.titleLabel?.textColor = UIColor.white
             if (month1.backgroundColor == UIColor.white || month2.backgroundColor == UIColor.white || month3.backgroundColor == UIColor.white || month4.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1205,9 +1188,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             month4.backgroundColor = UIColor.darkGray
             month4.titleLabel?.textColor = UIColor.white
             if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1223,9 +1206,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             month4.backgroundColor = UIColor.darkGray
             month4.titleLabel?.textColor = UIColor.white
             if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1241,9 +1224,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             month4.backgroundColor = UIColor.darkGray
             month4.titleLabel?.textColor = UIColor.white
             if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1260,9 +1243,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             month3.backgroundColor = UIColor.darkGray
             month3.titleLabel?.textColor = UIColor.white
             if (weekend.backgroundColor == UIColor.white || oneWeek.backgroundColor == UIColor.white || twoWeeks.backgroundColor == UIColor.white) {
-                subviewDoneButton.isHidden = false
+                subviewNextButton.isHidden = false
             } else {
-                subviewDoneButton.isHidden = true
+                subviewNextButton.isHidden = true
             }
         }
     }
@@ -1295,9 +1278,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     @IBAction func subviewWhereButtonTouchedUpInside(_ sender: Any) {
         subviewWhere()
-        UIView.animate(withDuration: 0.4) {
-            self.underline.layer.frame = CGRect(x: 50, y: 30, width: 55, height: 51)
-        }
     }
     
     @IBAction func subviewWhoButtonTouchedUpInside(_ sender: Any) {
@@ -1305,10 +1285,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func subviewNextButtonTouchedUpInside(_ sender: Any) {
-        subviewWhen()
+        subviewWhere()
     }
     @IBAction func subviewWhenButtonTouchedUpInside(_ sender: Any) {
         subviewWhen()
+        UIView.animate(withDuration: 0.4) {
+            self.underline.layer.frame = CGRect(x: 50, y: 30, width: 55, height: 51)
+        }
     }
     
     @IBAction func subviewDoneButtonTouchedUpInside(_ sender: Any) {
@@ -1319,7 +1302,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func goingSoloButtonTouchedUpInside(_ sender: Any) {
-        subviewWhen()
+        animateOutSubview()
     }
     
     @IBAction func previousMonthTouchedUpInside(_ sender: Any) {
@@ -1833,7 +1816,7 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
                 self.timeOfDayTableView.deselectRow(at: rowIndex, animated: false)
             }
             if self.leftDates.count == self.rightDates.count && (self.leftDates.count != 0 || self.rightDates.count != 0) {
-                self.subviewDoneButton.isHidden = false
+                self.subviewNextButton.isHidden = false
             }
         }) { (Success:Bool) in
             self.timeOfDayTableView.isHidden = true
