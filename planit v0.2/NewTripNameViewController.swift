@@ -26,6 +26,12 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         return array
     }()
     
+    //Cache colors
+    static let transparentColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
+    static let whiteColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
+    static let transparentWhiteColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0.33).cgColor
+    static let darkGrayColor = UIColor(colorWithHexValue: 0x656565, alpha: 1)
+    static let blackColor = UIColor(colorWithHexValue: 0x000000, alpha: 1)
     
     //ZLSwipeableView
     var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Silver", "Concrete", "Asbestos"]
@@ -1589,16 +1595,16 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
         switch cellState.selectedPosition() {
         case .full:
             myCustomCell?.selectedView.isHidden = false
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x000000, alpha: 1)
-            myCustomCell?.selectedView.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.blackColor
+            myCustomCell?.selectedView.layer.backgroundColor = NewTripNameViewController.whiteColor.cgColor
             myCustomCell?.selectedView.layer.cornerRadius =  ((myCustomCell?.selectedView.frame.height)!/2)
             myCustomCell?.rightSideConnector.isHidden = true
             myCustomCell?.leftSideConnector.isHidden = true
             myCustomCell?.middleConnector.isHidden = true
         case .left:
             myCustomCell?.selectedView.isHidden = false
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x000000, alpha: 1)
-            myCustomCell?.selectedView.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.blackColor
+            myCustomCell?.selectedView.layer.backgroundColor = NewTripNameViewController.whiteColor.cgColor
             myCustomCell?.selectedView.layer.cornerRadius =  ((myCustomCell?.selectedView.frame.height)!/2)
             myCustomCell?.rightSideConnector.isHidden = false
             myCustomCell?.leftSideConnector.isHidden = true
@@ -1606,8 +1612,8 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
             
         case .right:
             myCustomCell?.selectedView.isHidden = false
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0x000000, alpha: 1)
-            myCustomCell?.selectedView.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.blackColor
+            myCustomCell?.selectedView.layer.backgroundColor = NewTripNameViewController.whiteColor.cgColor
             myCustomCell?.selectedView.layer.cornerRadius =  ((myCustomCell?.selectedView.frame.height)!/2)
             myCustomCell?.leftSideConnector.isHidden = false
             myCustomCell?.rightSideConnector.isHidden = true
@@ -1616,21 +1622,21 @@ extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalen
         case .middle:
             myCustomCell?.selectedView.isHidden = true
             myCustomCell?.middleConnector.isHidden = false
-            myCustomCell?.middleConnector.layer.backgroundColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0.33).cgColor
-            myCustomCell?.dayLabel.textColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
+            myCustomCell?.middleConnector.layer.backgroundColor = NewTripNameViewController.transparentWhiteColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.whiteColor
             myCustomCell?.selectedView.layer.cornerRadius =  0
             myCustomCell?.rightSideConnector.isHidden = true
             myCustomCell?.leftSideConnector.isHidden = true
         default:
             myCustomCell?.selectedView.isHidden = true
-            myCustomCell?.selectedView.layer.backgroundColor = CalendarViewController.transparentColor
+            myCustomCell?.selectedView.layer.backgroundColor = NewTripNameViewController.transparentColor
             myCustomCell?.leftSideConnector.isHidden = true
             myCustomCell?.rightSideConnector.isHidden = true
             myCustomCell?.middleConnector.isHidden = true
-            myCustomCell?.dayLabel.textColor = CalendarViewController.whiteColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.whiteColor
         }
         if cellState.dateBelongsTo != .thisMonth {
-            myCustomCell?.dayLabel.textColor = CalendarViewController.darkGrayColor
+            myCustomCell?.dayLabel.textColor = NewTripNameViewController.darkGrayColor
         }
     }
     

@@ -23,7 +23,6 @@
 		FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */; };
 		FAA8F2691E351B9500CD7337 /* BirthdayGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */; };
 		FAA8F26A1E351B9500CD7337 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */; };
-		FAA8F26B1E351B9500CD7337 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */; };
 		FAA8F26C1E351B9500CD7337 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */; };
 		FAA8F26D1E351B9500CD7337 /* HomeAirportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */; };
 		FAA8F26E1E351B9500CD7337 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */; };
@@ -31,7 +30,6 @@
 		FAA8F2701E351B9500CD7337 /* NewTripNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */; };
 		FAA8F2711E351B9500CD7337 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */; };
 		FAA8F2721E351B9500CD7337 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2621E351B9500CD7337 /* RankingViewController.swift */; };
-		FAA8F2731E351B9500CD7337 /* RecommedationSwipingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */; };
 		FAA8F2741E351B9500CD7337 /* ReviewAndBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */; };
 		FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */; };
 		FAA8F2761E351B9500CD7337 /* SuggestDestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */; };
@@ -105,7 +103,6 @@
 		FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
 		FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdayGenderViewController.swift; sourceTree = "<group>"; };
 		FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
-		FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		FAA8F25C1E351B9500CD7337 /* EmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		FAA8F25D1E351B9500CD7337 /* HomeAirportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeAirportViewController.swift; sourceTree = "<group>"; };
 		FAA8F25E1E351B9500CD7337 /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +110,6 @@
 		FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTripNameViewController.swift; sourceTree = "<group>"; };
 		FAA8F2611E351B9500CD7337 /* PasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		FAA8F2621E351B9500CD7337 /* RankingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
-		FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommedationSwipingViewController.swift; sourceTree = "<group>"; };
 		FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewAndBookViewController.swift; sourceTree = "<group>"; };
 		FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestDestinationViewController.swift; sourceTree = "<group>"; };
@@ -270,9 +266,7 @@
 				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
 				FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */,
 				FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */,
-				FAA8F25B1E351B9500CD7337 /* CalendarViewController.swift */,
 				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
-				FAA8F2631E351B9500CD7337 /* RecommedationSwipingViewController.swift */,
 				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
 				FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */,
 				FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */,
@@ -722,7 +716,6 @@
 				FAA8F2771E351B9500CD7337 /* TripListViewController.swift in Sources */,
 				FAA8F26D1E351B9500CD7337 /* HomeAirportViewController.swift in Sources */,
 				FAA8F29D1E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift in Sources */,
-				FAA8F26B1E351B9500CD7337 /* CalendarViewController.swift in Sources */,
 				FAA8F29C1E351DDE00CD7337 /* ExistingTripTableViewCell.swift in Sources */,
 				FAA8F26C1E351B9500CD7337 /* EmailViewController.swift in Sources */,
 				FAA8F2711E351B9500CD7337 /* PasswordViewController.swift in Sources */,
@@ -740,7 +733,6 @@
 				FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */,
 				FAC1BD301EAE7707008AB7C4 /* ViewManager.swift in Sources */,
 				FA4E922B1E3526DD00231C72 /* API.swift in Sources */,
-				FAA8F2731E351B9500CD7337 /* RecommedationSwipingViewController.swift in Sources */,
 				FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */,
 				FAA8F26F1E351B9500CD7337 /* InternationalViewController.swift in Sources */,
 				FAA8F2701E351B9500CD7337 /* NewTripNameViewController.swift in Sources */,
