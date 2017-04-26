@@ -14,8 +14,6 @@ class rankedRecommendationsTableViewCell: UITableViewCell {
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var tripPrice: UILabel!
     @IBOutlet weak var percentSwipedRight: UILabel!
-    @IBOutlet weak var preferredActivitiesPossibleAtDestination: UILabel!
-    @IBOutlet weak var rankLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

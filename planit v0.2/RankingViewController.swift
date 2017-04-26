@@ -73,20 +73,15 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
             addedRow += 1
         }
         
-        cell.rankLabel.text = "#\(addedRow + 1)"
         cell.destinationLabel.text = destinationsLabelsArray[addedRow]
         cell.tripPrice.text = pricesArray[addedRow]
         cell.percentSwipedRight.text = "\(percentagesSwipedRightArray[addedRow])% swiped right"
-        if selectedActivities != nil {
-            cell.preferredActivitiesPossibleAtDestination.text = "\(selectedActivities!)"
-        }
         cell.layer.cornerRadius = 10
         
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["top_trips"] = destinationsLabelsArray as [NSString]
         //Save
         saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
-
         
         return cell
     }
