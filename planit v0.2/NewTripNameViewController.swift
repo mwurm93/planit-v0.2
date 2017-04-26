@@ -113,6 +113,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        popupBlurView.isUserInteractionEnabled = true
+        
         //Load the values from our shared data container singleton
         if NewOrAddedTripFromSegue != 1 {
         let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
