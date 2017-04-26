@@ -16,17 +16,19 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var addAnotherTripButton: UIButton!
     @IBOutlet weak var myTripsTitleLabel: UILabel!
     @IBOutlet weak var createTripArrow: UIButton!
+    @IBOutlet weak var greyMap: UIImageView!
     
     // Outlets for instructions
     @IBOutlet weak var instructionsTitleLabel: UILabel!
-    @IBOutlet weak var instruct1Label: UILabel!
-    @IBOutlet weak var instruct2Label: UILabel!
-    @IBOutlet weak var instruct3Label: UILabel!
-    @IBOutlet weak var instruct1image: UIImageView!
-    @IBOutlet weak var instruct2image: UIImageView!
-    @IBOutlet weak var instruct3image: UIImageView!
+    @IBOutlet weak var destinationDecidedControlView: UIView!
     @IBOutlet weak var destinationDecidedControl: UISegmentedControl!
     @IBOutlet weak var popupBackgroundView: UIView!
+    @IBOutlet weak var tbdColorView: UIView!
+    @IBOutlet weak var tbdLabel: UILabel!
+    @IBOutlet weak var bucketListColorView: UIView!
+    @IBOutlet weak var bucketListLabel: UILabel!
+    @IBOutlet weak var beenThereColorView: UIView!
+    @IBOutlet weak var beenThereLabel: UILabel!
     
     let sectionTitles = ["Still in the works...", "Booked"]
     
@@ -49,8 +51,11 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        destinationDecidedControl.frame = CGRect(x: 170, y: 80, width: 185, height: 90)
-        destinationDecidedControl.isHidden = true
+        destinationDecidedControl.frame = CGRect(x: 23, y: 59, width: 150, height: 65)
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
+
+        destinationDecidedControlView.isHidden = true
+        destinationDecidedControlView.layer.cornerRadius = 10
         
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
@@ -66,12 +71,13 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             createTripButton.isHidden = false
             createTripArrow.isHidden = false
             instructionsTitleLabel.isHidden = false
-            instruct1image.isHidden = false
-            instruct1Label.isHidden = false
-            instruct2image.isHidden = false
-            instruct2Label.isHidden = false
-            instruct3image.isHidden = false
-            instruct3Label.isHidden = false
+            greyMap.isHidden = false
+            tbdLabel.isHidden = false
+            tbdColorView.isHidden = false
+            bucketListLabel.isHidden = false
+            bucketListColorView.isHidden = false
+            beenThereLabel.isHidden = false
+            beenThereColorView.isHidden = false
             }
         else {
             existingTripsTable.isHidden = false
@@ -82,12 +88,13 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             createTripButton.isHidden = true
             createTripArrow.isHidden = true
             instructionsTitleLabel.isHidden = true
-            instruct1image.isHidden = true
-            instruct1Label.isHidden = true
-            instruct2image.isHidden = true
-            instruct2Label.isHidden = true
-            instruct3image.isHidden = true
-            instruct3Label.isHidden = true
+            greyMap.isHidden = true
+            tbdLabel.isHidden = true
+            tbdColorView.isHidden = true
+            bucketListLabel.isHidden = true
+            bucketListColorView.isHidden = true
+            beenThereLabel.isHidden = true
+            beenThereColorView.isHidden = true
         }
     }
     
@@ -100,7 +107,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func dismissPopup(touch: UITapGestureRecognizer) {
             popupBackgroundView.isHidden = true
-            destinationDecidedControl.isHidden = true
+            destinationDecidedControlView.isHidden = true
     }
 
     
@@ -109,8 +116,8 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         DataContainerSingleton.sharedDataContainer.currenttrip = DataContainerSingleton.sharedDataContainer.currenttrip! + 1
 
         popupBackgroundView.isHidden = false
-        destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 62, width: 185, height: 90)
+        destinationDecidedControlView.isHidden = false
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 71, width: 196, height: 135)
     }
     
     @IBAction func createTripButtonTouchDown(_ sender: Any) {
@@ -122,12 +129,12 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         createTripArrow.isHighlighted = false
         popupBackgroundView.isHidden = false
-        destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 90)
+        destinationDecidedControlView.isHidden = false
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
     }
     @IBAction func createFirstTripArrowTouchedUpInside(_ sender: Any) {
-        destinationDecidedControl.isHidden = false
-        destinationDecidedControl.frame = CGRect(x: 170, y: 377, width: 185, height: 90)
+        destinationDecidedControlView.isHidden = false
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
     }
     
     @IBAction func destinationDecidedControlValueChanged(_ sender: Any) {
@@ -397,12 +404,13 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                         createTripButton.isHidden = false
                         createTripArrow.isHidden = false
                         instructionsTitleLabel.isHidden = false
-                        instruct1image.isHidden = false
-                        instruct1Label.isHidden = false
-                        instruct2image.isHidden = false
-                        instruct2Label.isHidden = false
-                        instruct3image.isHidden = false
-                        instruct3Label.isHidden = false
+                        greyMap.isHidden = false
+                        tbdLabel.isHidden = false
+                        tbdColorView.isHidden = false
+                        bucketListLabel.isHidden = false
+                        bucketListColorView.isHidden = false
+                        beenThereLabel.isHidden = false
+                        beenThereColorView.isHidden = false
                     }
                     //Return if delete cell trip name found
                     return
