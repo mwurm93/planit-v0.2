@@ -26,6 +26,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         return array
     }()
     
+    //Slider
+    let sliderStep: Float = 1
+    
     //Cache colors
     static let transparentColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 0).cgColor
     static let whiteColor = UIColor(colorWithHexValue: 0xFFFFFF, alpha: 1)
@@ -107,6 +110,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var noSpecificDatesButton: UIButton!
     @IBOutlet weak var swipeableView: ZLSwipeableView!
     @IBOutlet weak var detailedCardView: UIScrollView!
+    @IBOutlet weak var numberDestinationsSlider: UISlider!
+    @IBOutlet weak var numberDestinationsStackView: UIStackView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -178,6 +183,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         timeOfDayTableView.layer.isHidden = true
         timeOfDayTableView.allowsMultipleSelection = true
         
+        //Number Destinations Slider
+        numberDestinationsSlider.isContinuous = false
+        numberDestinationsSlider.isHidden = true
+        numberDestinationsStackView.isHidden = true
+        
         //home airport textfield
         self.homeAirportTextField.delegate = self
         homeAirportTextField.layer.borderWidth = 1
@@ -187,9 +197,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         homeAirportTextField.text =  "\(homeAirportValue)"
         let homeAirportLabelPlaceholder = homeAirportTextField!.value(forKey: "placeholderLabel") as? UILabel
         homeAirportLabelPlaceholder?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
-        if (homeAirportTextField.text?.characters.count)! >= 3 {
-            subviewWho()
-        }
         
         // Calendar header setup
         calendarView.registerHeaderView(xibFileNames: ["monthHeaderView"])
@@ -356,6 +363,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.swipeableView.loadViews()
 
     }
+    
+    func roundSlider() {
+        //Update changed preferences
+        let numberDestinationsValue = [NSNumber(value: (round(numberDestinationsSlider.value / sliderStep)))]
+        numberDestinationsSlider.setValue(Float(numberDestinationsValue[0]), animated: true)
+        
+//        //Update trip preferences dictionary
+//        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+//        SavedPreferencesForTrip["hotel_rooms"] = hotelRoomsValue
+//        //Save updated trip preferences dictionary
+//        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+
     
     //Dismissing detailed card view
     public func panRecognized(recognizer:UIPanGestureRecognizer) {
@@ -791,8 +811,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         subviewDoneButton.isHidden = false
     }
     
-//saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -802,8 +820,26 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         // Hide the keyboard.
         homeAirportTextField.resignFirstResponder()
         
-        //Move to who
-        subviewWho()
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        let segmentLengthValue = SavedPreferencesForTrip["Availability_segment_lengths"] as! [NSNumber]
+        if segmentLengthValue.count > 0 {
+            var maxSegmentLength = 0
+            for segmentIndex in 0...(segmentLengthValue.count-1) {
+                if (Int(segmentLengthValue[segmentIndex])) > maxSegmentLength {
+                    maxSegmentLength = (Int(segmentLengthValue[segmentIndex]))
+                }
+            }
+            if maxSegmentLength >= 4 {
+                numberDestinationsStackView.isHidden = false
+                numberDestinationsSlider.isHidden = false
+                homeAirportTextField.isHidden = true
+                questionLabel.text = "How many destinations?"
+                subviewNextButton.isHidden = false
+            } else {
+                subviewWho()
+            }
+        }
+        
         return true
     }
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -1007,6 +1043,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = true
         noSpecificDatesButton.isHidden = true
+        numberDestinationsSlider.isHidden = true
+        numberDestinationsStackView.isHidden = true
         UIView.animate(withDuration: 0.4) {
             self.underline.layer.frame = CGRect(x: 148, y: 30, width: 55, height: 51)
         }
@@ -1038,6 +1076,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = true
         noSpecificDatesButton.isHidden = true
+        numberDestinationsSlider.isHidden = true
+        numberDestinationsStackView.isHidden = true
         
         if contacts != nil {
             addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
@@ -1085,6 +1125,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         twoWeeks.isHidden = true
         specificDatesButton.isHidden = false
         noSpecificDatesButton.isHidden = false
+        numberDestinationsSlider.isHidden = true
+        numberDestinationsStackView.isHidden = true
     }
 
     func animateOutSubview() {
@@ -1100,6 +1142,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
+    @IBAction func numberDestinationsValueChanged(_ sender: Any) {
+        roundSlider()
+    }
     @IBAction func specificDatesButtonTouchedUpInside(_ sender: Any) {
         month1.isHidden = true
         month2.isHidden = true
@@ -1285,7 +1330,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     @IBAction func subviewNextButtonTouchedUpInside(_ sender: Any) {
-        subviewWhere()
+        if numberDestinationsSlider.isHidden {
+            subviewWhere()
+        } else if !numberDestinationsSlider.isHidden  {
+            subviewWho()
+        }
     }
     @IBAction func subviewWhenButtonTouchedUpInside(_ sender: Any) {
         subviewWhen()

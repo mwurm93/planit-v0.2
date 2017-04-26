@@ -1662,6 +1662,8 @@
                         <outlet property="nextButton" destination="Eyq-dV-AXx" id="QJu-Ot-U7f"/>
                         <outlet property="nextMonth" destination="qMp-FL-1x2" id="U9I-cz-JPl"/>
                         <outlet property="noSpecificDatesButton" destination="hto-KF-0ya" id="Ysy-QM-IGv"/>
+                        <outlet property="numberDestinationsSlider" destination="WCO-dh-zGR" id="UvR-MN-ZNH"/>
+                        <outlet property="numberDestinationsStackView" destination="g35-90-LP6" id="Vxc-9f-Dep"/>
                         <outlet property="oneWeek" destination="heb-3p-Giv" id="rQf-1T-quh"/>
                         <outlet property="popupBackgroundView" destination="fsO-hR-D6B" id="YUi-xH-dvT"/>
                         <outlet property="popupBackgroundViewMainVC" destination="dJQ-kv-5S8" id="Ce8-Sv-rlt"/>
@@ -1854,7 +1856,7 @@
                                 <action selector="addFromContacts:" destination="E8d-J0-NPc" eventType="touchUpInside" id="nHy-Bt-1yC"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where are you leaving from?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xz9-BD-RIc">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Where are you leaving from?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xz9-BD-RIc">
                             <rect key="frame" x="79" y="70" width="191" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -2018,6 +2020,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <connections>
                                 <action selector="SliderTouchDragExit:" destination="JtR-jW-4x4" eventType="touchDragExit" id="g1v-N1-ObI"/>
+                                <action selector="numberDestinationsValueChanged:" destination="E8d-J0-NPc" eventType="valueChanged" id="AqR-Jc-kC8"/>
                                 <action selector="sliderEditingChanged:" destination="JtR-jW-4x4" eventType="editingChanged" id="sw3-mG-SiN"/>
                                 <action selector="sliderValueChanged:" destination="JtR-jW-4x4" eventType="valueChanged" id="kCW-NM-44G"/>
                             </connections>
@@ -3404,8 +3407,8 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R8r-yB-rJ1"/>
         <segue reference="lra-AY-k3U"/>
+        <segue reference="anE-cP-H4U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
