@@ -52,7 +52,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         destinationDecidedControl.frame = CGRect(x: 23, y: 59, width: 150, height: 65)
-        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 430, width: 196, height: 135)
 
         destinationDecidedControlView.isHidden = true
         destinationDecidedControlView.layer.cornerRadius = 10
@@ -130,11 +130,11 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         createTripArrow.isHighlighted = false
         popupBackgroundView.isHidden = false
         destinationDecidedControlView.isHidden = false
-        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 430, width: 196, height: 135)
     }
     @IBAction func createFirstTripArrowTouchedUpInside(_ sender: Any) {
         destinationDecidedControlView.isHidden = false
-        destinationDecidedControlView.frame = CGRect(x: 167, y: 410, width: 196, height: 135)
+        destinationDecidedControlView.frame = CGRect(x: 167, y: 430, width: 196, height: 135)
     }
     
     @IBAction func destinationDecidedControlValueChanged(_ sender: Any) {
