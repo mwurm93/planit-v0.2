@@ -13,18 +13,7 @@ import JTAppleCalendar
 import UIColor_FlatColors
 import Cartography
 
-private var numberOfCards: Int = 5
-
 class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout {
-    
-    fileprivate var dataSource: [UIImage] = {
-        var array: [UIImage] = []
-        for index in 0..<numberOfCards {
-            array.append(UIImage(named: "Card_like_\(index + 1)")!)
-        }
-        
-        return array
-    }()
     
     //Slider
     let sliderStep: Float = 1
@@ -86,8 +75,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var timeOfDayTableView: UITableView!
     @IBOutlet weak var popupBackgroundView: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var popupBackgroundViewMainVC: UIView!
     @IBOutlet weak var swipingInstructionsView: UIView!
+    @IBOutlet weak var popupBackgroundViewMainVC: UIVisualEffectView!
     @IBOutlet var popupSubview: UIView!
     @IBOutlet weak var subviewWhereButton: UIButton!
     @IBOutlet weak var subviewWhoButton: UIButton!
@@ -237,11 +226,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         atap.delegate = self
         self.popupBackgroundViewMainVC.addGestureRecognizer(atap)
         popupBackgroundViewMainVC.isHidden = true
+        popupBackgroundViewMainVC.isUserInteractionEnabled = true
         swipingInstructionsView.isHidden = true
         swipingInstructionsView.layer.cornerRadius = 10
 
-        effect = popupBlurView.effect
-        popupBlurView.effect = nil
+        popupBlurView.alpha = 0
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
@@ -1001,7 +990,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         popupSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         popupSubview.alpha = 0
         UIView.animate(withDuration: 0.2) {
-            self.popupBlurView.effect = self.effect
+            self.popupBlurView.alpha = 1
             self.popupSubview.alpha = 1
             self.popupSubview.transform = CGAffineTransform.identity
         }
@@ -1151,7 +1140,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func animateOutSubview() {
         UIView.animate(withDuration: 0.3, animations: {
             self.popupSubview.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
-            self.popupBlurView.effect = nil
+            self.popupBlurView.alpha = 0
             self.popupSubview.alpha = 0
             self.popupSubview.transform = CGAffineTransform.init(scaleX: 1, y: 1)
         }) { (Success:Bool) in

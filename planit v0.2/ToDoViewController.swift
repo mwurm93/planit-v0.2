@@ -12,9 +12,15 @@ import UIColor_FlatColors
 
 class ToDoViewController: UIViewController, UITextFieldDelegate {
     
+    //ZLSwipeableView
+    var colors = ["Turquoise", "Green Sea", "Emerald", "Nephritis", "Peter River", "Belize Hole", "Amethyst", "Wisteria", "Wet Asphalt", "Midnight Blue", "Sun Flower", "Orange", "Carrot", "Pumpkin", "Alizarin", "Pomegranate", "Silver", "Concrete", "Asbestos"]
+    var colorIndex = 0
+    var loadCardsFromXib = false
+    var isTrackingPanLocation = false
+    var panGestureRecognizer = UIPanGestureRecognizer()
+    
     //MARK: Outlets
     @IBOutlet weak var tripNameLabel: UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

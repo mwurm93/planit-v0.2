@@ -22,13 +22,13 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var instructionsTitleLabel: UILabel!
     @IBOutlet weak var destinationDecidedControlView: UIView!
     @IBOutlet weak var destinationDecidedControl: UISegmentedControl!
-    @IBOutlet weak var popupBackgroundView: UIView!
     @IBOutlet weak var tbdColorView: UIView!
     @IBOutlet weak var tbdLabel: UILabel!
     @IBOutlet weak var bucketListColorView: UIView!
     @IBOutlet weak var bucketListLabel: UILabel!
     @IBOutlet weak var beenThereColorView: UIView!
     @IBOutlet weak var beenThereLabel: UILabel!
+    @IBOutlet weak var popupBackgroundView: UIVisualEffectView!
     
     let sectionTitles = ["Still in the works...", "Booked"]
     
@@ -40,6 +40,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
         tap.numberOfTapsRequired = 1
         tap.delegate = self
         popupBackgroundView.isHidden = true
+        popupBackgroundView.isUserInteractionEnabled = true
         self.popupBackgroundView.addGestureRecognizer(tap)
         
         //Rotate segmented control view
@@ -276,7 +277,7 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                 if bookingStatuses[unbookedIndex] == 0 && unbookedIndex > lastUnbookedStatusIndexAddedToTable! {
                     let addedRowInUnbookedSection = unbookedIndex
                     cell.layer.cornerRadius = 10
-                    cell.layer.borderWidth = 3
+                    cell.layer.borderWidth = 2
                     cell.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:1).cgColor
                     cell.layer.masksToBounds = true
 
