@@ -173,7 +173,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             let height = bounds.size.height
             self.detailedCardView.frame = CGRect(x: 0, y: 0, width: width, height: height)
             
-            let contentView = Bundle.main.loadNibNamed("CardContentView", owner: self, options: nil)?.first! as! UIView
+            let contentView = Bundle.main.loadNibNamed("ToDoCardContentView", owner: self, options: nil)?.first! as! UIView
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.backgroundColor = self.swipeableView.topView()?.backgroundColor
             contentView.layer.cornerRadius = 0
@@ -298,12 +298,12 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             colorIndex = 0
         }
         
-        let cardView = CardView(frame: swipeableView.bounds)
+        let cardView = ToDoCardView(frame: swipeableView.bounds)
         cardView.backgroundColor = colorForName(colors[colorIndex])
         colorIndex += 1
         
         if loadCardsFromXib {
-            let contentView = Bundle.main.loadNibNamed("CardContentView", owner: self, options: nil)?.first! as! UIView
+            let contentView = Bundle.main.loadNibNamed("ToDoCardContentView", owner: self, options: nil)?.first! as! UIView
             contentView.translatesAutoresizingMaskIntoConstraints = false
             contentView.backgroundColor = cardView.backgroundColor
             cardView.addSubview(contentView)

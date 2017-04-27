@@ -3459,6 +3459,9 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="6Nf-ZD-7fF" kind="show" animates="NO" id="mN5-fO-Q8J"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3U-gY-k8A">
                                 <rect key="frame" x="109" y="528" width="71" height="71"/>
@@ -3633,6 +3636,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="lra-AY-k3U"/>
         <segue reference="R8r-yB-rJ1"/>
+        <segue reference="mN5-fO-Q8J"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
