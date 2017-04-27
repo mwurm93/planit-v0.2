@@ -43,7 +43,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     var objectPhoneNumbers = [NSString]()
     var contactPhoneNumbers = [NSString]()
     var NewOrAddedTripFromSegue: Int?
-    var effect:UIVisualEffect!
     var countSwipes = 0
     
     //subview vars
@@ -1546,80 +1545,6 @@ extension UIViewController {
     }
 }
 
-
-
-//// MARK: KolodaViewDelegate
-//extension NewTripNameViewController: KolodaViewDelegate {
-//    
-//    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-//        ranOutOfSwipesLabel.isHidden = false
-//        heartIcon.isHidden = true
-//        rejectIcon.isHidden = true
-//        
-////        let when = DispatchTime.now() + 1
-////        DispatchQueue.main.asyncAfter(deadline: when) {
-////            self.performSegue(withIdentifier: "swipingVCtoRankingVC", sender: nil)
-////        }
-//        
-//        //        let position = kolodaView.currentCardIndex
-//        //        for i in 1...4 {
-//        //            dataSource.append(UIImage(named: "Card_like_\(i)")!)
-//        //        }
-//        //        kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
-//    }
-//    
-//    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-//    }
-//    
-//    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-//        countSwipes += 1
-//        if countSwipes == 1 {
-//            self.animateInSubview()
-//        }
-//        
-//    }
-//
-////    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
-////        if direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight || direction == SwipeResultDirection.bottomRight {
-////            countRightSwipes += 1
-////            if countRightSwipes == 1 {
-////                self.animateInHomeAirportSubview()
-////                return false
-////            }
-////        }
-////        return true
-////    }
-//    
-//    func koloda(_ koloda: KolodaView, draggedCardWithPercentage finishPercentage: CGFloat, in direction: SwipeResultDirection) {
-//        let when = DispatchTime.now() + 1
-//        
-//        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomLeft || direction == SwipeResultDirection.left || direction == SwipeResultDirection.topLeft) && (direction != SwipeResultDirection.bottomRight || direction != SwipeResultDirection.right || direction != SwipeResultDirection.topRight) {
-//            rejectIcon.isHighlighted = true
-//            DispatchQueue.main.asyncAfter(deadline: when) {
-//                self.rejectIcon.isHighlighted = false
-//            }
-//        }
-//        if finishPercentage > 80 && (direction == SwipeResultDirection.bottomRight || direction == SwipeResultDirection.right || direction == SwipeResultDirection.topRight) && (direction != SwipeResultDirection.bottomLeft || direction != SwipeResultDirection.left || direction != SwipeResultDirection.topLeft){
-//            heartIcon.isHighlighted = true
-//            DispatchQueue.main.asyncAfter(deadline: when) {
-//                self.heartIcon.isHighlighted = false
-//            }
-//        }
-//    }
-//    
-//}
-//
-//// MARK: KolodaViewDataSource
-//extension NewTripNameViewController: KolodaViewDataSource {
-//    
-//    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-//        return dataSource.count
-//    }
-//    
-//    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-//        return UIImageView(image: dataSource[Int(index)])
-//    }
-//}
 
 // MARK: JTCalendarView Extension
 extension NewTripNameViewController: JTAppleCalendarViewDataSource, JTAppleCalendarViewDelegate {
