@@ -66,11 +66,11 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     @IBOutlet weak var contactsCollectionView: UICollectionView!
     @IBOutlet weak var popupBlurView: UIVisualEffectView!
     @IBOutlet weak var addContactPlusIconMainVC: UIButton!
-    @IBOutlet weak var swipingInstructionsView: UIView!
     @IBOutlet weak var popupBackgroundViewMainVC: UIVisualEffectView!
     @IBOutlet weak var swipeableView: ZLSwipeableView!
     @IBOutlet weak var detailedCardView: UIScrollView!
     @IBOutlet weak var tripNameLabel: UITextField!
+    @IBOutlet weak var swipingInstructionsView: UIView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -129,18 +129,17 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         
         //        self.hideKeyboardWhenTappedAround()
         addressBookStore = CNContactStore()
-        
-        if NewOrAddedTripFromSegue == 1 {
+ 
+        let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
+        if existing_trips?.count == 1 {
             nextButton.alpha =  0
             contactsCollectionView.alpha = 0
             addContactPlusIconMainVC.alpha = 0
-            
-            let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-            if existing_trips == nil {
+
                 let when = DispatchTime.now() + 0.6
                 DispatchQueue.main.asyncAfter(deadline: when) {
                     self.animateInstructionsIn()
-                }
+
             }
         } else {
             retrieveContactsWithStore(store: addressBookStore)
@@ -644,6 +643,16 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     }
     
     //MARK: Actions
+    @IBAction func instructionsGotItTouchedUpInside(_ sender: Any) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.swipingInstructionsView.alpha = 0
+            self.popupBackgroundViewMainVC.isHidden = true
+            self.swipeableView.isUserInteractionEnabled = true
+        }) { (Success:Bool) in
+            self.swipingInstructionsView.layer.isHidden = true
+        }
+    }
     @IBAction func tripNameLabelEditingChanged(_ sender: Any) {
         let tripNameValue = tripNameLabel.text as! NSString
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()

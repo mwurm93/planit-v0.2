@@ -74,9 +74,9 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     @IBOutlet weak var timeOfDayTableView: UITableView!
     @IBOutlet weak var popupBackgroundView: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var swipingInstructionsView: UIView!
     @IBOutlet weak var popupBackgroundViewMainVC: UIVisualEffectView!
     @IBOutlet var popupSubview: UIView!
+    @IBOutlet weak var swipingInstructionsView: UIView!
     @IBOutlet weak var subviewWhereButton: UIButton!
     @IBOutlet weak var subviewWhoButton: UIButton!
     @IBOutlet weak var subviewWhenButton: UIButton!
@@ -251,7 +251,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             addContactPlusIconMainVC.alpha = 0
             
             let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
-            if existing_trips == nil {
+            if existing_trips == nil || existing_trips?.count == 0 {
                 let when = DispatchTime.now() + 0.6
                 DispatchQueue.main.asyncAfter(deadline: when) {
                     self.animateInstructionsIn()
@@ -1151,6 +1151,16 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
+    @IBAction func instructionsGotItTouchedUpInside(_ sender: Any) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.swipingInstructionsView.alpha = 0
+            self.popupBackgroundViewMainVC.isHidden = true
+            self.swipeableView.isUserInteractionEnabled = true
+        }) { (Success:Bool) in
+            self.swipingInstructionsView.layer.isHidden = true
+        }
+    }
     @IBAction func tripNameLabelEditingChanged(_ sender: Any) {
         let tripNameValue = tripNameLabel.text as! NSString
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
