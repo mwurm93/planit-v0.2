@@ -162,7 +162,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         weekend.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
         oneWeek.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
         twoWeeks.addTarget(self, action: #selector(self.buttonClicked(sender:)), for: UIControlEvents.touchUpInside)
-
         
         popupSubview.layer.cornerRadius = 10
         subviewDoneButton.isHidden = true
@@ -257,7 +256,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                     self.animateInstructionsIn()
                 }
             }
-        } else {
+        }
+        else {
             retrieveContactsWithStore(store: addressBookStore)
         }
         
@@ -367,7 +367,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     
     func roundSlider() {
-        //Update changed preferences
         let numberDestinationsValue = [NSNumber(value: (round(numberDestinationsSlider.value / sliderStep)))]
         numberDestinationsSlider.setValue(Float(numberDestinationsValue[0]), animated: true)
         
@@ -384,7 +383,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         let bounds = UIScreen.main.bounds
         let width = bounds.size.width
         let height = bounds.size.height
-        let dismissTriggerOffset = height/3
+        let dismissTriggerOffset = height/5
         
         if recognizer.state == .began && detailedCardView.contentOffset.y == 0 {
             recognizer.setTranslation(CGPoint.zero, in: detailedCardView)
@@ -409,7 +408,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 recognizer.isEnabled = false
                 recognizer.isEnabled = true
                 swipeableView.isUserInteractionEnabled = true
-                UIView.animate(withDuration: 0.6, animations: { () -> Void in
+                UIView.animate(withDuration: 0.3, animations: { () -> Void in
                     self.detailedCardView.frame = self.swipeableView.frame
                     self.detailedCardView.alpha = 0.6}, completion: { (finished: Bool) in
                         self.detailedCardView.alpha = 0.0}
@@ -670,11 +669,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     func retrieveContactsWithStore(store: CNContactStore) {
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
-        
+        contactIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+                
         do {
-            if (objectIDs?.count)! > 0 {
-                let predicate = CNContact.predicateForContacts(withIdentifiers: objectIDs as! [String])
+            if (contactIDs?.count)! > 0 {
+                let predicate = CNContact.predicateForContacts(withIdentifiers: contactIDs! as [String])
                 let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
                 let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
                 self.objects = contacts
@@ -716,8 +715,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
             let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
-            self.contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
-            self.contactsCollectionView.reloadData()
+            contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
+            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
             groupMemberListTable.reloadData()
         }
@@ -744,8 +743,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
-            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
-            self.contactsCollectionView.reloadData()
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
             groupMemberListTable.reloadData()
         }
@@ -778,8 +777,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
-            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
-            self.contactsCollectionView.reloadData()
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
             groupMemberListTable.reloadData()
         }
@@ -799,8 +798,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
-            self.contactsCollectionView.insertItems(at: addedRowIndexPath)
-            self.contactsCollectionView.reloadData()
+            contactsCollectionView.insertItems(at: addedRowIndexPath)
+            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
             groupMemberListTable.reloadData()
         }
