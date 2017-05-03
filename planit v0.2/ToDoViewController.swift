@@ -42,7 +42,6 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     var objectIDs: [NSString]?
     var objectPhoneNumbers = [NSString]()
     var contactPhoneNumbers = [NSString]()
-    var NewOrAddedTripFromSegue: Int?
     
     //subview vars
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
@@ -85,13 +84,12 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         popupBlurView.isUserInteractionEnabled = true
         
         //Load the values from our shared data container singleton
-        if NewOrAddedTripFromSegue != 1 {
             let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
             //Install the value into the label.
             if tripNameValue != nil {
                 self.tripNameLabel.text =  "\(tripNameValue!)"
             }
-        }
+        
         detailedCardView.isHidden = true
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.panRecognized(recognizer:)))
         panGestureRecognizer.delegate = self
