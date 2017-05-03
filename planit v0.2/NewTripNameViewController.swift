@@ -37,13 +37,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     fileprivate var menuArray: NSMutableArray?
     let picker = CNContactPickerViewController()
     var contacts: [CNContact]?
-    var objects: [NSObject]?
     var contactIDs: [NSString]?
-    var objectIDs: [NSString]?
-    var objectPhoneNumbers = [NSString]()
     var contactPhoneNumbers = [NSString]()
     var NewOrAddedTripFromSegue: Int?
     var countSwipes = 0
+    var editModeEnabled = false
     
     //subview vars
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
@@ -220,7 +218,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         //Main VC
-        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureReconizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.contactsCollectionView.addGestureRecognizer(lpgr)
+    
+    
         let atap = UITapGestureRecognizer(target: self, action: #selector(self.dismissInstructions(touch:)))
         atap.numberOfTapsRequired = 1
         atap.delegate = self
@@ -256,8 +260,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                     self.animateInstructionsIn()
                 }
             }
-        }
-        else {
+        } else {
             retrieveContactsWithStore(store: addressBookStore)
         }
         
@@ -357,7 +360,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let duration = 0.4
             rotateAndTranslateView(view, forDegree: degree, translation: translation, duration: duration, offsetFromCenter: offset, swipeableView: swipeableView)
         }
-
         
         self.loadCardsFromXib = true
         self.colorIndex = 0
@@ -365,6 +367,19 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.swipeableView.loadViews()
 
     }
+    
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        
+        editModeEnabled = true
+        
+        for item in self.contactsCollectionView!.visibleCells as! [contactsCollectionViewCell] {
+            let indexPath: IndexPath = self.contactsCollectionView!.indexPath(for: item as contactsCollectionViewCell)!
+            let cell: contactsCollectionViewCell = self.contactsCollectionView!.cellForItem(at: indexPath) as! contactsCollectionViewCell!
+            cell.deleteButton.isHidden = false
+            cell.shakeIcons()
+        }
+    }
+
     
     func roundSlider() {
         let numberDestinationsValue = [NSNumber(value: (round(numberDestinationsSlider.value / sliderStep)))]
@@ -581,9 +596,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
         
-        retrieveContactsWithStore(store: addressBookStore)
         let contact = contacts?[indexPath.row]
-        
         
         if (contact?.imageDataAvailable)! {
             contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
@@ -607,8 +620,46 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             contactsCell.initialsLabel.text = firstInitial! + secondInitial!
         }
         
+        //Delete button
+        contactsCell.deleteButton.isHidden = true
+        // Give the delete button an index number
+        contactsCell.deleteButton.layer.setValue(indexPath.row, forKey: "index")
+        // Add an action function to the delete button
+        contactsCell.deleteButton.addTarget(self, action: Selector("deleteContactButtonTouchedUpInside"), for: UIControlEvents.touchUpInside)
+
+        //        contactsCell.deleteButton.addTarget(self, action: #selector(self.deleteContactButtonTouchedUpInside(sender:)), for: UIControlEvents.touchUpInside)
+        
         return contactsCell
     }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let visibleCells = self.contactsCollectionView.visibleCells
+        
+        if editModeEnabled == true {
+            for cell in visibleCells {
+                let visibleCellIndexPath = contactsCollectionView.indexPath(for: cell)
+                let visibleCell = contactsCollectionView.cellForItem(at: visibleCellIndexPath!) as! contactsCollectionViewCell
+                // Shake all of the collection view cells
+                visibleCell.shakeIcons()
+            }
+        }
+    }
+    
+    // This function is fired when the collection view stop scrolling
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let visibleCells = self.contactsCollectionView.visibleCells
+        
+        if editModeEnabled == true {
+            for cell in visibleCells {
+                let visibleCellIndexPath = contactsCollectionView.indexPath(for: cell)
+                let visibleCell = contactsCollectionView.cellForItem(at: visibleCellIndexPath!) as! contactsCollectionViewCell
+                // Shake all of the collection view cells
+                visibleCell.shakeIcons()
+            }
+        }
+    }
+
+    
     
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -619,6 +670,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         return UIEdgeInsetsMake(0, 0, 0, 0)
     }
+    
+    
 
     
     fileprivate func checkContactsAccess() {
@@ -654,12 +707,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     //Show Contact Picker
     fileprivate  func showContactsPicker() {
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+        contactIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
         
         picker.delegate = self
         picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
-        if (objectIDs?.count)! > 0 {
-            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs!)
+        
+        if (contactIDs?.count)! > 0 {
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", contactIDs!)
         } else {
             picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0)")
         }
@@ -676,13 +730,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
                 let predicate = CNContact.predicateForContacts(withIdentifiers: contactIDs! as [String])
                 let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
                 let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-                self.objects = contacts
                 self.contacts = contacts
             } else {
-                self.objects = nil
+                self.contacts = nil
             }
             DispatchQueue.main.async (execute: { () -> Void in
                 self.contactsCollectionView.reloadData()
+                self.groupMemberListTable.reloadData()
             })
         } catch {
             print(error)
@@ -690,9 +744,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     }
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
         
-        if contactIDs != nil {
+        if (contactIDs?.count)! > 0 {
             contacts?.append(contactProperty.contact)
-            objects?.append(contactProperty.contact as NSObject)
             contactIDs?.append(contactProperty.contact.identifier as NSString)
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
             var indexForCorrectPhoneNumber: Int?
@@ -704,7 +757,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
-            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let numberContactsInTable = (contacts?.count)! - 1
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -714,15 +767,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             //Save updated trip preferences dictionary
             saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
-            let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            
             contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
-            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
-            groupMemberListTable.reloadData()
         }
         else {
             contacts = [contactProperty.contact]
-            objects = [contactProperty.contact as NSObject]
             contactIDs = [contactProperty.contact.identifier as NSString]
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
             var indexForCorrectPhoneNumber: Int?
@@ -744,9 +795,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
-            groupMemberListTable.reloadData()
         }
             addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
             addFromFacebookButton.layer.frame = CGRect(x: 95, y: 170, width: 160, height: 22)
@@ -759,14 +808,13 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         
         //Update changed preferences as variables
-        if contactIDs != nil {
+        if (contactIDs?.count)! > 0 {
             contacts?.append(contact)
-            objects?.append(contact as NSObject)
             contactIDs?.append(contact.identifier as NSString)
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
-            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let numberContactsInTable = (contacts?.count)! - 1
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -778,13 +826,10 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath as [IndexPath], with: .left)
-            groupMemberListTable.reloadData()
         }
         else {
             contacts = [contact]
-            objects = [contact as NSObject]
             contactIDs = [contact.identifier as NSString]
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
@@ -799,9 +844,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
             groupMemberListTable.insertRows(at: addedRowIndexPath, with: .left)
-            groupMemberListTable.reloadData()
         }
         
         addFromContactsButton.layer.frame = CGRect(x: 101, y: 140, width: 148, height: 22)
@@ -872,7 +915,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
 //        else if tableView == groupMemberListTable {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactsPrototypeCell", for: indexPath) as! contactsTableViewCell
-        let contacts = objects as! [CNContact]?
         
         if contacts != nil {
         let contact = contacts?[indexPath.row]
@@ -888,7 +930,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             cell.thumbnailImage.layer.cornerRadius = cell.thumbnailImage.frame.height / 2
             cell.thumbnailImage.layer.masksToBounds = true
             cell.initialsLabel.isHidden = true
-        } else{
+        } else {
             cell.thumbnailImage.image = UIImage(named: "no_contact_image")!
             cell.initialsLabel.isHidden = false
             let firstInitial = contact?.givenName[0]
@@ -896,6 +938,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
             cell.initialsLabel.text = firstInitial! + secondInitial!
         }
         }
+        
         return cell
     }
     
@@ -949,36 +992,36 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            objectPhoneNumbers = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "contact_phone_numbers") as? [NSString] ?? [NSString]()
-            
-            objects?.remove(at: indexPath.row)
-            objectIDs?.remove(at: indexPath.row)
-            objectPhoneNumbers.remove(at: indexPath.row)
-            contacts?.remove(at: indexPath.row)
-            contactIDs?.remove(at: indexPath.row)
-            contactPhoneNumbers.remove(at: indexPath.row)
-            
-            groupMemberListTable.deleteRows(at: [indexPath], with: .left)
-            contactsCollectionView.deleteItems(at: [indexPath])
-            
-            if objects?.count == 0 || objects == nil || contacts?.count == 0 || contacts == nil{
-                addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
-                addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
-                soloForNowButton.isHidden = false
-                soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
-                groupMemberListTable.isHidden = true
-                subviewNextButton.isHidden = true
-            }
-            
-            //Update trip preferences dictionary
-            let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-            SavedPreferencesForTrip["contacts_in_group"] = objectIDs
-            SavedPreferencesForTrip["contact_phone_numbers"] = objectPhoneNumbers
-            //Save updated trip preferences dictionary
-            saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+            deleteContact(indexPath: indexPath)
         }
     }
     
+    func deleteContact(indexPath: IndexPath) {
+        contacts?.remove(at: indexPath.row)
+        contactIDs?.remove(at: indexPath.row)
+        contactPhoneNumbers.remove(at: indexPath.row)
+        
+        groupMemberListTable.deleteRows(at: [indexPath], with: .left)
+        contactsCollectionView.deleteItems(at: [indexPath])
+        
+        if contacts?.count == 0 || contacts == nil {
+            addFromContactsButton.layer.frame = CGRect(x: 101, y: 150, width: 148, height: 22)
+            addFromFacebookButton.layer.frame = CGRect(x: 95, y: 199, width: 160, height: 22)
+            soloForNowButton.isHidden = false
+            soloForNowButton.layer.frame = CGRect(x: 101, y: 248, width: 148, height: 22)
+            groupMemberListTable.isHidden = true
+            subviewNextButton.isHidden = true
+        }
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+        //Save updated trip preferences dictionary
+        saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    
+    }
+
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Remove"
     }
@@ -1150,7 +1193,11 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
 
 
     //MARK: Actions
-    @IBAction func instructionsGotItTouchedUpInside(_ sender: Any) {
+    func deleteContactButtonTouchedUpInside(sender:UIButton) {
+        let i: Int = (sender.layer.value(forKey: "index")) as! Int
+        deleteContact(indexPath: IndexPath(row:i, section: 0))
+    }
+        @IBAction func instructionsGotItTouchedUpInside(_ sender: Any) {
         UIView.animate(withDuration: 0.3, animations: {
             self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             self.swipingInstructionsView.alpha = 0

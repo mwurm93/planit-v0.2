@@ -1666,10 +1666,19 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGg-cR-Dpp">
+                                                    <rect key="frame" x="36" y="1" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button" image="deleteButton"/>
+                                                    <connections>
+                                                        <action selector="deleteContactButtonTouchedUpInside:" destination="E8d-J0-NPc" eventType="touchUpInside" id="UcQ-kj-Lj4"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="deleteButton" destination="hGg-cR-Dpp" id="YAz-qg-rsE"/>
                                             <outlet property="initialsLabel" destination="In4-1x-zNz" id="sk0-jY-Ic0"/>
                                             <outlet property="thumbnailImage" destination="JW5-w5-fhh" id="piG-0r-pgK"/>
                                             <outlet property="thumbnailImageFilter" destination="1ej-Iq-r5Q" id="had-N6-kBN"/>
@@ -3699,6 +3708,7 @@
         <image name="bermudaSunset" width="1500" height="1125"/>
         <image name="bermudaSunsetTop" width="563" height="487"/>
         <image name="budgetICon" width="256" height="256"/>
+        <image name="deleteButton" width="512" height="512"/>
         <image name="emptyHeart" width="71" height="71"/>
         <image name="emptyX" width="71" height="71"/>
         <image name="expand" width="800" height="800"/>
@@ -3714,7 +3724,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="lra-AY-k3U"/>
         <segue reference="R8r-yB-rJ1"/>
-        <segue reference="mN5-fO-Q8J"/>
+        <segue reference="isD-dZ-KwN"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
