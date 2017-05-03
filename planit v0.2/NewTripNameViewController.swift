@@ -625,9 +625,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         // Give the delete button an index number
         contactsCell.deleteButton.layer.setValue(indexPath.row, forKey: "index")
         // Add an action function to the delete button
-        contactsCell.deleteButton.addTarget(self, action: Selector("deleteContactButtonTouchedUpInside"), for: UIControlEvents.touchUpInside)
-
-        //        contactsCell.deleteButton.addTarget(self, action: #selector(self.deleteContactButtonTouchedUpInside(sender:)), for: UIControlEvents.touchUpInside)
+        contactsCell.deleteButton.addTarget(self, action: #selector(self.deleteContactButtonTouchedUpInside(sender:)), for: UIControlEvents.touchUpInside)
         
         return contactsCell
     }
