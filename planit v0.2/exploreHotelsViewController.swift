@@ -21,7 +21,7 @@ class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITabl
         super.viewDidLoad()
         
         //MARK: Google Maps API
-        let camera = GMSCameraPosition.camera(withLatitude: 25.7617, longitude: -80.1918, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 25.7617, longitude: -80.1918, zoom: 12.0)
         self.googleMap.camera = camera
         // Creates a marker in the center of the map.
         let marker = GMSMarker()
@@ -31,10 +31,12 @@ class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITabl
         marker.map = googleMap
         
         //Preselect first hotel
-        hotelsTableView.layer.cornerRadius = 5
         let FirstRow = IndexPath(row: 0, section: 0)
         hotelsTableView.selectRow(at: FirstRow, animated: false, scrollPosition: UITableViewScrollPosition.none)
-        hotelsTableView.cellForRow(at: FirstRow)?.contentView.backgroundColor = UIColor.blue
+        let firstCell = hotelsTableView.cellForRow(at: FirstRow) as! hotelTableViewCell
+        firstCell.hotelName.frame = CGRect(x: 10, y: 0, width: 127, height: 40)
+        firstCell.hotelName.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        firstCell.hotelName.font = UIFont.boldSystemFont(ofSize: 19)
     }
     
     //MARK: TableViewDataSource
@@ -52,18 +54,26 @@ class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITabl
         }
         
         cell.hotelName.text = hotelsList[addedRow]
-        cell.layer.cornerRadius = 10
-        cell.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.25)
+        cell.hotelName.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        cell.hotelName.frame = CGRect(x: 25, y: 0, width: 127, height: 40)
+
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath)
-        selectedCell?.contentView.backgroundColor = UIColor.blue
-    }
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let deSelectedCell = tableView.cellForRow(at: indexPath)
-        deSelectedCell?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.25)
-    }
+        let selectedCell = tableView.cellForRow(at: indexPath) as! hotelTableViewCell
+        selectedCell.hotelName.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        selectedCell.hotelName.frame = CGRect(x: 10, y: 0, width: 127, height: 40)
+        selectedCell.hotelName.font = UIFont.boldSystemFont(ofSize: 19)
 
+        let visibleCells = tableView.visibleCells as! [hotelTableViewCell]
+        for visibleCell in visibleCells {
+            if tableView.indexPath(for: visibleCell) != indexPath {
+                visibleCell.hotelName.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+                visibleCell.hotelName.frame = CGRect(x: 25, y: 0, width: 127, height: 40)
+                visibleCell.hotelName.font = UIFont.systemFont(ofSize: 17)
+                
+            }
+        }
+    }
 }
