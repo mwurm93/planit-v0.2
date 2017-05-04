@@ -68,8 +68,8 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     @IBOutlet weak var detailedCardView: UIScrollView!
     @IBOutlet weak var tripNameLabel: UITextField!
     @IBOutlet weak var swipingInstructionsView: UIView!
-    @IBOutlet weak var popupBackgroundViewDeleteContactsWithinCollectionView: UIVisualEffectView!
     @IBOutlet weak var popupBackgroundViewDeleteContacts: UIVisualEffectView!
+    @IBOutlet weak var popupBackgroundViewDeleteContactsWithinCollectionView: UIVisualEffectView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -82,7 +82,6 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         super.viewDidLoad()
         
         popupBlurView.isUserInteractionEnabled = true
-        popupBlurView.alpha = 0
         
         //Load the values from our shared data container singleton
             let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
@@ -100,8 +99,11 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         //Trip Name textField
         self.tripNameLabel.delegate = self
         
+        
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+                
+        popupBlurView.alpha = 0
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
@@ -143,6 +145,8 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         self.popupBackgroundViewDeleteContactsWithinCollectionView.addGestureRecognizer(tapOutsideContact)
         popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = true
         popupBackgroundViewDeleteContactsWithinCollectionView.isUserInteractionEnabled = true
+        
+        popupBlurView.alpha = 0
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
@@ -513,8 +517,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
                 visibleCell.shakeIcons()
             }
         }
-    }
-    
+    }    
     // This function is fired when the collection view stop scrolling
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let visibleCells = self.contactsCollectionView.visibleCells
@@ -528,6 +531,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             }
         }
     }
+
     
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -713,7 +717,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-        }        
+        }
     }
     
     override func didReceiveMemoryWarning() {

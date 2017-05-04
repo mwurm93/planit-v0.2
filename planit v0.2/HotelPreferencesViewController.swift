@@ -49,8 +49,8 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
         let SecondRow = IndexPath(row: 1, section: 0)
         amenitiesTableView.selectRow(at: FirstRow, animated: false, scrollPosition: UITableViewScrollPosition.none)
         amenitiesTableView.selectRow(at: SecondRow, animated: false, scrollPosition: UITableViewScrollPosition.none)
-        amenitiesTableView.cellForRow(at: FirstRow)?.layer.backgroundColor = UIColor.blue.cgColor
-        amenitiesTableView.cellForRow(at: SecondRow)?.layer.backgroundColor = UIColor.blue.cgColor
+        amenitiesTableView.cellForRow(at: FirstRow)?.contentView.backgroundColor = UIColor.blue
+        amenitiesTableView.cellForRow(at: SecondRow)?.contentView.backgroundColor = UIColor.blue
         
         //COPY FOR CONTACTS
         //        self.hideKeyboardWhenTappedAround()
@@ -439,8 +439,17 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
         
         cell.amenityLabel.text = amenitiesList[addedRow]
         cell.layer.cornerRadius = 10
-
+        cell.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.25)
+        
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: indexPath)
+        selectedCell?.contentView.backgroundColor = UIColor.blue
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let deSelectedCell = tableView.cellForRow(at: indexPath)
+        deSelectedCell?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.4)
     }
     
     func deleteContact(indexPath: IndexPath) {

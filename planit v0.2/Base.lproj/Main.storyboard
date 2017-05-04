@@ -3336,6 +3336,9 @@
                                 <state key="normal" title="&lt;">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="82w-9h-a2p" kind="show" animates="NO" id="G1K-4d-MLp"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="4" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h90-uK-GzC">
                                 <rect key="frame" x="91" y="518" width="192" height="31"/>
@@ -3389,7 +3392,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nlI-rv-G67">
-                                <rect key="frame" x="16" y="146" width="343" height="266"/>
+                                <rect key="frame" x="16" y="146" width="343" height="311"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3488,10 +3491,16 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f59-yM-ygz">
+                                                    <rect key="frame" x="36" y="1" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button" image="deleteButton"/>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="deleteButton" destination="f59-yM-ygz" id="2V5-yq-hld"/>
                                             <outlet property="initialsLabel" destination="ufp-4Z-iAO" id="5sd-X7-jtD"/>
                                             <outlet property="thumbnailImage" destination="cea-di-sP7" id="vFw-Pa-btU"/>
                                             <outlet property="thumbnailImageFilter" destination="nBc-5I-OS9" id="Dke-0Z-snv"/>
@@ -3568,7 +3577,6 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
-                                    <action selector="tripNameEditingChanged:" destination="6Nf-ZD-7fF" eventType="editingChanged" id="0mz-WW-7yG"/>
                                     <action selector="tripNameLabelEditingChanged:" destination="82w-9h-a2p" eventType="editingChanged" id="GtD-BO-7Oh"/>
                                 </connections>
                             </textField>
@@ -3672,10 +3680,16 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrv-94-U1m">
+                                                    <rect key="frame" x="36" y="1" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Button" image="deleteButton"/>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="deleteButton" destination="lrv-94-U1m" id="IBk-gs-mna"/>
                                             <outlet property="initialsLabel" destination="OnM-5x-kno" id="7oA-o2-c5V"/>
                                             <outlet property="thumbnailImage" destination="Rwd-KS-1aX" id="8h9-4V-vrJ"/>
                                             <outlet property="thumbnailImageFilter" destination="MU9-gZ-dzv" id="Z8r-z5-Acw"/>
@@ -3733,13 +3747,15 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="wac-JW-R54">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ky3-X5-iDC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </scrollView>
+                                    </subviews>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ky3-X5-iDC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -3749,8 +3765,8 @@
                         <outlet property="detailedCardView" destination="Ky3-X5-iDC" id="bug-nm-bVd"/>
                         <outlet property="heartIcon" destination="dLO-rN-Y08" id="g3C-6A-37H"/>
                         <outlet property="nextButton" destination="Lmi-8x-cdR" id="J1Z-xT-xNz"/>
-                        <outlet property="popupBackgroundViewDeleteContacts" destination="iiw-4L-pHf" id="uqx-ru-myS"/>
-                        <outlet property="popupBackgroundViewDeleteContactsWithinCollectionView" destination="jkH-eS-FWX" id="Dat-be-MWm"/>
+                        <outlet property="popupBackgroundViewDeleteContacts" destination="iiw-4L-pHf" id="qun-ig-bYp"/>
+                        <outlet property="popupBackgroundViewDeleteContactsWithinCollectionView" destination="jkH-eS-FWX" id="oqy-uA-a6u"/>
                         <outlet property="popupBackgroundViewMainVC" destination="DlE-Xv-Wc9" id="u6x-uK-BpS"/>
                         <outlet property="popupBlurView" destination="Ott-Iw-iuT" id="fRe-gp-Jae"/>
                         <outlet property="ranOutOfSwipesLabel" destination="Tun-hV-DkR" id="w3v-Kg-qT6"/>
@@ -3791,9 +3807,10 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="G1K-4d-MLp"/>
         <segue reference="mN5-fO-Q8J"/>
+        <segue reference="R8r-yB-rJ1"/>
         <segue reference="lra-AY-k3U"/>
-        <segue reference="anE-cP-H4U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
