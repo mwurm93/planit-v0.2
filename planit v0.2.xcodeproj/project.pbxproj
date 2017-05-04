@@ -17,6 +17,7 @@
 		FA09A3F21EB23894007F64A3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09A3F01EB23894007F64A3 /* CardView.swift */; };
 		FA187E451E37005200971D47 /* messageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA187E441E37005200971D47 /* messageComposer.swift */; };
 		FA25F1F91EBB6DA9005D29E5 /* exploreHotelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25F1F81EBB6DA9005D29E5 /* exploreHotelsViewController.swift */; };
+		FA25F1FB1EBB7B9F005D29E5 /* hotelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25F1FA1EBB7B9F005D29E5 /* hotelTableViewCell.swift */; };
 		FA2CFC0A1E3E57A200527405 /* UnbookedTripSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */; };
 		FA35EF311EA5506D0029E462 /* HotelPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */; };
 		FA4E922B1E3526DD00231C72 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E922A1E3526DD00231C72 /* API.swift */; };
@@ -96,6 +97,7 @@
 		FA09A3F01EB23894007F64A3 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FA187E441E37005200971D47 /* messageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messageComposer.swift; sourceTree = "<group>"; };
 		FA25F1F81EBB6DA9005D29E5 /* exploreHotelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = exploreHotelsViewController.swift; sourceTree = "<group>"; };
+		FA25F1FA1EBB7B9F005D29E5 /* hotelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hotelTableViewCell.swift; sourceTree = "<group>"; };
 		FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnbookedTripSummaryViewController.swift; sourceTree = "<group>"; };
 		FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelPreferencesViewController.swift; sourceTree = "<group>"; };
 		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				FAA8F2991E351DDE00CD7337 /* rankedRecommendationsTableViewCell.swift */,
 				FAA8F29A1E351DDE00CD7337 /* timeOfDayTableViewCell.swift */,
 				FA5F13AA1EB92E310003A992 /* amenityTableViewCell.swift */,
+				FA25F1FA1EBB7B9F005D29E5 /* hotelTableViewCell.swift */,
 			);
 			name = "Table View";
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 			files = (
 				FAA8F2771E351B9500CD7337 /* TripListViewController.swift in Sources */,
 				FA5F13AB1EB92E310003A992 /* amenityTableViewCell.swift in Sources */,
+				FA25F1FB1EBB7B9F005D29E5 /* hotelTableViewCell.swift in Sources */,
 				FAA8F26D1E351B9500CD7337 /* HomeAirportViewController.swift in Sources */,
 				FAA8F29D1E351DDE00CD7337 /* itemizedItineraryTableViewCell.swift in Sources */,
 				FAA8F29C1E351DDE00CD7337 /* ExistingTripTableViewCell.swift in Sources */,
