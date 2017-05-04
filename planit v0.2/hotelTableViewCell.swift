@@ -11,6 +11,7 @@ import UIKit
 class hotelTableViewCell: UITableViewCell {
     
     // MARK: Outlets
+    @IBOutlet weak var hotelName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -32,14 +32,14 @@ class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITabl
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "amenityPrototypeCell", for: indexPath) as! amenityTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "hotelPrototypeCell", for: indexPath) as! hotelTableViewCell
         var addedRow = indexPath.row
         
         if indexPath.section == 1 {
             addedRow += 1
         }
         
-        cell.amenityLabel.text = amenitiesList[addedRow]
+        cell.hotelName.text = hotelsList[addedRow]
         cell.layer.cornerRadius = 10
         cell.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.25)
         
