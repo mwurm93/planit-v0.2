@@ -3224,7 +3224,7 @@
         <!--Bucket List View Controller-->
         <scene sceneID="h8J-t7-W0G">
             <objects>
-                <viewController id="O1b-cB-8Dj" customClass="BucketListViewController" sceneMemberID="viewController">
+                <viewController id="O1b-cB-8Dj" customClass="bucketListViewController" customModule="planit_v0_2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OsU-8e-0yA"/>
                         <viewControllerLayoutGuide type="bottom" id="EIf-g6-SZs"/>
@@ -3247,6 +3247,11 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Yf-3p-JyM" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="YUG-p8-US7">
                                 <rect key="frame" x="16" y="28" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3273,7 +3278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xhc-Kd-3pA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1574" y="893"/>
+            <point key="canvasLocation" x="-1575.2" y="892.80359820089961"/>
         </scene>
         <!--Explore Hotels View Controller-->
         <scene sceneID="Xxe-zL-NcL">
@@ -3912,10 +3917,10 @@
         <image name="white line" width="450" height="450"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R8r-yB-rJ1"/>
-        <segue reference="mN5-fO-Q8J"/>
-        <segue reference="G1K-4d-MLp"/>
         <segue reference="iUA-bc-SRK"/>
+        <segue reference="G1K-4d-MLp"/>
+        <segue reference="mN5-fO-Q8J"/>
+        <segue reference="anE-cP-H4U"/>
         <segue reference="lra-AY-k3U"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
