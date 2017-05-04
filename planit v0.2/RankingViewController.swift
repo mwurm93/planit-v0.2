@@ -23,7 +23,7 @@ class RankingViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         self.tripNameLabel.delegate = self
         
         //Set up table

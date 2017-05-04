@@ -8,6 +8,8 @@
 
 import UIKit
 import Apollo
+import GoogleMaps
+import GooglePlaces
 
 
 let apollo = ApolloClient(url: URL(string: "https://us-west-2.api.scaphold.io/graphql/plan-it")!)
@@ -19,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        //Google Maps and Google Places API keys
+        GMSServices.provideAPIKey("AIzaSyDBeoCYKCWap5Ivpv_zTMkH1eVORKrjX8A")
+        GMSPlacesClient.provideAPIKey("AIzaSyDBeoCYKCWap5Ivpv_zTMkH1eVORKrjX8A")
+
         // Override point for customization after application launch.
         return true
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -14,15 +15,26 @@ class exploreHotelsViewController: UIViewController, UITextFieldDelegate, UITabl
     
     //MARK: Outlets
     @IBOutlet weak var hotelsTableView: UITableView!
+    @IBOutlet weak var googleMap: GMSMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //MARK: Google Maps API
+        let camera = GMSCameraPosition.camera(withLatitude: 25.7617, longitude: -80.1918, zoom: 15.0)
+        self.googleMap.camera = camera
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 25.7617, longitude: -80.1918)
+        marker.title = "Miami"
+        marker.snippet = "Florida"
+        marker.map = googleMap
+        
+        //Preselect first hotel
         hotelsTableView.layer.cornerRadius = 5
         let FirstRow = IndexPath(row: 0, section: 0)
         hotelsTableView.selectRow(at: FirstRow, animated: false, scrollPosition: UITableViewScrollPosition.none)
         hotelsTableView.cellForRow(at: FirstRow)?.contentView.backgroundColor = UIColor.blue
-
-    
     }
     
     //MARK: TableViewDataSource

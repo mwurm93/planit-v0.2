@@ -39,7 +39,7 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()

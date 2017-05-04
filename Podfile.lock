@@ -1,6 +1,13 @@
 PODS:
   - Apollo (0.4.2)
   - Cartography (1.0.1)
+  - GoogleMaps (2.1.1):
+    - GoogleMaps/Maps (= 2.1.1)
+  - GoogleMaps/Base (2.1.1)
+  - GoogleMaps/Maps (2.1.1):
+    - GoogleMaps/Base
+  - GooglePlaces (2.1.1):
+    - GoogleMaps/Base (= 2.1.1)
   - JTAppleCalendar (6.1.1)
   - pop (1.0.9)
   - UIColor+FlatColors (0.0.2)
@@ -8,6 +15,8 @@ PODS:
 DEPENDENCIES:
   - Apollo
   - Cartography
+  - GoogleMaps
+  - GooglePlaces
   - JTAppleCalendar (~> 6.0)
   - pop (~> 1.0)
   - UIColor+FlatColors
@@ -15,10 +24,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Apollo: 0d47a856b21404eb63bddb6446b05416b4b6bb16
   Cartography: c1460e99395b824d9d75360b0382faeb0b33dcd7
+  GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
+  GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   JTAppleCalendar: fc53eb29ec81f8a90969e2d214b3aa610ab4e5b3
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   UIColor+FlatColors: 6c699df7a575281794c688c64cee6c44fd1f93b4
 
-PODFILE CHECKSUM: 0c36c5aa4cb2cdaf944e438b84807ba9c9cf85d9
+PODFILE CHECKSUM: e122aee1a5bb3960fc3e05c1f175adbc2e52262b
 
 COCOAPODS: 1.1.1

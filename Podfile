@@ -11,6 +11,8 @@ target 'planit v0.2' do
     pod 'JTAppleCalendar', '~> 6.0'
     pod 'UIColor+FlatColors'
     pod 'Cartography'
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'
 
   target 'planit v0.2Tests' do
     inherit! :search_paths

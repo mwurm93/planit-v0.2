@@ -81,7 +81,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hideKeyboardWhenTappedAround()
+//        hideKeyboardWhenTappedAround()
         
         popupBlurView.isUserInteractionEnabled = true
         
