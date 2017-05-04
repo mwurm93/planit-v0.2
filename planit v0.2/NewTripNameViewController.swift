@@ -218,6 +218,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
         
         //COPY FOR CONTACTS
+        addressBookStore = CNContactStore()
+        
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureReconizer:)))
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
@@ -259,7 +261,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         view.sizeToFit()
         
 //        self.hideKeyboardWhenTappedAround()
-        addressBookStore = CNContactStore()
         
         if NewOrAddedTripFromSegue == 1 {
             nextButton.alpha =  0
@@ -377,21 +378,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         self.swipeableView.discardViews()
         self.swipeableView.loadViews()
 
-    }
-    
-    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-        if gestureReconizer.state == UIGestureRecognizerState.began {
-        editModeEnabled = true
-        popupBackgroundViewDeleteContacts.isHidden = false
-        popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = false
-        
-        for item in self.contactsCollectionView!.visibleCells as! [contactsCollectionViewCell] {
-            let indexPath: IndexPath = self.contactsCollectionView!.indexPath(for: item as contactsCollectionViewCell)!
-            let cell: contactsCollectionViewCell = self.contactsCollectionView!.cellForItem(at: indexPath) as! contactsCollectionViewCell!
-            cell.deleteButton.isHidden = false
-            cell.shakeIcons()
-        }
-        }
     }
     
     func roundSlider() {
@@ -592,6 +578,22 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
     }
     
+    // COPY for Contacts
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == UIGestureRecognizerState.began {
+            editModeEnabled = true
+            popupBackgroundViewDeleteContacts.isHidden = false
+            popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = false
+            
+            for item in self.contactsCollectionView!.visibleCells as! [contactsCollectionViewCell] {
+                let indexPath: IndexPath = self.contactsCollectionView!.indexPath(for: item as contactsCollectionViewCell)!
+                let cell: contactsCollectionViewCell = self.contactsCollectionView!.cellForItem(at: indexPath) as! contactsCollectionViewCell!
+                cell.deleteButton.isHidden = false
+                cell.shakeIcons()
+            }
+        }
+    }
+    
     func leaveDeleteContactsMode(touch: UITapGestureRecognizer) {
         dismissDeleteContactsMode()
     }
@@ -689,8 +691,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         }
     }
 
-    
-    
     // MARK: - UICollectionViewFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let picDimension = 55
@@ -700,9 +700,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         return UIEdgeInsetsMake(0, 0, 0, 0)
     }
-    
-    
-
     
     fileprivate func checkContactsAccess() {
         switch CNContactStore.authorizationStatus(for: .contacts) {
@@ -1236,7 +1233,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
         //Save updated trip preferences dictionary
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
-        
     }
 
     //MARK: Actions

@@ -32,16 +32,14 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     var isTrackingPanLocation = false
     var panGestureRecognizer = UIPanGestureRecognizer()
     
-    //main VC vars
+    //Contacts vars COPY
     fileprivate var addressBookStore: CNContactStore!
-    fileprivate var menuArray: NSMutableArray?
     let picker = CNContactPickerViewController()
     var contacts: [CNContact]?
-    var objects: [NSObject]?
     var contactIDs: [NSString]?
-    var objectIDs: [NSString]?
-    var objectPhoneNumbers = [NSString]()
     var contactPhoneNumbers = [NSString]()
+    var NewOrAddedTripFromSegue: Int?
+    var editModeEnabled = false
     
     //subview vars
     var homeAirportValue = DataContainerSingleton.sharedDataContainer.homeAirport ?? ""
@@ -70,6 +68,8 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     @IBOutlet weak var detailedCardView: UIScrollView!
     @IBOutlet weak var tripNameLabel: UITextField!
     @IBOutlet weak var swipingInstructionsView: UIView!
+    @IBOutlet weak var popupBackgroundViewDeleteContactsWithinCollectionView: UIVisualEffectView!
+    @IBOutlet weak var popupBackgroundViewDeleteContacts: UIVisualEffectView!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -82,6 +82,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         super.viewDidLoad()
         
         popupBlurView.isUserInteractionEnabled = true
+        popupBlurView.alpha = 0
         
         //Load the values from our shared data container singleton
             let tripNameValue = DataContainerSingleton.sharedDataContainer.usertrippreferences?[DataContainerSingleton.sharedDataContainer.currenttrip!].object(forKey: "trip_name") as? String
@@ -99,12 +100,27 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         //Trip Name textField
         self.tripNameLabel.delegate = self
         
-        
         // Load trip preferences and install
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         
-        //Main VC
+        self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
+        heartIcon.setImage(#imageLiteral(resourceName: "fullHeart"), for: .highlighted)
+        rejectIcon.setImage(#imageLiteral(resourceName: "fullX"), for: .highlighted)
+        ranOutOfSwipesLabel.isHidden = true
+        
+        //COPY FOR CONTACTS
+        //        self.hideKeyboardWhenTappedAround()
+        addressBookStore = CNContactStore()
+        retrieveContactsWithStore(store: addressBookStore)
+
+        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureReconizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        lpgr.delegate = self
+        self.contactsCollectionView.addGestureRecognizer(lpgr)
+        //
         let atap = UITapGestureRecognizer(target: self, action: #selector(self.dismissInstructions(touch:)))
         atap.numberOfTapsRequired = 1
         atap.delegate = self
@@ -113,8 +129,20 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         popupBackgroundViewMainVC.isUserInteractionEnabled = true
         swipingInstructionsView.isHidden = true
         swipingInstructionsView.layer.cornerRadius = 10
-        
-        popupBlurView.alpha = 0
+        //
+        let tapOutsideContacts = UITapGestureRecognizer(target: self, action: #selector(self.leaveDeleteContactsMode(touch:)))
+        tapOutsideContacts.numberOfTapsRequired = 1
+        tapOutsideContacts.delegate = self
+        self.popupBackgroundViewDeleteContacts.addGestureRecognizer(tapOutsideContacts)
+        popupBackgroundViewDeleteContacts.isHidden = true
+        popupBackgroundViewDeleteContacts.isUserInteractionEnabled = true
+        //
+        let tapOutsideContact = UITapGestureRecognizer(target: self, action: #selector(self.leaveDeleteContactsMode2(touch:)))
+        tapOutsideContact.numberOfTapsRequired = 1
+        tapOutsideContact.delegate = self
+        self.popupBackgroundViewDeleteContactsWithinCollectionView.addGestureRecognizer(tapOutsideContact)
+        popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = true
+        popupBackgroundViewDeleteContactsWithinCollectionView.isUserInteractionEnabled = true
         
         self.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
         
@@ -125,10 +153,6 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
         
-        //        self.hideKeyboardWhenTappedAround()
-        addressBookStore = CNContactStore()
-        retrieveContactsWithStore(store: addressBookStore)
- 
         let existing_trips = DataContainerSingleton.sharedDataContainer.usertrippreferences
         if existing_trips?.count == 1 {
                 let when = DispatchTime.now() + 0.6
@@ -217,6 +241,42 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         self.swipeableView.discardViews()
         self.swipeableView.loadViews()
         
+    }
+    
+    // COPY for Contacts
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state == UIGestureRecognizerState.began {
+            editModeEnabled = true
+            popupBackgroundViewDeleteContacts.isHidden = false
+            popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = false
+            
+            for item in self.contactsCollectionView!.visibleCells as! [contactsCollectionViewCell] {
+                let indexPath: IndexPath = self.contactsCollectionView!.indexPath(for: item as contactsCollectionViewCell)!
+                let cell: contactsCollectionViewCell = self.contactsCollectionView!.cellForItem(at: indexPath) as! contactsCollectionViewCell!
+                cell.deleteButton.isHidden = false
+                cell.shakeIcons()
+            }
+        }
+    }
+    
+    func leaveDeleteContactsMode(touch: UITapGestureRecognizer) {
+        dismissDeleteContactsMode()
+    }
+    
+    func leaveDeleteContactsMode2(touch: UITapGestureRecognizer) {
+        dismissDeleteContactsMode()
+    }
+    
+    func dismissDeleteContactsMode(){
+        self.popupBackgroundViewDeleteContactsWithinCollectionView.isHidden = true
+        self.popupBackgroundViewDeleteContacts.isHidden = true
+        for item in self.contactsCollectionView!.visibleCells as! [contactsCollectionViewCell] {
+            let indexPath: IndexPath = self.contactsCollectionView!.indexPath(for: item as contactsCollectionViewCell)!
+            let cell: contactsCollectionViewCell = self.contactsCollectionView!.cellForItem(at: indexPath) as! contactsCollectionViewCell!
+            cell.deleteButton.isHidden = true
+            cell.stopShakingIcons()
+        }
+        editModeEnabled = false
     }
     
     //Dismissing detailed card view
@@ -408,9 +468,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         
         let contactsCell = contactsCollectionView.dequeueReusableCell(withReuseIdentifier: "contactsCollectionPrototypeCell", for: indexPath) as! contactsCollectionViewCell
         
-        retrieveContactsWithStore(store: addressBookStore)
         let contact = contacts?[indexPath.row]
-        
         
         if (contact?.imageDataAvailable)! {
             contactsCell.thumbnailImage.image = UIImage(data: (contact?.thumbnailImageData!)!)
@@ -434,7 +492,41 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             contactsCell.initialsLabel.text = firstInitial! + secondInitial!
         }
         
+        //Delete button
+        contactsCell.deleteButton.isHidden = true
+        // Give the delete button an index number
+        contactsCell.deleteButton.layer.setValue(indexPath.row, forKey: "index")
+        // Add an action function to the delete button
+        contactsCell.deleteButton.addTarget(self, action: #selector(self.deleteContactButtonTouchedUpInside(sender:)), for: UIControlEvents.touchUpInside)
+        
         return contactsCell
+    }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let visibleCells = self.contactsCollectionView.visibleCells
+        
+        if editModeEnabled == true {
+            for cell in visibleCells {
+                let visibleCellIndexPath = contactsCollectionView.indexPath(for: cell)
+                let visibleCell = contactsCollectionView.cellForItem(at: visibleCellIndexPath!) as! contactsCollectionViewCell
+                // Shake all of the collection view cells
+                visibleCell.shakeIcons()
+            }
+        }
+    }
+    
+    // This function is fired when the collection view stop scrolling
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let visibleCells = self.contactsCollectionView.visibleCells
+        
+        if editModeEnabled == true {
+            for cell in visibleCells {
+                let visibleCellIndexPath = contactsCollectionView.indexPath(for: cell)
+                let visibleCell = contactsCollectionView.cellForItem(at: visibleCellIndexPath!) as! contactsCollectionViewCell
+                // Shake all of the collection view cells
+                visibleCell.shakeIcons()
+            }
+        }
     }
     
     // MARK: - UICollectionViewFlowLayout
@@ -481,12 +573,13 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     //Show Contact Picker
     fileprivate  func showContactsPicker() {
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+        contactIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
         
         picker.delegate = self
         picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
-        if (objectIDs?.count)! > 0 {
-            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", objectIDs!)
+        
+        if (contactIDs?.count)! > 0 {
+            picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0) AND NOT (identifier in %@)", contactIDs!)
         } else {
             picker.predicateForEnablingContact = NSPredicate(format:"(phoneNumbers.@count > 0)")
         }
@@ -496,30 +589,41 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     
     func retrieveContactsWithStore(store: CNContactStore) {
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
-        objectIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+        contactIDs = SavedPreferencesForTrip["contacts_in_group"] as? [NSString]
+        contactPhoneNumbers = (SavedPreferencesForTrip["contact_phone_numbers"] as? [NSString])!
         
         do {
-            if (objectIDs?.count)! > 0 {
-                let predicate = CNContact.predicateForContacts(withIdentifiers: objectIDs as! [String])
+            if (contactIDs?.count)! > 0 {
+                let predicate = CNContact.predicateForContacts(withIdentifiers: contactIDs! as [String])
                 let keysToFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName), CNContactPhoneNumbersKey, CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey] as [Any]
-                let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
-                self.objects = contacts
-                self.contacts = contacts
+                let updatedContacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                
+                var reorderedUpdatedContacts = [CNContact]()
+                for contactID in contactIDs! {
+                    for updatedContact in updatedContacts {
+                        if updatedContact.identifier as NSString == contactID {
+                            reorderedUpdatedContacts.append(updatedContact)
+                        }
+                    }
+                }
+                self.contacts = reorderedUpdatedContacts
+                
+                //Update trip preferences dictionary
+                let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+                SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+                SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+                
             } else {
-                self.objects = nil
+                self.contacts = nil
             }
-            DispatchQueue.main.async (execute: { () -> Void in
-                self.contactsCollectionView.reloadData()
-            })
         } catch {
             print(error)
         }
     }
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
         
-        if contactIDs != nil {
+        if (contactIDs?.count)! > 0 {
             contacts?.append(contactProperty.contact)
-            objects?.append(contactProperty.contact as NSObject)
             contactIDs?.append(contactProperty.contact.identifier as NSString)
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
             var indexForCorrectPhoneNumber: Int?
@@ -531,7 +635,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
-            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let numberContactsInTable = (contacts?.count)! - 1
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -541,13 +645,12 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             //Save updated trip preferences dictionary
             saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
             
-            let addedRowIndexPath = [NSIndexPath(row: numberContactsInTable, section: 0)]
+            let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
+            
             contactsCollectionView.insertItems(at: addedRowIndexPath as [IndexPath])
-            contactsCollectionView.reloadData()
         }
         else {
             contacts = [contactProperty.contact]
-            objects = [contactProperty.contact as NSObject]
             contactIDs = [contactProperty.contact.identifier as NSString]
             let allPhoneNumbersForContact = contactProperty.contact.phoneNumbers
             var indexForCorrectPhoneNumber: Int?
@@ -557,7 +660,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
                 }
             }
             let phoneNumberToAdd = contactProperty.contact.phoneNumbers[indexForCorrectPhoneNumber!].value.value(forKey: "digits") as! NSString
-            contactPhoneNumbers.append(phoneNumberToAdd)
+            contactPhoneNumbers = [phoneNumberToAdd]
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -569,21 +672,19 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
         }
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         
         //Update changed preferences as variables
-        if contactIDs != nil {
+        if (contactIDs?.count)! > 0 {
             contacts?.append(contact)
-            objects?.append(contact as NSObject)
             contactIDs?.append(contact.identifier as NSString)
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
             contactPhoneNumbers.append(phoneNumberToAdd)
             
-            let numberContactsInTable = contactsCollectionView.numberOfItems(inSection: 0)
+            let numberContactsInTable = (contacts?.count)! - 1
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -595,14 +696,12 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             
             let addedRowIndexPath = [IndexPath(row: numberContactsInTable, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
         }
         else {
             contacts = [contact]
-            objects = [contact as NSObject]
             contactIDs = [contact.identifier as NSString]
             let phoneNumberToAdd = contact.phoneNumbers[0].value.value(forKey: "digits") as! NSString
-            contactPhoneNumbers.append(phoneNumberToAdd)
+            contactPhoneNumbers = [phoneNumberToAdd]
             
             //Update trip preferences dictionary
             let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
@@ -614,8 +713,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
-            contactsCollectionView.reloadData()
-        }
+        }        
     }
     
     override func didReceiveMemoryWarning() {
@@ -632,7 +730,35 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         return true
     }
     
+    func deleteContact(indexPath: IndexPath) {
+        contacts?.remove(at: indexPath.row)
+        contactIDs?.remove(at: indexPath.row)
+        contactPhoneNumbers.remove(at: indexPath.row)
+        contactsCollectionView.deleteItems(at: [indexPath])
+        
+        let visibleContactsCells = contactsCollectionView.visibleCells as! [contactsCollectionViewCell]
+        for visibleContactCell in visibleContactsCells {
+            let newIndexPathForItem = contactsCollectionView.indexPath(for: visibleContactCell)
+            visibleContactCell.deleteButton.layer.setValue(newIndexPathForItem?.row, forKey: "index")
+        }
+        
+        if contacts?.count == 0 || contacts == nil {
+            dismissDeleteContactsMode()
+        }
+        
+        //Update trip preferences dictionary
+        let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
+        SavedPreferencesForTrip["contacts_in_group"] = contactIDs
+        SavedPreferencesForTrip["contact_phone_numbers"] = contactPhoneNumbers
+        //Save updated trip preferences dictionary
+        saveUpdatedExistingTrip(SavedPreferencesForTrip: SavedPreferencesForTrip)
+    }
+    
     //MARK: Actions
+    func deleteContactButtonTouchedUpInside(sender:UIButton) {
+        let i: Int = (sender.layer.value(forKey: "index")) as! Int
+        deleteContact(indexPath: IndexPath(row:i, section: 0))
+    }
     @IBAction func instructionsGotItTouchedUpInside(_ sender: Any) {
         UIView.animate(withDuration: 0.3, animations: {
             self.swipingInstructionsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
@@ -644,7 +770,7 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         }
     }
     @IBAction func tripNameLabelEditingChanged(_ sender: Any) {
-        let tripNameValue = tripNameLabel.text as! NSString
+        let tripNameValue = tripNameLabel.text! as NSString
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         SavedPreferencesForTrip["trip_name"] = tripNameValue
         //Save
