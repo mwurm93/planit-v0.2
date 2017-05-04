@@ -39,6 +39,8 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
+        
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
         
@@ -84,12 +86,14 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         
         let hotelRoomsValue = SavedPreferencesForTrip["hotel_rooms"] as! [NSNumber]
-        if hotelRoomsValue.count > 0 {
-            self.numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: false)
-        }
         let contactIDs = SavedPreferencesForTrip["contacts_in_group"] as! [NSString]
-        if contactIDs.count == 0 {
-            numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: false)
+
+        if hotelRoomsValue.count > 0 {
+            self.numberHotelRoomsControl.setValue(Float(hotelRoomsValue[0]), animated: true)
+            roundSlider()
+        } else if contactIDs.count != 0 {
+            numberHotelRoomsControl.setValue(Float((contacts?.count)!/2), animated: true)
+                roundSlider()
         }
         
         let tripNameValue = SavedPreferencesForTrip["trip_name"] as! NSString
@@ -366,6 +370,10 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
         }
+        if contactIDs?.count != 0 {
+            numberHotelRoomsControl.setValue(Float((contacts?.count)!/2), animated: true)
+            roundSlider()
+        }
     }
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
@@ -406,6 +414,10 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
             
             let addedRowIndexPath = [IndexPath(row: 0, section: 0)]
             contactsCollectionView.insertItems(at: addedRowIndexPath)
+        }
+        if contactIDs?.count != 0 {
+            numberHotelRoomsControl.setValue(Float((contacts?.count)!/2), animated: true)
+            roundSlider()
         }
     }
     
@@ -449,7 +461,7 @@ class HotelPreferencesViewController: UIViewController, UITextFieldDelegate, CNC
     }
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deSelectedCell = tableView.cellForRow(at: indexPath)
-        deSelectedCell?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.4)
+        deSelectedCell?.contentView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.25)
     }
     
     func deleteContact(indexPath: IndexPath) {

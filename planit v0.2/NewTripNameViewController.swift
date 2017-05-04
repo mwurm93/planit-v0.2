@@ -110,6 +110,8 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //        self.hideKeyboardWhenTappedAround()
+        
         popupBlurView.isUserInteractionEnabled = true
         
         //Load the values from our shared data container singleton
@@ -259,8 +261,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         
         view.autoresizingMask = .flexibleTopMargin
         view.sizeToFit()
-        
-//        self.hideKeyboardWhenTappedAround()
         
         if NewOrAddedTripFromSegue == 1 {
             nextButton.alpha =  0
@@ -903,6 +903,7 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         // Hide the keyboard.
         homeAirportTextField.resignFirstResponder()
         tripNameLabel.resignFirstResponder()
+        
         let SavedPreferencesForTrip = fetchSavedPreferencesForTrip()
         let segmentLengthValue = SavedPreferencesForTrip["Availability_segment_lengths"] as! [NSNumber]
         if segmentLengthValue.count > 0 {
@@ -1256,9 +1257,6 @@ class NewTripNameViewController: UIViewController, UITextFieldDelegate, CNContac
         SavedPreferencesForTrip["trip_name"] = tripNameValue
         //Save
         saveTripBasedOnNewAddedOrExisting(SavedPreferencesForTrip: SavedPreferencesForTrip)
-    }
-    @IBAction func numberDestinationsValueChanged(_ sender: Any) {
-        roundSlider()
     }
     @IBAction func specificDatesButtonTouchedUpInside(_ sender: Any) {
         month1.isHidden = true
@@ -1635,8 +1633,8 @@ extension String {
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        let hideKeyboardTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(hideKeyboardTap)
     }
     
     func dismissKeyboard() {

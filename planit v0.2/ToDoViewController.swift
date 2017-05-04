@@ -81,6 +81,8 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
+        
         popupBlurView.isUserInteractionEnabled = true
         
         //Load the values from our shared data container singleton
@@ -115,7 +117,6 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
         //        self.hideKeyboardWhenTappedAround()
         addressBookStore = CNContactStore()
         retrieveContactsWithStore(store: addressBookStore)
-
         
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureReconizer:)))
         lpgr.minimumPressDuration = 0.5
@@ -162,6 +163,10 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
                 let when = DispatchTime.now() + 0.6
                 DispatchQueue.main.asyncAfter(deadline: when) {
                     self.animateInstructionsIn()
+                    self.nextButton.alpha =  0
+                    self.contactsCollectionView.alpha = 0
+                    self.addContactPlusIconMainVC.alpha = 0
+
             }
         }
         
@@ -451,6 +456,9 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             self.swipingInstructionsView.alpha = 0
             self.popupBackgroundViewMainVC.isHidden = true
             self.swipeableView.isUserInteractionEnabled = true
+            self.nextButton.alpha = 1
+            self.contactsCollectionView.alpha = 1
+            self.addContactPlusIconMainVC.alpha = 1
         }) { (Success:Bool) in
             self.swipingInstructionsView.layer.isHidden = true
         }
@@ -769,6 +777,9 @@ class ToDoViewController: UIViewController, UITextFieldDelegate, CNContactPicker
             self.swipingInstructionsView.alpha = 0
             self.popupBackgroundViewMainVC.isHidden = true
             self.swipeableView.isUserInteractionEnabled = true
+            self.nextButton.alpha = 1
+            self.contactsCollectionView.alpha = 1
+            self.addContactPlusIconMainVC.alpha = 1
         }) { (Success:Bool) in
             self.swipingInstructionsView.layer.isHidden = true
         }

@@ -16,6 +16,7 @@
 		FA09A3F11EB23894007F64A3 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA09A3EF1EB23893007F64A3 /* CardContentView.xib */; };
 		FA09A3F21EB23894007F64A3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09A3F01EB23894007F64A3 /* CardView.swift */; };
 		FA187E451E37005200971D47 /* messageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA187E441E37005200971D47 /* messageComposer.swift */; };
+		FA25F1F91EBB6DA9005D29E5 /* exploreHotelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25F1F81EBB6DA9005D29E5 /* exploreHotelsViewController.swift */; };
 		FA2CFC0A1E3E57A200527405 /* UnbookedTripSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */; };
 		FA35EF311EA5506D0029E462 /* HotelPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */; };
 		FA4E922B1E3526DD00231C72 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E922A1E3526DD00231C72 /* API.swift */; };
@@ -94,6 +95,7 @@
 		FA09A3EF1EB23893007F64A3 /* CardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
 		FA09A3F01EB23894007F64A3 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		FA187E441E37005200971D47 /* messageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messageComposer.swift; sourceTree = "<group>"; };
+		FA25F1F81EBB6DA9005D29E5 /* exploreHotelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = exploreHotelsViewController.swift; sourceTree = "<group>"; };
 		FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnbookedTripSummaryViewController.swift; sourceTree = "<group>"; };
 		FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelPreferencesViewController.swift; sourceTree = "<group>"; };
 		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -270,13 +272,12 @@
 			isa = PBXGroup;
 			children = (
 				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
-				FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */,
 				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,
 				FAA8F2601E351B9500CD7337 /* NewTripNameViewController.swift */,
 				FAA8F2621E351B9500CD7337 /* RankingViewController.swift */,
 				FA09A3E91EB110A6007F64A3 /* ToDoViewController.swift */,
 				FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */,
-				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
+				FA25F1F81EBB6DA9005D29E5 /* exploreHotelsViewController.swift */,
 				FAA8F2641E351B9500CD7337 /* ReviewAndBookViewController.swift */,
 				FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */,
 			);
@@ -395,6 +396,8 @@
 		FAAE62611E3A423200A2A6B7 /* View Controllers (unused) */ = {
 			isa = PBXGroup;
 			children = (
+				FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */,
+				FAA8F2661E351B9500CD7337 /* SuggestDestinationViewController.swift */,
 				FAA8F25A1E351B9500CD7337 /* BudgetViewController.swift */,
 				FAA8F2581E351B9500CD7337 /* ActivitiesViewController.swift */,
 				FAA8F2591E351B9500CD7337 /* BirthdayGenderViewController.swift */,
@@ -749,6 +752,7 @@
 				FAA8F2681E351B9500CD7337 /* ActivitiesViewController.swift in Sources */,
 				FAC1BD301EAE7707008AB7C4 /* ViewManager.swift in Sources */,
 				FA4E922B1E3526DD00231C72 /* API.swift in Sources */,
+				FA25F1F91EBB6DA9005D29E5 /* exploreHotelsViewController.swift in Sources */,
 				FAA8F2751E351B9500CD7337 /* SettingsViewController.swift in Sources */,
 				FAA8F26F1E351B9500CD7337 /* InternationalViewController.swift in Sources */,
 				FAA8F2701E351B9500CD7337 /* NewTripNameViewController.swift in Sources */,
