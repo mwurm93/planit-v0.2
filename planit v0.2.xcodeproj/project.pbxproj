@@ -104,6 +104,7 @@
 		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FA5F13AA1EB92E310003A992 /* amenityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = amenityTableViewCell.swift; sourceTree = "<group>"; };
 		FA9E39801EBBD2A900F6CB0B /* bucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bucketListViewController.swift; sourceTree = "<group>"; };
+		FA9E39821EBBF7C500F6CB0B /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		FAA8F21F1E35194100CD7337 /* planit v0.2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "planit v0.2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8F2221E35194100CD7337 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA8F2291E35194100CD7337 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,6 +213,14 @@
 			name = Message;
 			sourceTree = "<group>";
 		};
+		FA9E39831EBBF7D100F6CB0B /* Google Maps */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E39821EBBF7C500F6CB0B /* style.json */,
+			);
+			name = "Google Maps";
+			sourceTree = "<group>";
+		};
 		FAA8F2161E35194100CD7337 = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +246,7 @@
 		FAA8F2211E35194100CD7337 /* planit v0.2 */ = {
 			isa = PBXGroup;
 			children = (
+				FA9E39831EBBF7D100F6CB0B /* Google Maps */,
 				FAC1BD1B1EAE4D4C008AB7C4 /* Swiping View */,
 				FA187E431E37003600971D47 /* Message */,
 				FAA8F2A31E3521BC00CD7337 /* API */,

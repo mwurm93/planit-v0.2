@@ -281,7 +281,6 @@ class TripListViewController: UIViewController, UITableViewDataSource, UITableVi
                     cell.layer.borderColor = UIColor(red:1,green:1,blue:1,alpha:1).cgColor
                     cell.layer.masksToBounds = true
 
-//                    cell.existingTripTableViewImage.image = #imageLiteral(resourceName: "NYE")
                     cell.existingTripTableViewLabel.text = DataContainerSingleton.sharedDataContainer.usertrippreferences?[addedRowInUnbookedSection].object(forKey: "trip_name") as? String
                     existingTripsTable.isHidden = false
                     lastUnbookedStatusIndexAddedToTable = unbookedIndex
