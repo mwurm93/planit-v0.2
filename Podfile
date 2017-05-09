@@ -9,10 +9,18 @@ target 'planit v0.2' do
     pod 'pop', '~> 1.0'
     pod "Apollo"
     pod 'JTAppleCalendar', '~> 6.0'
+    
+    # Pods for ZLswipeableview
     pod 'UIColor+FlatColors'
     pod 'Cartography'
+    
+    # Pods for GoogleMaps
     pod 'GoogleMaps'
     pod 'GooglePlaces'
+    
+    # Pods for WhirlyGlobeView
+    pod 'WhirlyGlobe', '2.4'
+    pod 'WhirlyGlobeResources'
 
   target 'planit v0.2Tests' do
     inherit! :search_paths

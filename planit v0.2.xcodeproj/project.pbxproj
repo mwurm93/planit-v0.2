@@ -216,7 +216,6 @@
 		FA9E39831EBBF7D100F6CB0B /* Google Maps */ = {
 			isa = PBXGroup;
 			children = (
-				FA9E39821EBBF7C500F6CB0B /* style.json */,
 			);
 			name = "Google Maps";
 			sourceTree = "<group>";
@@ -285,6 +284,7 @@
 		FAA8F2561E351AB100CD7337 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA9E39821EBBF7C500F6CB0B /* style.json */,
 				FAA8F2651E351B9500CD7337 /* SettingsViewController.swift */,
 				FA9E39801EBBD2A900F6CB0B /* bucketListViewController.swift */,
 				FAA8F2671E351B9500CD7337 /* TripListViewController.swift */,

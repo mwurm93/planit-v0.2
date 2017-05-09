@@ -36,5 +36,110 @@ class bucketListViewController: UIViewController {
         self.googleMap.camera = camera
     }
 
+    var styleJSON: [AnyObject] = [[
+    {
+        "featureType": "administrative.land_parcel",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "administrative.neighborhood",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "poi.business",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "road",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "transit",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "water",
+        "stylers": [
+        {
+        "color": "#ffeb3b"
+        },
+        {
+        "visibility": "off"
+        }
+        ]
+        },
+    {
+        "featureType": "water",
+        "elementType": "labels.text",
+        "stylers": [
+        {
+        "visibility": "off"
+        }
+        ]
+        }
+    ]]
     
+    //MARK: Custom functions
+    func JSONStringify(value: AnyObject,prettyPrinted:Bool = false) -> String{
+        let options = prettyPrinted ? JSONSerialization.WritingOptions.prettyPrinted : JSONSerialization.WritingOptions(rawValue: 0)
+        if JSONSerialization.isValidJSONObject(value) {
+            do{
+                let data = try JSONSerialization.data(withJSONObject: value, options: options)
+                if let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                    return string as String
+                }
+            } catch {
+                print("error")
+                //Access error here
+            }
+        }
+        return ""
+    }
 }
