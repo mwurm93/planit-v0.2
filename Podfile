@@ -3,6 +3,8 @@ platform :ios, '10.0'
 # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
 use_frameworks!
 
+inhibit_all_warnings!
+
 target 'planit v0.2' do
 
   # Pods for planit v0.2
@@ -19,7 +21,7 @@ target 'planit v0.2' do
     pod 'GooglePlaces'
     
     # Pods for WhirlyGlobeView
-    pod 'WhirlyGlobe', '2.4'
+    pod 'WhirlyGlobe', :http => 'https://s3-us-west-1.amazonaws.com/whirlyglobemaplydistribution/iOS_daily_builds/WhirlyGlobe-Maply_Nightly_latest.zip'
     pod 'WhirlyGlobeResources'
 
   target 'planit v0.2Tests' do

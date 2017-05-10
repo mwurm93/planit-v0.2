@@ -20,6 +20,7 @@
 		FA25F1FB1EBB7B9F005D29E5 /* hotelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25F1FA1EBB7B9F005D29E5 /* hotelTableViewCell.swift */; };
 		FA2CFC0A1E3E57A200527405 /* UnbookedTripSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */; };
 		FA35EF311EA5506D0029E462 /* HotelPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */; };
+		FA49781B1EC2A3A900435392 /* geography-class_medres.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = FA49781A1EC2A3A900435392 /* geography-class_medres.mbtiles */; };
 		FA4E922B1E3526DD00231C72 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4E922A1E3526DD00231C72 /* API.swift */; };
 		FA5F13AB1EB92E310003A992 /* amenityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5F13AA1EB92E310003A992 /* amenityTableViewCell.swift */; };
 		FA9E39811EBBD2A900F6CB0B /* bucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E39801EBBD2A900F6CB0B /* bucketListViewController.swift */; };
@@ -101,6 +102,7 @@
 		FA25F1FA1EBB7B9F005D29E5 /* hotelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hotelTableViewCell.swift; sourceTree = "<group>"; };
 		FA2CFC091E3E57A200527405 /* UnbookedTripSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnbookedTripSummaryViewController.swift; sourceTree = "<group>"; };
 		FA35EF301EA5506D0029E462 /* HotelPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelPreferencesViewController.swift; sourceTree = "<group>"; };
+		FA49781A1EC2A3A900435392 /* geography-class_medres.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = "geography-class_medres.mbtiles"; sourceTree = "<group>"; };
 		FA4E922A1E3526DD00231C72 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		FA5F13AA1EB92E310003A992 /* amenityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = amenityTableViewCell.swift; sourceTree = "<group>"; };
 		FA9E39801EBBD2A900F6CB0B /* bucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bucketListViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 			name = Message;
 			sourceTree = "<group>";
 		};
+		FA4978191EC2A35700435392 /* WhirlyGlobe Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA49781A1EC2A3A900435392 /* geography-class_medres.mbtiles */,
+			);
+			name = "WhirlyGlobe Resources";
+			sourceTree = "<group>";
+		};
 		FA9E39831EBBF7D100F6CB0B /* Google Maps */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +255,7 @@
 		FAA8F2211E35194100CD7337 /* planit v0.2 */ = {
 			isa = PBXGroup;
 			children = (
+				FA4978191EC2A35700435392 /* WhirlyGlobe Resources */,
 				FA9E39831EBBF7D100F6CB0B /* Google Maps */,
 				FAC1BD1B1EAE4D4C008AB7C4 /* Swiping View */,
 				FA187E431E37003600971D47 /* Message */,
@@ -568,6 +579,7 @@
 				FA09A3F11EB23894007F64A3 /* CardContentView.xib in Resources */,
 				FAA8F28D1E351DBF00CD7337 /* CellView.xib in Resources */,
 				FAA8F2871E351DAC00CD7337 /* GetTrip.graphql in Resources */,
+				FA49781B1EC2A3A900435392 /* geography-class_medres.mbtiles in Resources */,
 				FAA8F2A11E351DEB00CD7337 /* items.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

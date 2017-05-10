@@ -84,16 +84,32 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Cartography/Cartography.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FMDB/FMDB.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JTAppleCalendar/JTAppleCalendar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SMCalloutView/SMCalloutView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UIColor+FlatColors/UIColor_FlatColors.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/WhirlyGlobe/WhirlyGlobe.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/clipper/clipper.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/libjson/libjson.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/proj4/proj4.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/tinyxml/tinyxml.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Cartography/Cartography.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FMDB/FMDB.framework"
   install_framework "$BUILT_PRODUCTS_DIR/JTAppleCalendar/JTAppleCalendar.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SMCalloutView/SMCalloutView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UIColor+FlatColors/UIColor_FlatColors.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/WhirlyGlobe/WhirlyGlobe.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/clipper/clipper.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/libjson/libjson.framework"
   install_framework "$BUILT_PRODUCTS_DIR/pop/pop.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/proj4/proj4.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/tinyxml/tinyxml.framework"
 fi
